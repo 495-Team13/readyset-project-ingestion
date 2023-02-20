@@ -7,7 +7,7 @@ app = Flask(__name__)
 def projects():
     #Will return a json object when needing to return project data
     if request.method == 'GET':
-        #Connect to mongoDB and pull the Project Data and jsonify it
+        #Connect to mongoDB and pull the Project Data and return its jsonify object
         #client = MongoClient("<MongoDB_URL>")
         exit
     if request.method == "POST":
