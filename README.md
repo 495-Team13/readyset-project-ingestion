@@ -1,0 +1,1 @@
+Starting on the Flask API, currently the program will only work on my virtual environment because of python dependencies but should be easy to port over to the server once I get something up and running.
