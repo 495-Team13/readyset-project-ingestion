@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from pymongo import MongoClient
 
 app = Flask(__name__)
+#sampleData is still in progress
 
 @app.route('/api/projects', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def projects():
@@ -38,4 +39,3 @@ def templates():
         #delete an existing template from the mongoDB database
         exit
     return
-    
