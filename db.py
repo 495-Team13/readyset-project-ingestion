@@ -1,27 +1,39 @@
 from pymongo import MongoClient
 from urllib.parse import quote_plus
+import re
 
-"""
-Create client for MongoDB server
-Returns MongoClient
-"""
-def create_client(host, port, user, password, auth_source):
-    uri = 'mongodb://%s:%s@%s:%d/?authSource=%s' % (quote_plus(user), quote_plus(password), host, port, quote_plus(auth_source))
-    return MongoClient(uri)
+PI_DB = 'pi'
+PROJECTS_COL = 'projects'
+PRODUCTS_COL = 'products'
+TEMPLATES_COL = 'templates'
 
-"""
-Check if client can actually connect to server
-Returns True for successful connection, False otherwise
-"""
-def check_connection(client):
-    try:
-        client.admin.command('ping')
-        return True
-    except ConnectionFailure as err:
-        print("Failed to connect to MongoDB server")
-    except ConfigurationError as err:
-        print("MongoDB user credentials are invalid")
-    return False
+class DBClient:
+    def __init__(self, host, port, user, password, auth_source):
+        uri = 'mongodb://%s:%s@%s:%d/?authSource=%s' % (quote_plus(user), quote_plus(password), host, port, quote_plus(auth_source))
+        self.client = MongoClient(uri)
+
+    def check_connection(self):
+        try:
+            self.client.admin.command('ping')
+            return True
+        except ConnectionFailure as err:
+            print('Failed to connect to MongoDB server')
+        except ConfigurationError as err:
+            print('MongoDB user credentials are invalid')
+        return False
+
+    def add_project(self):
+        projects = self.client[PI_DB][PROJECTS_COL]
+
+        untitled_projects = list(projects.find( { 'name': { '$regex': r'^untitled\d+$', '$options': 'i' } } ))
+        max_i = max([int(re.search(r'\d+$', proj['name']).group()) for proj in untitled_projects]) if len(untitled_projects) else 0
+        name = f'Untitled{max_i+1}'
+        project = {
+            'name': name,
+            'products': []
+        }
+        
+        return projects.insert_one(project)
 
 if __name__ == '__main__':
     host = '192.168.1.28'
@@ -29,5 +41,5 @@ if __name__ == '__main__':
     user = 'admin'
     password = 'password'
     auth_source = 'admin'
-    client = create_client(host, port, user, password, auth_source)
-    print(check_connection(client))
+    client = DBClient(host, port, user, password, auth_source)
+    client.add_project()
