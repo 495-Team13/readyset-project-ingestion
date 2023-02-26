@@ -9,15 +9,11 @@ app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
 jwt = JWTManager(app)
 
-# Mock users and permissions
+# Mock Admin User for API
 USERS = {
-    'john': {
-        'password': 'secret',
+    'root':{
+        'password': 'toor',
         'permissions': ['read', 'write'],
-    },
-    'jane': {
-        'password': 'password',
-        'permissions': ['read'],
     },
 }
 
@@ -63,3 +59,23 @@ def login():
         return jsonify(access_token=access_token)
     else:
         return jsonify(error='Invalid username or password'), 401
+    
+'''
+Example Login API Call from the Login Page:
+
+async function submitLoginForm(username, password) {
+  const response = await fetch('/api/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      username: username,
+      password: password
+    })
+  });
+  const data = await response.json();
+  localStorage.setItem('access_token', data.access_token);
+}
+
+'''
