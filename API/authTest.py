@@ -56,7 +56,7 @@ def login():
     user = authenticate(username, password)
     if user:
         access_token = create_access_token(identity=user)
-        return jsonify(access_token=access_token)
+        return jsonify(access_token=access_token), 200
     else:
         return jsonify(error='Invalid username or password'), 401
     
