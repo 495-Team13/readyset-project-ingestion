@@ -25,6 +25,10 @@ class DBClient:
             print('MongoDB user credentials are invalid')
         return False
 
+    def check_duplicate(self, col_name, id_filter, existing=False):
+        n = len(list(self.client[PI_DB][col_name].find(id_filter)))
+        return n > 1 if existing else n > 0
+
     def add_project(self):
         untitled_projects = list(self.projects.find( { 'name': { '$regex': r'^untitled\d+$', '$options': 'i' } } ))
         max_i = max([int(re.search(r'\d+$', proj['name']).group()) for proj in untitled_projects]) if len(untitled_projects) else 0
