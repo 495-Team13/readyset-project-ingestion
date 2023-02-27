@@ -2,6 +2,7 @@
 
 from flask import Flask, jsonify, request
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
+#import db
 
 app = Flask(__name__)
 
@@ -42,8 +43,40 @@ def has_permission(permission):
         return decorated
     return wrapper
 
+# Login endpoint
+@app.route('/api/login', methods=['POST'])
+def login():
+    username = request.json.get('username')
+    password = request.json.get('password')
+    user = authenticate(username, password)
+    if user:
+        access_token = create_access_token(identity=user)
+        return jsonify(access_token=access_token), 200  #Resource retrieved succefully (Unique JWT for each login session)
+    else:
+        return jsonify(error='Invalid username or password'), 401 #401 Unauthorized Request
+    
+'''
+Example Login API Call from the Login Page:
 
-#Projects API Endpoints     #############################
+async function submitLoginForm(username, password) {
+  const response = await fetch('/api/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      username: username,
+      password: password
+    })
+  });
+  const data = await response.json();
+  localStorage.setItem('access_token', data.access_token);
+}
+
+'''
+
+
+                            #Projects API Endpoints     #############################
 
 # Protected API endpoint
 @app.route('/api/projects/get', methods=['GET'])
@@ -56,6 +89,9 @@ def get_data(project_name):
 @app.route('api/projects/add', methods = ['POST'])
 @has_permission('write')
 def add_new_project():
+     #call add_project() from db.py
+    #if data comes back return 201,
+    #else return jsonify(error = 'Failed to Generate New Product'), 400
     data = [{'name' : "untitled_01", 'products' : NULL}]
     return jsonify(data=data), 201  #201 = New Resource Created
 
@@ -76,7 +112,7 @@ def delete_project(project_name):
     return 400 #Unfinished
 
 
-#Products API Endpoints     #############################
+                            #Products API Endpoints     #############################
 
 # Retrieve product Protected API endpoint
 @app.route('/api/products/get', methods=['GET'])
@@ -139,37 +175,3 @@ def delete_template(template_name):
     #Call Delete Product Function in db.py
     #
     return 400 #Unfinished
-
-
-
-# Login endpoint
-@app.route('/api/login', methods=['POST'])
-def login():
-    username = request.json.get('username')
-    password = request.json.get('password')
-    user = authenticate(username, password)
-    if user:
-        access_token = create_access_token(identity=user)
-        return jsonify(access_token=access_token), 200  #Resource retrieved succefully (Unique JWT for each login session)
-    else:
-        return jsonify(error='Invalid username or password'), 401 #401 Unauthorized Request
-    
-'''
-Example Login API Call from the Login Page:
-
-async function submitLoginForm(username, password) {
-  const response = await fetch('/api/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      username: username,
-      password: password
-    })
-  });
-  const data = await response.json();
-  localStorage.setItem('access_token', data.access_token);
-}
-
-'''
