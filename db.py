@@ -53,6 +53,16 @@ class DBClient:
     def delete_product(self, upc):
         self.products.delete_one({'upc': upc})
 
+    def add_template(self, template):
+        self.templates.insert_one(template)
+
+    def update_template(self, name, update):
+        self.templates.update_one({'name': name}, update)
+
+    def delete_template(self, name):
+        self.templates.delete_one({'name': name})
+
+
 if __name__ == '__main__':
     host = '192.168.1.28'
     port = 27017
