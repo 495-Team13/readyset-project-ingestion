@@ -30,21 +30,28 @@ class DBClient:
         return n > 1 if existing else n > 0
 
     def add_project(self):
-        untitled_projects = list(self.projects.find( { 'name': { '$regex': r'^untitled\d+$', '$options': 'i' } } ))
+        untitled_projects = list(self.projects.find({'name': {'$regex': r'^untitled\d+$', '$options': 'i'}}))
         max_i = max([int(re.search(r'\d+$', proj['name']).group()) for proj in untitled_projects]) if len(untitled_projects) else 0
         name = f'Untitled{max_i+1}'
-        project = {
-            'name': name,
-            'products': []
-        }
+        project = {'name': name, 'products': []}
         
-        return name, self.projects.insert_one(project)
+        return name
 
-    def update_project(self, name, updated_fields):
-        return self.projects.update_one({'name': name}, {'$set': updated_fields})
+    def update_project(self, name, update):
+        self.projects.update_one({'name': name}, update)
 
     def delete_project(self, name):
-        return self.projects.delete_one({'name': name})
+        self.projects.delete_one({'name': name})
+
+    def add_product(self, product, project_name):
+        self.products.insert_one(product)
+        self.update_project(project_name, {'$push': {'products': product['upc']}})
+
+    def update_product(self, upc, update):
+        self.products.update_one({'upc': upc}, update)
+
+    def delete_product(self, upc):
+        self.products.delete_one({'upc': upc})
 
 if __name__ == '__main__':
     host = '192.168.1.28'
