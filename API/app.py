@@ -29,11 +29,30 @@ def login():
 #############################    #Projects API Endpoints     #############################
 
 # Protected API endpoint
-@app.route('/api/projects/get/', methods=['GET'])
+@app.route('/api/projects/get/<project_name>', methods=['GET'])
 @jwt_required()          #Will be how I protect the endpoints, but I  cant send a correct login request yet (Working on fix)
-def get_data():
+def get_data(project_name):
     data = [{'name': 'Alice'}, {'name': 'Bob'}, {'name': 'Charlie'}]
     return jsonify(data=data), 200 #200 = Resource retrieved successfully 
+
+'''
+How to call a protected endpoint in the frontend:
+
+fetch('/api/projects/get/' + project_name, {
+  method: 'GET',
+  headers: {
+    'Authorization': 'Bearer ' + jwtAccessToken
+  }
+})
+.then(response => {
+  // handle the response
+})
+.catch(error => {
+  // handle the error
+});
+
+
+'''
 
 # Create new Project Protected API endpoint
 @app.route('/api/projects/add/', methods = ['POST'])
