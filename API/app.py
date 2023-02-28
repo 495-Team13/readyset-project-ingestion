@@ -24,6 +24,38 @@ def login():
     
     access_token = create_access_token(identity=username)
     return jsonify(access_token=access_token), 200  #Resource retrieved succefully (Unique JWT for each login session)
+
+'''
+How to call the login API endpoint and store the access_token for future calls to protected endpoints:
+
+fetch('/api/login/', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    username: 'admin',
+    password: 'password'
+  })
+})
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Invalid username or password');
+  }
+  return response.json();
+})
+.then(data => {
+  const { access_token } = data;
+  // Store the access token in local storage or cookie
+  localStorage.setItem('access_token', access_token);
+})
+.catch(error => {
+  console.error(error);
+});
+
+
+
+'''
     
 
 #############################    #Projects API Endpoints     #############################
