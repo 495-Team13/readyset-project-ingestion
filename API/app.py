@@ -53,10 +53,7 @@ fetch('/api/login/', {
   console.error(error);
 });
 
-
-
 '''
-    
 
 #############################    #Projects API Endpoints     #############################
 
@@ -82,8 +79,6 @@ fetch('/api/projects/get/' + project_name, {
 .catch(error => {
   // handle the error
 });
-
-
 '''
 
 # Create new Project Protected API endpoint
