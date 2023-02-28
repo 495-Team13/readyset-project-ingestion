@@ -43,6 +43,9 @@ class DBClient:
     def delete_project(self, name):
         self.projects.delete_one({'name': name})
 
+    def get_projects(self, query={}, projection={}):
+        return list(self.projects.find(query, projection))
+
     def add_product(self, product, project_name):
         self.products.insert_one(product)
         self.update_project(project_name, {'$push': {'products': product['upc']}})
@@ -53,6 +56,9 @@ class DBClient:
     def delete_product(self, upc):
         self.products.delete_one({'upc': upc})
 
+    def get_products(self, query={}, projection={}):
+        return list(self.products.find(query, projection))
+
     def add_template(self, template):
         self.templates.insert_one(template)
 
@@ -62,6 +68,8 @@ class DBClient:
     def delete_template(self, name):
         self.templates.delete_one({'name': name})
 
+    def get_templates(self, query={}, projection={}):
+        return list(self.templates.find(query, projection))
 
 if __name__ == '__main__':
     host = '192.168.1.28'
