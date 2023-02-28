@@ -1,5 +1,0 @@
-{
-    "python.analysis.extraPaths": [
-        "./REST_API/API"
-    ]
-}
