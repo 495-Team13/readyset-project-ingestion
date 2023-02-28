@@ -10,7 +10,7 @@ load_dotenv()
 app = Flask(__name__)
 # Configure JWT
 
-#Secrete Key storing in environment variables (Prevents Brute Forcing Access Tokens to enter database)
+#Secret Key storing in environment variables (Prevents Brute Forcing Access Tokens to enter database)
 app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
 jwt = JWTManager(app)
 
