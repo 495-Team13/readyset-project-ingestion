@@ -1,5 +1,4 @@
 {
-    "projectName"           : "First Project",
-    "project_id"            : "001",
-    "product_records_id"    : "007"
-}
+    "name": "string (unique)",
+    "products": "array of product UPCs"
+  }

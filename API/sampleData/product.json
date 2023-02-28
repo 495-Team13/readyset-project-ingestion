@@ -1,24 +1,19 @@
 {
-    "project_id"            :  "001",
-    "product_records_id"    :  "007", 
-    "Product_UPC"           :  "2345678901",
-    "DRC"                   :   true,
-    "DRC_UPC"               :   "123456789",
-    "product_name"          :   "Test Product",
-    "count"                 :   "01",
-    "Count_Units"           :   "Bottle",
-    "weight"                :   "NULL",
-    "volume"                :   "100",
-    "Unit_of_Measurement"   :   "mL",
-    "Template_Name"         :   "First Template",
-    "is_new"                :   false,
-    "Template_Type"         :   "bottles",
-    "template_width"        :   "1.045",
-    "template_height"       :   "10.45",
-    "template_depth"        :   "104.5",
-    "template_add_height"   :   "1045.0",
-    "workflow"              :   "test_workflow",
-    "additional_info"       :   "additional information text area",
-    "gltf_id"               :   "001",
-    "form_description"      :   "template information"
-}
+    "upc": "string (unique)",
+    "drc_upc": "optional string",
+    "name": "string (unique)",
+    "count": {
+      "num": "int",
+      "unit": "string"
+    },
+    "amount": {
+      "measurement": "int",
+      "unit": "string"
+    },
+    "template_name": "string",
+    "width": "float",
+    "height": "float",
+    "depth": "float",
+    "add_height": "optional float",
+    "add_info": "string"
+  }
