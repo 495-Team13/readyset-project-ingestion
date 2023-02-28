@@ -45,14 +45,14 @@ def add_new_project():
     return jsonify(data=data), 201  #201 = New Resource Created
 
 # Edit existing Project Protected API endpoint
-@app.route('/api/projects/edit/', methods = ['PUT'])
+@app.route('/api/projects/edit/<project_name>', methods = ['PUT'])
 def edit_project(project_name):
     #Retrieve Project from Mongodb
     #
     return 400  #Unfinished
 
 # Delete existing Project Protected API endpoint
-@app.route('/api/projects/delete/', methods = ['DELETE'])
+@app.route('/api/projects/delete/<project_name>', methods = ['DELETE'])
 def delete_project(project_name):
     #Call Delete Project Function in db.py
     #
@@ -62,7 +62,7 @@ def delete_project(project_name):
 #############################   #Products API Endpoints     #############################
 
 # Retrieve product Protected API endpoint
-@app.route('/api/products/get/', methods=['GET'])
+@app.route('/api/products/get/<product_name>', methods=['GET'])
 def get_product_data(product_name):
     data = [{'name': 'Alice'}, {'name': 'Bob'}, {'name': 'Charlie'}]
     return jsonify(data=data), 200 #200 = Resource retrieved successfully 
@@ -74,14 +74,14 @@ def add_new_product():
     return jsonify(data=data), 201  #201 = New Resource Created
 
 # Edit existing Product Protected API endpoint
-@app.route('/api/products/edit/', methods = ['PUT'])
+@app.route('/api/products/edit/<product_name>', methods = ['PUT'])
 def edit_product(product_name):
     #Retrieve Product from Mongodb
     #
     return 400  #Unfinished
 
 # Delete existing Product Protexted API endpoint
-@app.route('/api/products/delete/', methods = ['DELETE'])
+@app.route('/api/products/delete/<product_name>', methods = ['DELETE'])
 def delete_product(product_name):
     #Call Delete Product Function in db.py
     #
@@ -90,7 +90,7 @@ def delete_product(product_name):
 #############################   #Templates API Endpoints     #############################
 
 # Retrieve Template Protected API endpoint
-@app.route('/api/templates/get/', methods=['GET'])
+@app.route('/api/templates/get/<template_name>', methods=['GET'])
 def get_template_data(template_name):
     data = [{'name': 'Alice'}, {'name': 'Bob'}, {'name': 'Charlie'}]
     return jsonify(data=data), 200 #200 = Resource retrieved successfully 
@@ -102,14 +102,14 @@ def add_new_template():
     return jsonify(data=data), 201  #201 = New Resource Created
 
 # Edit existing Template Protected API endpoint
-@app.route('/api/templates/edit/', methods = ['PUT'])
+@app.route('/api/templates/edit/<template_name>', methods = ['PUT'])
 def edit_template(template_name):
     #Retrieve Product from Mongodb
     #
     return 400  #Unfinished
 
 # Delete existing Template Protexted API endpoint
-@app.route('/api/templates/delete/', methods = ['DELETE'])
+@app.route('/api/templates/delete/<template_name>', methods = ['DELETE'])
 def delete_template(template_name):
     #Call Delete Product Function in db.py
     #
