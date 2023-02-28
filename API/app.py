@@ -14,24 +14,24 @@ def foo():
 
 #login System Currently Broken (Working on Fix)
 
-# # Login endpoint
-# @app.route('/api/login/', methods=['POST'])
-# def login():
-#     username = request.json.get('username', None)
-#     password = request.json.get('password', None)
-#     if username != "admin" or password != "password":
-#         return jsonify(error='Invalid username or password'), 401 #401 Unauthorized Request
+# Login endpoint
+@app.route('/api/login/', methods=['POST'])
+def login():
+    username = request.json.get('username', None)
+    password = request.json.get('password', None)
+    if username != "admin" or password != "password":
+        return jsonify(error='Invalid username or password'), 401 #401 Unauthorized Request
     
-#     access_token = create_access_token(identity=username)
-#     return jsonify(access_token=access_token), 200  #Resource retrieved succefully (Unique JWT for each login session)
+    access_token = create_access_token(identity=username)
+    return jsonify(access_token=access_token), 200  #Resource retrieved succefully (Unique JWT for each login session)
     
 
 #############################    #Projects API Endpoints     #############################
 
 # Protected API endpoint
 @app.route('/api/projects/get/', methods=['GET'])
-#@jwt_required()          #Will be how I protect the endpoints, but I  cant send a correct login request yet (Working on fix)
-def get_data(project_name):
+@jwt_required()          #Will be how I protect the endpoints, but I  cant send a correct login request yet (Working on fix)
+def get_data():
     data = [{'name': 'Alice'}, {'name': 'Bob'}, {'name': 'Charlie'}]
     return jsonify(data=data), 200 #200 = Resource retrieved successfully 
 
