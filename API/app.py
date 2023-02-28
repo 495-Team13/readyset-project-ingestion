@@ -1,11 +1,17 @@
 # Framing the API
+from dotenv import load_dotenv
+import os
 from flask import Flask, jsonify, request
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 #import db
 
+load_dotenv()
+
 app = Flask(__name__)
 # Configure JWT
-app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
+
+#Secrete Key storing in environment variables (Prevents Brute Forcing Access Tokens to enter database)
+app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
 jwt = JWTManager(app)
 
 @app.route('/api/foo/', methods=['GET'])
