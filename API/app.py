@@ -26,8 +26,6 @@ def foo():
 #     return jsonify(access_token=access_token), 200  #Resource retrieved succefully (Unique JWT for each login session)
     
 
-
-
 #############################    #Projects API Endpoints     #############################
 
 # Protected API endpoint
@@ -65,7 +63,6 @@ def delete_project(project_name):
 
 # Retrieve product Protected API endpoint
 @app.route('/api/products/get/', methods=['GET'])
-@has_permission('read')
 def get_product_data(product_name):
     data = [{'name': 'Alice'}, {'name': 'Bob'}, {'name': 'Charlie'}]
     return jsonify(data=data), 200 #200 = Resource retrieved successfully 
@@ -94,7 +91,6 @@ def delete_product(product_name):
 
 # Retrieve Template Protected API endpoint
 @app.route('/api/templates/get/', methods=['GET'])
-@has_permission('read')
 def get_template_data(template_name):
     data = [{'name': 'Alice'}, {'name': 'Bob'}, {'name': 'Charlie'}]
     return jsonify(data=data), 200 #200 = Resource retrieved successfully 
