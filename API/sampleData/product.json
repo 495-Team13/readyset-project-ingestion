@@ -1,0 +1,19 @@
+{
+    "upc": "string (unique)",
+    "drc_upc": "optional string",
+    "name": "string (unique)",
+    "count": {
+      "num": "int",
+      "unit": "string"
+    },
+    "amount": {
+      "measurement": "int",
+      "unit": "string"
+    },
+    "template_name": "string",
+    "width": "float",
+    "height": "float",
+    "depth": "float",
+    "add_height": "optional float",
+    "add_info": "string"
+  }

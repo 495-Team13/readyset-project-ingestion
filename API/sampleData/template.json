@@ -1,0 +1,10 @@
+{
+    "name": "string (unique)",
+    "type": "string",
+    "workflow": "string",
+    "donor_shape": "string",
+    "product_upc": "string",
+    "notes": "string",
+    "form_desc": "string",
+    "gltf": "path"
+  }
