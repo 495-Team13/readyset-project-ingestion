@@ -18,6 +18,8 @@ USERS = {
     },
 }
 
+############################# API Init Endpoints #############################
+
 # Authenticate user
 @jwt.user_identity_loader
 def user_identity_lookup(user):
@@ -76,7 +78,7 @@ async function submitLoginForm(username, password) {
 '''
 
 
-                            #Projects API Endpoints     #############################
+#############################    #Projects API Endpoints     #############################
 
 # Protected API endpoint
 @app.route('/api/projects/get', methods=['GET'])
@@ -92,7 +94,7 @@ def add_new_project():
      #call add_project() from db.py
     #if data comes back return 201,
     #else return jsonify(error = 'Failed to Generate New Product'), 400
-    data = [{'name' : "untitled_01", 'products' : NULL}]
+    data = [{'name' : "untitled_01", 'products' : []}]
     return jsonify(data=data), 201  #201 = New Resource Created
 
 # Edit existing Project Protected API endpoint
@@ -112,7 +114,7 @@ def delete_project(project_name):
     return 400 #Unfinished
 
 
-                            #Products API Endpoints     #############################
+#############################   #Products API Endpoints     #############################
 
 # Retrieve product Protected API endpoint
 @app.route('/api/products/get', methods=['GET'])
@@ -125,7 +127,7 @@ def get_product_data(product_name):
 @app.route('api/products/add', methods = ['POST'])
 @has_permission('write')
 def add_new_product():
-    data = [{'name' : "untitled_01", 'products' : NULL}]
+    data = [{'name' : "untitled_01", 'products' : []}]
     return jsonify(data=data), 201  #201 = New Resource Created
 
 # Edit existing Product Protected API endpoint
@@ -144,7 +146,7 @@ def delete_product(product_name):
     #
     return 400 #Unfinished
 
-#Templates API Endpoints     #############################
+#############################   #Templates API Endpoints     #############################
 
 # Retrieve Template Protected API endpoint
 @app.route('/api/templates/get', methods=['GET'])
@@ -157,7 +159,7 @@ def get_template_data(template_name):
 @app.route('api/templates/add', methods = ['POST'])
 @has_permission('write')
 def add_new_template():
-    data = [{'name' : "untitled_01", 'products' : NULL}]
+    data = [{'name' : "untitled_01", 'products' : []}]
     return jsonify(data=data), 201  #201 = New Resource Created
 
 # Edit existing Template Protected API endpoint
