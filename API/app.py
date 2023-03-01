@@ -5,7 +5,7 @@ from flask import Flask, jsonify, request
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 from db import DBClient
 
-import dbCRUD
+import CRUD
 
 # Init the Dependencies and API, the code is kinda messy up here. 
 # 
@@ -74,7 +74,7 @@ def add_new_project():
     '''
     name = request.json['name']
     products = request.json['products']
-    return dbCRUD.create_project(name, products)
+    return CRUD.create_project(name, products)
 
 # Edit existing Project Protected API endpoint
 # [In Progress]
