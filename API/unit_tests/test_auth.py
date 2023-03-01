@@ -6,7 +6,7 @@ try:
 except Exception as e:
     print("Something does not work\n {}".format(e))
 
-class FlaskTest(unittest.TestCase):
+class Auth_Test(unittest.TestCase):
     def setUp(self):
         self.app = app.test_client()
         self.app_context = app.app_context()

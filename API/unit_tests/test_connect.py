@@ -5,7 +5,7 @@ try:
 except Exception as e:
     print("Something does not work\n {}".format(e))
 
-class FlaskTest(unittest.TestCase):
+class Connect_Test(unittest.TestCase):
 
     #Checking for Response 200
     def test_index(self):

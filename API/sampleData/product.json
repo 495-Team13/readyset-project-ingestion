@@ -16,4 +16,4 @@
     "depth": "float",
     "add_height": "optional float",
     "add_info": "string"
-  }
+}

@@ -7,7 +7,7 @@ try:
 except Exception as e:
     print("Something does not work\n {}".format(e))
 
-class LoginTest(unittest.TestCase):
+class Login_Test(unittest.TestCase):
     def setUp(self):
         self.tester = app.test_client(self)
 
