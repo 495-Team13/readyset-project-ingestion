@@ -27,7 +27,7 @@
     console.error(error);
   });
 ```
-### How to call the create project api endpoint:
+### How to call the *create* project api endpoint:
 ```
 #Format of JSON
 {
@@ -54,8 +54,62 @@ fetch('/api/projects/add/', {
   // handle the error
 });
 ```
+### How to call the *edit* project api endpoint:
+```
+#Format of JSON
+{
+  name: str
+  products : [str, str, str, ...]
+}
+```
+```
+fetch('/api/projects/edit/', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + jwtAccessToken,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: name,
+    products: products
+  })
+})
+.then(response => {
+  // handle the response
+})
+.catch(error => {
+  // handle the error
+});
+```
 
-### How to call the get_data (get project) api endpoint:
+### How to call the *delete* project api endpoint:
+```
+#Format of JSON (You can pass a json with more data but aslong as it has a name attribute for the project it should delete it will work)
+{
+  name: str
+}
+```
+```
+fetch('/api/projects/delete/', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + jwtAccessToken,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: name,
+    products: products
+  })
+})
+.then(response => {
+  // handle the response
+})
+.catch(error => {
+  // handle the error
+});
+```
+
+### How to call the *get_data (get project)* api endpoint:
 ```
   fetch('/api/projects/get/' + project_name, {
     method: 'GET',

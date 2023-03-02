@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 import os
 from flask import Flask, jsonify, request
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
-from db import DBClient
 import CRUD
 
 # Init the Dependencies and API, the code is kinda messy up here. 
@@ -69,7 +68,7 @@ def add_new_project():
     Function to add a blank project to the database.
     Parameter
     ---------
-    Takes in a JSON object formatted as a project as a parameter
+    Takes in a JSON object formatted as a project as a parameter, requires a name
 
     Returns
     ---------
@@ -78,15 +77,14 @@ def add_new_project():
     name = request.json['name']
     products = request.json['products']
     if name:
-        return CRUD.create_project(name, products), 200
+        return jsonify(CRUD.create_project(name, products)), 200
     else:
         return jsonify(message=f"Project Name not Defined. "), 400
 
 # Edit existing Project Protected API endpoint
-# [In Progress]
-@app.route('/api/projects/edit/<project_name>', methods = ['PUT'])
+@app.route('/api/projects/edit/', methods = ['PUT'])
 @jwt_required()
-def edit_project(project_name):
+def edit_project():
     '''
     Function to edit an existing project in the database.
 
@@ -99,14 +97,13 @@ def edit_project(project_name):
     Project : JSON object   (Will return false if nothing updated, or project not found by name)
     '''
     project_data = request.get_json()
-    updated_project = CRUD.update_project(project_name, project_data)
+    updated_project = CRUD.update_project(project_data['name'], project_data['products'])
     return jsonify(updated_project)
     
 # Delete existing Project Protected API endpoint
-# [Finished]
-@app.route('/api/projects/delete/<project_name>', methods = ['DELETE'])
+@app.route('/api/projects/delete/', methods = ['DELETE'])
 @jwt_required()
-def delete_project(project_name):
+def delete_project():
     '''
     Function to delete an existing project in the database.
 
@@ -117,7 +114,9 @@ def delete_project(project_name):
     ---------
     data : JSON object
     '''
-    if DBClient.delete_project(project_name):
+    project_data = request.get_json()
+    project_name = project_data['name']
+    if CRUD.delete_project(project_name):
         #Seccessful Delete
         return jsonify(data="Delete Sucessful"), 200
     else:
