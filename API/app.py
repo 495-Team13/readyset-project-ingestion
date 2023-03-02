@@ -258,24 +258,33 @@ def get_template_data(template_name):
         return jsonify(message=f"Failed to Fetch Template: {template_name}."), 404
 
 # Create new Template Protected API endpoint
-@app.route('/api/templates/add/<template_name>', methods = ['POST'])
+@app.route('/api/templates/add/', methods = ['POST'])
 @jwt_required()
-def add_new_template(template_name):
+def add_new_template():
     '''Function to add a new blank template based on a template name
 
     Parameter
     ---------
-    template_name : str
+    Takes in a json of structure template (Structure in the docs page)
 
     Returns
     ---------
-    message : JSON Object
+    Template:  JSON Object
     '''
-    if template_name:
-        #Template Name is not Null, Add
-        return jsonify(message=DBClient.add_template(template_name)), 201
+    template_data = request.get_json()
+    if template_data:
+        template_name = ['name']
+        template_type = ['type']
+        template_workflow = ['workflow']
+        template_donor_shape = ['donor_shape']
+        template_product_upc = ['product_upc']
+        template_notes= ['notes']
+        template_form_desc = ['form_desc']
+        template_gltf = ['gltf']
+        return jsonify(CRUD.create_template(template_name, template_type, template_workflow ,template_donor_shape, template_product_upc ,template_notes, template_form_desc, template_gltf)),200
     else:
-        return jsonify(message=f"Tempalate Name not Specified. Status: 400"), 400
+        return jsonify(message=f"No Template Data Submitted."), 404
+
 
 # Edit existing Template Protected API endpoint
 @app.route('/api/templates/edit/<template_name>', methods = ['PUT'])

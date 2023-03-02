@@ -342,3 +342,20 @@ This is the same as the get product except you should just provide the template 
     // handle the error
   });
 ```
+
+### How to call the *Create Template* API Endpoint
+This is similar to the create product api endpoint, but the JSON format is slightly different
+```
+JSON Input Format
+
+{
+        "name": name,
+        "type": type_,
+        "workflow": workflow,
+        "donor_shape": donor_shape,
+        "product_upc": product_upc,
+        "notes": notes,
+        "form_desc": form_desc,
+        "gltf": gltf,
+}
+```

@@ -127,7 +127,7 @@ def create_template(name, type_, workflow, donor_shape, product_upc, notes, form
         "gltf": gltf,
     }
     result = templates_col.insert_one(template)
-    return result.inserted_id
+    return templates_col.find_one({"_id": result.inserted_id})
 
 
 def get_template_by_name(name):
