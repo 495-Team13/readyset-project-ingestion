@@ -108,6 +108,13 @@ def delete_product(upc):
     result = products_col.delete_one({"upc": upc})
     return result.deleted_count > 0
 
+def delete_product_from_project(project_name, product_upc):
+    '''
+    Removes the given product UPC from the project's product array.
+    Returns True if the product was removed, or false if not found.
+    '''
+    result = projects_col.update_one({"name": project_name}, {"$pull": {"products": {"upc": product_upc}}})
+    return result.modified_count > 0
 
 # CRUD operations for Templates
 

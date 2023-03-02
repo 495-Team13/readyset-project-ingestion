@@ -216,23 +216,31 @@ def edit_product(product_upc):
 
 # Delete existing Product Protexted API endpoint 
 # FIXME need to add delete the product upc from the project products array as well
-@app.route('/api/products/delete/<product_upc>', methods = ['DELETE'])
+@app.route('/api/products/delete/', methods = ['DELETE'])
 @jwt_required()
-def delete_product_api(product_upc):
+def delete_product_api():
     '''Function to delete a product based of the products UPC
 
     Parameter
     ---------
-    product_upc : str
+    json object with the format:
+    {
+        "product_upc" : string
+        "project_name" : string
+    }
 
     Returns
     ---------
     data : JSON Object
     '''
-    if CRUD.get_product_by_upc(product_upc):
-        return jsonify(CRUD.delete_product(product_upc)),200
+    data = request.get_json()
+    product_upc = data['product_upc']
+    project_name = data['project_name']
+    if CRUD.remove_product_from_project(project_name, product_upc):
+        return jsonify(message=f"Product with UPC {product_upc} removed from project {project_name}"), 200
     else:
-        return jsonify(message=f"Product with UPC {product_upc} not found"), 404
+        return jsonify(message=f"Product with UPC {product_upc} not found in project {project_name}"), 404
+
 
 #############################   #Templates API Endpoints     #############################
 
