@@ -27,6 +27,34 @@
     console.error(error);
   });
 ```
+### How to call the create project api endpoint:
+```
+#Format of JSON
+{
+  name: str
+  products : [str, str, str, ...]
+}
+```
+```
+fetch('/api/projects/add/', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + jwtAccessToken,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: name,
+    products: products
+  })
+})
+.then(response => {
+  // handle the response
+})
+.catch(error => {
+  // handle the error
+});
+```
+
 ### How to call the get_data (get project) api endpoint:
 ```
   fetch('/api/projects/get/' + project_name, {

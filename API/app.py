@@ -62,16 +62,25 @@ def get_data(project_name):
         return jsonify(message=f"Project {project_name} not found."), 400
 
 # Create new Project Protected API endpoint
-# [Finished]
 @app.route('/api/projects/add/', methods = ['POST'])
 @jwt_required()
 def add_new_project():
     '''
     Function to add a blank project to the database.
+    Parameter
+    ---------
+    Takes in a JSON object formatted as a project as a parameter
+
+    Returns
+    ---------
+    Project : JSON object
     '''
     name = request.json['name']
     products = request.json['products']
-    return CRUD.create_project(name, products)
+    if name:
+        return CRUD.create_project(name, products), 200
+    else:
+        return jsonify(message=f"Project Name not Defined. "), 400
 
 # Edit existing Project Protected API endpoint
 # [In Progress]

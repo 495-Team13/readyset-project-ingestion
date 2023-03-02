@@ -1,4 +1,5 @@
 import pymongo
+import json
 
 # Replace with your MongoDB connection string
 client = pymongo.MongoClient("mongodb://admin:password@192.168.1.28:27017?authSource=admin")
@@ -14,11 +15,13 @@ templates_col = db["templates"]
 def create_project(name, products):
     """
     Creates a new project document with the given name and products array.
-    Returns the inserted document's ID.
+    Returns the inserted project as a json object
     """
     project = {"name": name, "products": products}
     result = projects_col.insert_one(project)
-    return result.inserted_id
+    inserted_id = result.inserted_id
+    inserted_project = projects_col.find_one({"_id": inserted_id})
+    return json.dumps(inserted_project)
 
 
 def get_project_by_name(name):
