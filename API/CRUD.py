@@ -94,7 +94,10 @@ def update_product(upc, updates):
     Returns True if the document was updated, or False if not found.
     """
     result = products_col.update_one({"upc": upc}, {"$set": updates})
-    return result.modified_count > 0
+    if result.modified_count > 0:
+        return products_col.find_one({"upc":upc})
+    else:
+        return None
 
 
 def delete_product(upc):

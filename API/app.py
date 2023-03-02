@@ -191,20 +191,29 @@ def add_new_product(project_name):
 
 # Edit existing Product Protected API endpoint 
 # [In Progress]
-@app.route('/api/products/edit/<product_name>', methods = ['PUT'])
+@app.route('/api/products/edit/<product_upc>', methods = ['PUT'])
 @jwt_required()
-def edit_product(product_name):
+def edit_product(product_upc):
     '''Function to edit a product based of the product name
 
     Parameter
     ---------
     product_name : str
+    also takes in a json of updates
 
     Returns
     ---------
     Product : JSON Object
     '''
-    return 400  #Unfinished, need to figure out how this function could work
+    updates = request.get_json()
+    if not updates:
+        return jsonify(message="No updates priveded"), 400
+    
+    if CRUD.update_product(product_upc, updates):
+        product = CRUD.get_product_by_upc(product_upc)
+        return jsonify(product), 200
+    else:
+        return jsonify(message=f"Product with UPC {product_upc} not found"), 404
 
 # Delete existing Product Protexted API endpoint 
 # [Finished]

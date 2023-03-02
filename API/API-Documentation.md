@@ -254,3 +254,41 @@ fetch('/api/products/add/' + project_name, {
   // handle the error
 });
 ```
+
+## How to call the *Edit Product* API Endpoint
+It is basically the exact same as the create product, but it requires input of a json with each field needing to be updated, and the value to be updated with.
+
+It doesn't need to contain every field just what needs to be updated.
+```
+Input JSON Structure:
+product = {
+  "upc": upc,
+  "drc_upc": drc_upc,
+  "name": name,
+  "count": count,
+  "amount": amount,
+  "template_name": template_name,
+  "width": width,
+  "height": height,
+  "depth": depth,
+  "add_height": add_height,
+  "add_info": add_info,
+}
+```
+Body of Request:
+```
+fetch('/api/products/edit/' + product_upc, {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + jwtAccessToken,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(product)
+})
+.then(response => {
+  // handle the response
+})
+.catch(error => {
+  // handle the error
+});
+```
