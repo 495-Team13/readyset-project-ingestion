@@ -291,17 +291,25 @@ def add_new_template():
 @jwt_required()
 def edit_template(template_name):
     '''Function to edit an existing template using the unique template name
-
     Parameter
     ---------
-    template_name : str
+    Takes in a json a json template structure
 
     Returns
     ---------
     template : JSON Object
     '''
     #Still Need to Figure out how this is going to work 
-    return 400
+
+    updates = request.get_json()
+    if not updates:
+        return jsonify(message="No updates priveded"), 400
+    if CRUD.update_template(template_name, updates):
+        updated_template = CRUD.get_template_by_name(template_name)
+        return jsonify(updated_template), 200
+    else:
+        return jsonify(message=f"Template with name {template_name} not found"), 404
+    
 
 # Delete existing Template Protexted API endpoint
 @app.route('/api/templates/delete/<template_name>', methods = ['DELETE'])
@@ -317,12 +325,14 @@ def delete_template(template_name):
     ---------
     message : JSON Object
     '''
-    if DBClient.get_templates(template_name):
-        #Template Exists and was Deleted
-        return jsonify(message=DBClient.delete_template(template_name)), 203
+    template_data = request.json()
+    template_name = template_data['name']
+    if CRUD.delete_template(template_name):
+        #Seccessful Delete
+        return jsonify(data="Delete Sucessful"), 200
     else:
-        #Template Didn't Exist Bad Request
-        return jsonify(message=f"Failed to Delete Template: {template_name}. Make sure the template name is correct. Status: 400"), 400
+        #Failed Delete (No Content)
+        return jsonify(data=f"Delete Operation failed on project:{template_name}. 204 Status Code."), 204
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
