@@ -31,10 +31,13 @@ def get_project_by_name(name):
 def update_project(name, products):
     """
     Updates the project document with the given name, setting the products array to the new value.
-    Returns True if the document was updated, or False if not found.
+    Returns the Updated Project if the document was updated, or False if not found.
     """
     result = projects_col.update_one({"name": name}, {"$set": {"products": products}})
-    return result.modified_count > 0
+    if result.modified_count > 0:
+        return result
+    else:
+        return False
 
 
 def delete_project(name):

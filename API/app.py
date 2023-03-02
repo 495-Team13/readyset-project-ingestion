@@ -90,13 +90,11 @@ def edit_project(project_name):
 
     Returns
     ---------
-    Project : JSON object
+    Project : JSON object   (Will return false if nothing updated, or project not found by name)
     '''
-    if project_name:
-      #Unfinished, still need to figure out how updating works
-      return jsonify(data=f"You succesfully Reached /api/projects/edit/{project_name}. This is an unfinished API endpoint, will be finished soon."),400
-    else:
-      return jsonify(data=f"Empty Project_Name"), 400
+    project_data = request.get_json()
+    updated_project = CRUD.update_project(project_name, project_data)
+    return jsonify(updated_project)
     
 # Delete existing Project Protected API endpoint
 # [Finished]
