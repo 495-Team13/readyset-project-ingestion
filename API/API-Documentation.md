@@ -27,6 +27,22 @@
     console.error(error);
   });
 ```
+### How to call the *get_data (get project)* api endpoint:
+```
+  fetch('/api/projects/get/' + project_name, {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + jwtAccessToken
+    }
+  })
+  .then(response => {
+    // handle the response
+  })
+  .catch(error => {
+    // handle the error
+  });
+```
+
 ### How to call the *create* project api endpoint:
 ```
 #Format of JSON
@@ -64,7 +80,7 @@ fetch('/api/projects/add/', {
 ```
 ```
 fetch('/api/projects/edit/', {
-  method: 'POST',
+  method: 'PUT',
   headers: {
     'Authorization': 'Bearer ' + jwtAccessToken,
     'Content-Type': 'application/json'
@@ -91,7 +107,7 @@ fetch('/api/projects/edit/', {
 ```
 ```
 fetch('/api/projects/delete/', {
-  method: 'POST',
+  method: 'DELETE',
   headers: {
     'Authorization': 'Bearer ' + jwtAccessToken,
     'Content-Type': 'application/json'
@@ -109,21 +125,6 @@ fetch('/api/projects/delete/', {
 });
 ```
 
-### How to call the *get_data (get project)* api endpoint:
-```
-  fetch('/api/projects/get/' + project_name, {
-    method: 'GET',
-    headers: {
-      'Authorization': 'Bearer ' + jwtAccessToken
-    }
-  })
-  .then(response => {
-    // handle the response
-  })
-  .catch(error => {
-    // handle the error
-  });
-```
 ### How to make a call passing in the JSON data.
 For example, the create project api request
 ```
