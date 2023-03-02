@@ -4,7 +4,6 @@ import os
 from flask import Flask, jsonify, request
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 from db import DBClient
-
 import CRUD
 
 # Init the Dependencies and API, the code is kinda messy up here. 
@@ -43,8 +42,7 @@ def login():
 
 #############################    #Projects API Endpoints     #############################
 
-# Protected API endpoint 
-# [In Progress]
+# Protected API endpoint for, Get Project
 @app.route('/api/projects/get/<project_name>', methods=['GET'])
 @jwt_required()
 def get_data(project_name):
@@ -58,11 +56,10 @@ def get_data(project_name):
     ---------
     Project : JSON Object
     '''
-    if project_name:
-      #Unfinished, still need to figure out how this would work
-      return jsonify(data=f"You succesfully Reached /api/projects/get/{project_name}. This is an unfinished API endpoint, will be finished soon."), 400
+    if CRUD.get_project_by_name(project_name):
+        return jsonify(CRUD.get_project_by_name(project_name)), 200
     else:
-      return jsonify(error=f"Empty Project_Name"), 400
+        return jsonify(message=f"Project {project_name} not found."), 400
 
 # Create new Project Protected API endpoint
 # [Finished]

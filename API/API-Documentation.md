@@ -1,6 +1,6 @@
 # API Documentation
 
-## General Structure for how to call the login API endpoint and store the access_token for future calls to protected endpoints:
+### Login API Endpoint Call
 ```
   fetch('/api/login/', {
     method: 'POST',
@@ -27,7 +27,7 @@
     console.error(error);
   });
 ```
-*How to call a protected endpoint in the frontend:*
+### How to call the get_data (get project) api endpoint:
 ```
   fetch('/api/projects/get/' + project_name, {
     method: 'GET',
@@ -42,7 +42,7 @@
     // handle the error
   });
 ```
-*How to make a call passing in the JSON data.*
+### How to make a call passing in the JSON data.
 For example, the create project api request
 ```
 // Define the data to send in the request body
