@@ -18,6 +18,7 @@ class DBClient:
         self.products = self.client[PI_DB][PRODUCTS_COL]
         self.templates = self.client[PI_DB][TEMPLATES_COL]
 
+    # Check if successfully connected to database
     def check_connection(self):
         try:
             self.client.admin.command('ping')
@@ -28,10 +29,14 @@ class DBClient:
             print('MongoDB user credentials are invalid')
         return False
 
+    # Check if document with id is a duplicate
+    # existing = True -> check if there's a duplicate among existing documents
+    # existing = False -> check if id would be a duplicate
     def check_duplicate(self, col_name, id_filter, existing=False):
         n = len(list(self.client[PI_DB][col_name].find(id_filter)))
         return n > 1 if existing else n > 0
 
+    # Add new default project
     def add_project(self):
         untitled_projects = list(self.projects.find({'name': {'$regex': r'^untitled\d+$', '$options': 'i'}}))
         max_i = max([int(re.search(r'\d+$', proj['name']).group()) for proj in untitled_projects]) if len(untitled_projects) else 0
@@ -40,37 +45,48 @@ class DBClient:
         
         return name
 
+    # Apply update to project by name
     def update_project(self, name, update):
         self.projects.update_one({'name': name}, update)
 
+    # Delete project by name
     def delete_project(self, name):
         self.projects.delete_one({'name': name})
 
+    # Query projects and projection
     def get_projects(self, query={}, projection={}):
         return list(self.projects.find(query, projection))
 
+    # Add new product to project and products collection
     def add_product(self, product, project_name):
         self.products.insert_one(product)
         self.update_project(project_name, {'$push': {'products': product['upc']}})
 
+    # Apply update to product by upc
     def update_product(self, upc, update):
         self.products.update_one({'upc': upc}, update)
 
+    # Delete product by upc
     def delete_product(self, upc):
         self.products.delete_one({'upc': upc})
 
+    # Query products and projection
     def get_products(self, query={}, projection={}):
         return list(self.products.find(query, projection))
 
+    # Add template to templates collection
     def add_template(self, template):
         self.templates.insert_one(template)
 
+    # Apply update to template by name
     def update_template(self, name, update):
         self.templates.update_one({'name': name}, update)
 
+    # Delete template by name
     def delete_template(self, name):
         self.templates.delete_one({'name': name})
 
+    # Query templates and projection
     def get_templates(self, query={}, projection={}):
         return list(self.templates.find(query, projection))
 
