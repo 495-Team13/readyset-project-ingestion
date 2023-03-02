@@ -1,13 +1,16 @@
 from pymongo import MongoClient
+from pymongo.errors import ConnectionFailure, ConfigurationError
 from urllib.parse import quote_plus
 import re
 
+# Database and collection names
 PI_DB = 'pi'
 PROJECTS_COL = 'projects'
 PRODUCTS_COL = 'products'
 TEMPLATES_COL = 'templates'
 
 class DBClient:
+    # Create MongoClient and store references to collections
     def __init__(self, host, port, user, password, auth_source):
         uri = 'mongodb://%s:%s@%s:%d/?authSource=%s' % (quote_plus(user), quote_plus(password), host, port, quote_plus(auth_source))
         self.client = MongoClient(uri)
@@ -72,7 +75,7 @@ class DBClient:
         return list(self.templates.find(query, projection))
 
 if __name__ == '__main__':
-    host = '192.168.1.28'
+    host = '192.168.1.128'
     port = 27017
     user = 'admin'
     password = 'password'
