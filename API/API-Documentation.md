@@ -2,7 +2,7 @@
 If you want to run a test case just move it into the API folder and it should run fine.
 
 ##General Structure for how to call the login API endpoint and store the access_token for future calls to protected endpoints:
-
+```
   fetch('/api/login/', {
     method: 'POST',
     headers: {
@@ -27,9 +27,9 @@ If you want to run a test case just move it into the API folder and it should ru
   .catch(error => {
     console.error(error);
   });
-
+```
 *How to call a protected endpoint in the frontend:*
-
+```
   fetch('/api/projects/get/' + project_name, {
     method: 'GET',
     headers: {
@@ -42,9 +42,10 @@ If you want to run a test case just move it into the API folder and it should ru
   .catch(error => {
     // handle the error
   });
-
+```
 *How to make a call passing in the JSON data.*
 For example, the create project api request
+```
 // Define the data to send in the request body
   const projectData = {
     name: "My New Project",
@@ -52,7 +53,7 @@ For example, the create project api request
   };
 
   // Make an HTTP POST request to the create_project endpoint using fetch
-  `fetch('/projects/create', {
+  fetch('/projects/create', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -65,4 +66,5 @@ For example, the create project api request
   })
   .catch(error => {
     console.error('Error creating project:', error);
-  });`
+  });
+```
