@@ -1,5 +1,7 @@
 # API Documentation
 
+Some of the request body sections don't have the correct methods or some bugs, but just wanted to provide a general structure for each call so it would be easier to know how to provide the correct parameter / json data when calling the api.
+
 ### Login API Endpoint Call
 ```
   fetch('/api/login/', {
@@ -181,31 +183,64 @@ fetch('/api/projects/delete/', {
     // handle the error
   });
 ```
-## How to call the *Create Product* API Endpoint
+### How to call the *Create Product* API Endpoint
 ```
-Format of the Product JSON input
+Format of the Product Data
 {
-    "upc": "string (unique)",
-    "drc_upc": "optional string",
-    "name": "string (unique)",
-    "count": {
-      "num": "int",
-      "unit": "string"
-    },
-    "amount": {
-      "measurement": "int",
-      "unit": "string"
-    },
-    "template_name": "string",
-    "width": "float",
-    "height": "float",
-    "depth": "float",
-    "add_height": "optional float",
-    "add_info": "string"
+  "upc": "string (unique)",
+  "drc_upc": "optional string",
+  "name": "string (unique)",
+  "count": {
+    "num": "int",
+    "unit": "string"
+  },
+  "amount": {
+    "measurement": "int",
+    "unit": "string"
+  },
+  "template_name": "string",
+  "width": "float",
+  "height": "float",
+  "depth": "float",
+  "add_height": "optional float",
+  "add_info": "string"
+}
+```
+#### Format of the JSON to be passed into the function
+(the values for the amount, and count attributes can be subdictionaries and it will work fine)
+```
+{
+  "upc": upc,
+  "drc_upc": drc_upc,
+  "name": name,
+  "count": count,
+  "amount": amount,
+  "template_name": template_name,
+  "width": width,
+  "height": height,
+  "depth": depth,
+  "add_height": add_height,
+  "add_info": add_info,
 }
 ```
 Body of Request:
 ```
+const product = {
+  "upc": "upc",
+  "drc_upc": "drc_upc",
+  "name": "name",
+  "count": count,
+  "amount": amount,
+  "template_name": "template_name",
+  "width": width,
+  "height": height,
+  "depth": depth,
+  "add_height": add_height,
+  "add_info": "add_info",
+}
+
+const project_name = example_project
+
 fetch('/api/products/add/' + project_name, {
   method: 'POST',
   headers: {
@@ -220,4 +255,107 @@ fetch('/api/products/add/' + project_name, {
 .catch(error => {
   // handle the error
 });
+```
+
+### How to call the *Edit Product* API Endpoint
+It is basically the exact same as the create product, but it requires input of a json with each field needing to be updated, and the value to be updated with.
+
+It doesn't need to contain every field just what needs to be updated.
+```
+Input JSON Structure:
+product = {
+  "upc": upc,
+  "drc_upc": drc_upc,
+  "name": name,
+  "count": count,
+  "amount": amount,
+  "template_name": template_name,
+  "width": width,
+  "height": height,
+  "depth": depth,
+  "add_height": add_height,
+  "add_info": add_info,
+}
+```
+Body of Request:
+```
+fetch('/api/products/edit/' + product_upc, {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + jwtAccessToken,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(product)
+})
+.then(response => {
+  // handle the response
+})
+.catch(error => {
+  // handle the error
+});
+```
+
+### How to call the *Delete Product* API Endpoint
+
+This api endpoint is super similar to the get product api endpoint, no json is required. Just passing in the upc through the url is required.
+
+```
+Example Request Body
+
+fetch('/api/products/delete/' + product_upc, {
+  method: 'DELETE',
+  headers: {
+    'Authorization': 'Bearer ' + jwtAccessToken
+  }
+})
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+})
+.then(data => {
+  // handle successful response
+})
+.catch(error => {
+  // handle error
+});
+
+```
+
+## Template API Endpoints
+
+### How to call the *Get Template* API Endpoint
+This is the same as the get product except you should just provide the template name instead of a product name in the url
+
+```
+  fetch('/api/templates/get/' + template_name, {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + jwtAccessToken
+    }
+  })
+  .then(response => {
+    // handle the response
+  })
+  .catch(error => {
+    // handle the error
+  });
+```
+
+### How to call the *Create Template* API Endpoint
+This is similar to the create product api endpoint, but the JSON format is slightly different
+```
+JSON Input Format
+
+{
+        "name": name,
+        "type": type_,
+        "workflow": workflow,
+        "donor_shape": donor_shape,
+        "product_upc": product_upc,
+        "notes": notes,
+        "form_desc": form_desc,
+        "gltf": gltf,
+}
 ```

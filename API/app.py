@@ -155,7 +155,6 @@ def get_product_data(product_upc):
         return jsonify(error=f"Error Fetching Product {product_upc}. Status Code: 204"), 204
     
 # Create new Product Protected API endpoint 
-# [Finished]
 @app.route('/api/products/add/<project_name>', methods = ['POST'])
 @jwt_required()
 def add_new_product(project_name):
@@ -171,37 +170,55 @@ def add_new_product(project_name):
     Project : JSON Object
     '''
     product_data = request.get_json()
-    product_name = product_data['name']
     product_upc = product_data['upc']
-    CRUD.update_project(project_name, product_upc) # Add the New Product UPC to the project products array
+    product_drc_upc = product_data['drc_upc']
+    product_name = product_data['name']
+    product_count = product_data['count']
+    product_amount = product_data['amount']
+    product_template_name = product_data['template_name']
+    product_width = product_data['width']
+    product_height = product_data['height']
+    product_depth = product_data['depth']
+    product_add_height = product_data['add_height']
+    product_add_info = product_data['add_info']
+
     if get_data(project_name):
-        #Project was found, update projects product attribute with a push
-        return jsonify(data=DBClient.add_product(product, project_name)), 201
+        CRUD.update_project(project_name, product_upc) # Add the New Product UPC to the project products array
+        new_product = CRUD.create_product(product_upc, product_name, product_count, product_amount, product_template_name, product_width, product_height ,product_depth, product_add_height, product_add_info, product_drc_upc)
+        return jsonify(new_product), 200
     else:
-        return jsonify(data=f"Error when adding product {product} to {project_name}. Status Code: 400"), 400
+        return jsonify(data=f"Error when creating product {product_name} in {project_name}. Status Code: 400"), 400
 
 # Edit existing Product Protected API endpoint 
-# [In Progress]
-@app.route('/api/products/edit/<product_name>', methods = ['PUT'])
+@app.route('/api/products/edit/<product_upc>', methods = ['PUT'])
 @jwt_required()
-def edit_product(product_name):
+def edit_product(product_upc):
     '''Function to edit a product based of the product name
 
     Parameter
     ---------
     product_name : str
+    also takes in a json of updates
 
     Returns
     ---------
     Product : JSON Object
     '''
-    return 400  #Unfinished, need to figure out how this function could work
+    updates = request.get_json()
+    if not updates:
+        return jsonify(message="No updates priveded"), 400
+    
+    if CRUD.update_product(product_upc, updates):
+        product = CRUD.get_product_by_upc(product_upc)
+        return jsonify(product), 200
+    else:
+        return jsonify(message=f"Product with UPC {product_upc} not found"), 404
 
 # Delete existing Product Protexted API endpoint 
-# [Finished]
+# FIXME need to add delete the product upc from the project products array as well
 @app.route('/api/products/delete/<product_upc>', methods = ['DELETE'])
 @jwt_required()
-def delete_product(product_upc):
+def delete_product_api(product_upc):
     '''Function to delete a product based of the products UPC
 
     Parameter
@@ -212,12 +229,10 @@ def delete_product(product_upc):
     ---------
     data : JSON Object
     '''
-    if DBClient.delete_product(product_upc):
-        #successful delete
-        return jsonify(data=f"Deleted product with UPC: {product_upc}."), 200
+    if CRUD.get_product_by_upc(product_upc):
+        return jsonify(CRUD.delete_product(product_upc)),200
     else:
-        #Failed Delete by Product UPC
-        return jsonify(data=f"Failed to delete product: {product_upc}."),400
+        return jsonify(message=f"Product with UPC {product_upc} not found"), 404
 
 #############################   #Templates API Endpoints     #############################
 
@@ -235,32 +250,41 @@ def get_template_data(template_name):
     ---------
     template : JSON Object
     '''
-    if DBClient.get_templates(template_name):
+    if CRUD.get_templates(template_name):
         #Template was found in DB
-        return jsonify(template=DBClient.get_templates(template_name)), 200
+        return jsonify(CRUD.get_templates(template_name)), 200
     else:
         #Template was not found in DB
-        return jsonify(template=f"Failed to Fetch Template: {template_name}. Status Code: 400"), 400
+        return jsonify(message=f"Failed to Fetch Template: {template_name}."), 404
 
 # Create new Template Protected API endpoint
-@app.route('/api/templates/add/<template_name>', methods = ['POST'])
+@app.route('/api/templates/add/', methods = ['POST'])
 @jwt_required()
-def add_new_template(template_name):
+def add_new_template():
     '''Function to add a new blank template based on a template name
 
     Parameter
     ---------
-    template_name : str
+    Takes in a json of structure template (Structure in the docs page)
 
     Returns
     ---------
-    message : JSON Object
+    Template:  JSON Object
     '''
-    if template_name:
-        #Template Name is not Null, Add
-        return jsonify(message=DBClient.add_template(template_name)), 201
+    template_data = request.get_json()
+    if template_data:
+        template_name = ['name']
+        template_type = ['type']
+        template_workflow = ['workflow']
+        template_donor_shape = ['donor_shape']
+        template_product_upc = ['product_upc']
+        template_notes= ['notes']
+        template_form_desc = ['form_desc']
+        template_gltf = ['gltf']
+        return jsonify(CRUD.create_template(template_name, template_type, template_workflow ,template_donor_shape, template_product_upc ,template_notes, template_form_desc, template_gltf)),200
     else:
-        return jsonify(message=f"Tempalate Name not Specified. Status: 400"), 400
+        return jsonify(message=f"No Template Data Submitted."), 404
+
 
 # Edit existing Template Protected API endpoint
 @app.route('/api/templates/edit/<template_name>', methods = ['PUT'])
