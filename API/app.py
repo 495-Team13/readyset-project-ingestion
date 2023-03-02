@@ -128,9 +128,9 @@ def delete_project():
 
 # Retrieve product Protected API endpoint 
 # [In Progress]
-@app.route('/api/products/get/<product_name>', methods=['GET'])
+@app.route('/api/products/get/<product_upc>', methods=['GET'])
 @jwt_required()
-def get_product_data(product_name):
+def get_product_data(product_upc):
     '''Function to Retrieve the product from the MongoDB database using the product name as an ID
 
     Parameter
@@ -141,12 +141,12 @@ def get_product_data(product_name):
     ---------
     Product : JSON Object
     '''
-    if DBClient.get_products(product_name):
+    if CRUD.get_product_by_upc(product_upc):
         #Sucessful Product Fetch
-        return jsonify(data=DBClient.get_products(product_name)), 200
+        return jsonify(CRUD.get_product_by_upc(product_upc)), 200
     else:
         #Failed to Retrieve Data (Doesn't Exist)
-        return jsonify(error=f"Error Fetching Product {product_name}. Status Code: 204"), 204
+        return jsonify(error=f"Error Fetching Product {product_upc}. Status Code: 204"), 204
     
 # Create new Product Protected API endpoint 
 # [Finished]

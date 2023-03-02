@@ -27,6 +27,31 @@
     console.error(error);
   });
 ```
+### How to pass in data as a JSON object with less work
+```
+// Define the data to send in the request body
+  const projectData = {
+    name: "My New Project",
+    products: ["123456", "789012"]
+  };
+
+  // Make an HTTP POST request to the create_project endpoint using fetch
+  fetch('/projects/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(projectData)
+  })
+  .then(response => response.text())
+  .then(data => {
+    console.log('Created project with ID:', data);
+  })
+  .catch(error => {
+    console.error('Error creating project:', error);
+  });
+```
+## Project API Endpoints
 ### How to call the *get_data (get project)* api endpoint:
 ```
   fetch('/api/projects/get/' + project_name, {
@@ -123,30 +148,4 @@ fetch('/api/projects/delete/', {
 .catch(error => {
   // handle the error
 });
-```
-
-### How to make a call passing in the JSON data.
-For example, the create project api request
-```
-// Define the data to send in the request body
-  const projectData = {
-    name: "My New Project",
-    products: ["123456", "789012"]
-  };
-
-  // Make an HTTP POST request to the create_project endpoint using fetch
-  fetch('/projects/create', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(projectData)
-  })
-  .then(response => response.text())
-  .then(data => {
-    console.log('Created project with ID:', data);
-  })
-  .catch(error => {
-    console.error('Error creating project:', error);
-  });
 ```
