@@ -250,12 +250,12 @@ def get_template_data(template_name):
     ---------
     template : JSON Object
     '''
-    if DBClient.get_templates(template_name):
+    if CRUD.get_templates(template_name):
         #Template was found in DB
-        return jsonify(template=DBClient.get_templates(template_name)), 200
+        return jsonify(CRUD.get_templates(template_name)), 200
     else:
         #Template was not found in DB
-        return jsonify(template=f"Failed to Fetch Template: {template_name}. Status Code: 400"), 400
+        return jsonify(message=f"Failed to Fetch Template: {template_name}."), 404
 
 # Create new Template Protected API endpoint
 @app.route('/api/templates/add/<template_name>', methods = ['POST'])

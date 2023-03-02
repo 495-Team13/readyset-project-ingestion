@@ -183,7 +183,7 @@ fetch('/api/projects/delete/', {
     // handle the error
   });
 ```
-## How to call the *Create Product* API Endpoint
+### How to call the *Create Product* API Endpoint
 ```
 Format of the Product Data
 {
@@ -206,7 +206,7 @@ Format of the Product Data
   "add_info": "string"
 }
 ```
-### Format of the JSON to be passed into the function
+#### Format of the JSON to be passed into the function
 (the values for the amount, and count attributes can be subdictionaries and it will work fine)
 ```
 {
@@ -257,7 +257,7 @@ fetch('/api/products/add/' + project_name, {
 });
 ```
 
-## How to call the *Edit Product* API Endpoint
+### How to call the *Edit Product* API Endpoint
 It is basically the exact same as the create product, but it requires input of a json with each field needing to be updated, and the value to be updated with.
 
 It doesn't need to contain every field just what needs to be updated.
@@ -295,7 +295,7 @@ fetch('/api/products/edit/' + product_upc, {
 });
 ```
 
-## How to call the *Delete Product* API Endpoint
+### How to call the *Delete Product* API Endpoint
 
 This api endpoint is super similar to the get product api endpoint, no json is required. Just passing in the upc through the url is required.
 
@@ -323,3 +323,22 @@ fetch('/api/products/delete/' + product_upc, {
 
 ```
 
+## Template API Endpoints
+
+### How to call the *Get Template* API Endpoint
+This is the same as the get product except you should just provide the template name instead of a product name in the url
+
+```
+  fetch('/api/templates/get/' + template_name, {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + jwtAccessToken
+    }
+  })
+  .then(response => {
+    // handle the response
+  })
+  .catch(error => {
+    // handle the error
+  });
+```
