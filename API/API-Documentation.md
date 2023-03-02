@@ -1,7 +1,6 @@
-##Unit Tests work, but I just can't figure out how to run them when in the unit_tests directory because of python imports.
-If you want to run a test case just move it into the API folder and it should run fine.
+# API Documentation
 
-##General Structure for how to call the login API endpoint and store the access_token for future calls to protected endpoints:
+## General Structure for how to call the login API endpoint and store the access_token for future calls to protected endpoints:
 ```
   fetch('/api/login/', {
     method: 'POST',
