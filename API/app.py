@@ -60,6 +60,13 @@ def get_data(project_name):
     else:
         return jsonify(message=f"Project {project_name} not found."), 400
 
+# Protected API endpoint, List all Projects
+@app.route('api/projects/all', methods=['GET'])
+@jwt_required()
+def list_projects():
+    projects = list(CRUD.get_all_projects())
+    return jsonify(projects), 200
+
 # Create new Project Protected API endpoint
 @app.route('/api/projects/add/', methods = ['POST'])
 @jwt_required()
@@ -127,7 +134,6 @@ def delete_project():
 #############################   #Products API Endpoints     #############################
 
 # Retrieve product Protected API endpoint 
-# [In Progress]
 @app.route('/api/products/get/<product_upc>', methods=['GET'])
 @jwt_required()
 def get_product_data(product_upc):
@@ -150,20 +156,24 @@ def get_product_data(product_upc):
     
 # Create new Product Protected API endpoint 
 # [Finished]
-@app.route('/api/products/add/<project_name>/<product>', methods = ['POST'])
+@app.route('/api/products/add/<project_name>', methods = ['POST'])
 @jwt_required()
-def add_new_product(project_name, product):
+def add_new_product(project_name):
     '''Function to add a new product linked to a specified project
 
     Parameter
     ---------
-    project_name : str (Unique)
-    product : json object?
+    Takes in a Product JSON through the request
+    And project_name (str) through the URL
 
     Returns
     ---------
     Project : JSON Object
     '''
+    product_data = request.get_json()
+    product_name = product_data['name']
+    product_upc = product_data['upc']
+    CRUD.update_project(project_name, product_upc) # Add the New Product UPC to the project products array
     if get_data(project_name):
         #Project was found, update projects product attribute with a push
         return jsonify(data=DBClient.add_product(product, project_name)), 201

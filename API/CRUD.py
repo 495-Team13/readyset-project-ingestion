@@ -31,13 +31,15 @@ def get_project_by_name(name):
     """
     return projects_col.find_one({"name": name})
 
+def get_all_projects():
+    return projects_col.find()
 
 def update_project(name, products):
     """
     Updates the project document with the given name, setting the products array to the new value.
     Returns the Updated Project if the document was updated, or False if not found.
     """
-    result = projects_col.update_one({"name": name}, {"$set": {"products": products}})
+    result = projects_col.update_one({"name": name}, {"$addToSet": {"products": products}})
     if result.modified_count > 0:
         updated_project = projects_col.find_one({"name": name})
         return updated_project
