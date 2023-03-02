@@ -190,7 +190,6 @@ def add_new_product(project_name):
         return jsonify(data=f"Error when creating product {product_name} in {project_name}. Status Code: 400"), 400
 
 # Edit existing Product Protected API endpoint 
-# [In Progress]
 @app.route('/api/products/edit/<product_upc>', methods = ['PUT'])
 @jwt_required()
 def edit_product(product_upc):
@@ -219,7 +218,7 @@ def edit_product(product_upc):
 # [Finished]
 @app.route('/api/products/delete/<product_upc>', methods = ['DELETE'])
 @jwt_required()
-def delete_product(product_upc):
+def delete_product_api(product_upc):
     '''Function to delete a product based of the products UPC
 
     Parameter
@@ -230,12 +229,10 @@ def delete_product(product_upc):
     ---------
     data : JSON Object
     '''
-    if DBClient.delete_product(product_upc):
-        #successful delete
-        return jsonify(data=f"Deleted product with UPC: {product_upc}."), 200
+    if CRUD.get_product_by_upc(product_upc):
+        return jsonify(CRUD.delete_product(product_upc)),200
     else:
-        #Failed Delete by Product UPC
-        return jsonify(data=f"Failed to delete product: {product_upc}."),400
+        return jsonify(message=f"Product with UPC {product_upc} not found"), 404
 
 #############################   #Templates API Endpoints     #############################
 

@@ -294,3 +294,32 @@ fetch('/api/products/edit/' + product_upc, {
   // handle the error
 });
 ```
+
+## How to call the *Delete Product* API Endpoint
+
+This api endpoint is super similar to the get product api endpoint, no json is required. Just passing in the upc through the url is required.
+
+```
+Example Request Body
+
+fetch('/api/products/delete/' + product_upc, {
+  method: 'DELETE',
+  headers: {
+    'Authorization': 'Bearer ' + jwtAccessToken
+  }
+})
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+})
+.then(data => {
+  // handle successful response
+})
+.catch(error => {
+  // handle error
+});
+
+```
+
