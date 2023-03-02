@@ -215,7 +215,7 @@ def edit_product(product_upc):
         return jsonify(message=f"Product with UPC {product_upc} not found"), 404
 
 # Delete existing Product Protexted API endpoint 
-# [Finished]
+# FIXME need to add delete the product upc from the project products array as well
 @app.route('/api/products/delete/<product_upc>', methods = ['DELETE'])
 @jwt_required()
 def delete_product_api(product_upc):
