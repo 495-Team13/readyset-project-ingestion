@@ -52,6 +52,22 @@
   });
 ```
 ## Project API Endpoints
+### How to call the list all projects api endpoint:
+```
+  fetch('/api/projects/all', {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + jwtAccessToken
+    }
+  })
+  .then(response => {
+    // handle the response
+  })
+  .catch(error => {
+    // handle the error
+  });
+```
+
 ### How to call the *get_data (get project)* api endpoint:
 ```
   fetch('/api/projects/get/' + project_name, {
@@ -141,6 +157,62 @@ fetch('/api/projects/delete/', {
     name: name,
     products: products
   })
+})
+.then(response => {
+  // handle the response
+})
+.catch(error => {
+  // handle the error
+});
+```
+## Product API Endpoints
+### How to call the *Get Product* API Endpoint (Get Product by UPC)
+```
+  fetch('/api/products/get/' + product_ups, {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + jwtAccessToken
+    }
+  })
+  .then(response => {
+    // handle the response
+  })
+  .catch(error => {
+    // handle the error
+  });
+```
+## How to call the *Create Product* API Endpoint
+```
+Format of the Product JSON input
+{
+    "upc": "string (unique)",
+    "drc_upc": "optional string",
+    "name": "string (unique)",
+    "count": {
+      "num": "int",
+      "unit": "string"
+    },
+    "amount": {
+      "measurement": "int",
+      "unit": "string"
+    },
+    "template_name": "string",
+    "width": "float",
+    "height": "float",
+    "depth": "float",
+    "add_height": "optional float",
+    "add_info": "string"
+}
+```
+Body of Request:
+```
+fetch('/api/products/add/' + project_name, {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer ' + jwtAccessToken,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(product)
 })
 .then(response => {
   // handle the response
