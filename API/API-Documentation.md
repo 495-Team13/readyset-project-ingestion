@@ -1,5 +1,7 @@
 # API Documentation
 
+Some of the request body sections don't have the correct methods or some bugs, but just wanted to provide a general structure for each call so it would be easier to know how to provide the correct parameter / json data when calling the api.
+
 ### Login API Endpoint Call
 ```
   fetch('/api/login/', {
