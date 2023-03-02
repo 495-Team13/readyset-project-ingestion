@@ -183,29 +183,61 @@ fetch('/api/projects/delete/', {
 ```
 ## How to call the *Create Product* API Endpoint
 ```
-Format of the Product JSON input
+Format of the Product Data
 {
-    "upc": "string (unique)",
-    "drc_upc": "optional string",
-    "name": "string (unique)",
-    "count": {
-      "num": "int",
-      "unit": "string"
-    },
-    "amount": {
-      "measurement": "int",
-      "unit": "string"
-    },
-    "template_name": "string",
-    "width": "float",
-    "height": "float",
-    "depth": "float",
-    "add_height": "optional float",
-    "add_info": "string"
+  "upc": "string (unique)",
+  "drc_upc": "optional string",
+  "name": "string (unique)",
+  "count": {
+    "num": "int",
+    "unit": "string"
+  },
+  "amount": {
+    "measurement": "int",
+    "unit": "string"
+  },
+  "template_name": "string",
+  "width": "float",
+  "height": "float",
+  "depth": "float",
+  "add_height": "optional float",
+  "add_info": "string"
+}
+```
+### Format of the JSON to be passed into the function (the values for the amount, and count attributes can be subdictionaries and it will work fine)
+```
+{
+  "upc": upc,
+  "drc_upc": drc_upc,
+  "name": name,
+  "count": count,
+  "amount": amount,
+  "template_name": template_name,
+  "width": width,
+  "height": height,
+  "depth": depth,
+  "add_height": add_height,
+  "add_info": add_info,
 }
 ```
 Body of Request:
 ```
+const product = {
+  "upc": "upc",
+  "drc_upc": "drc_upc",
+  "name": "name",
+  "count": count,
+  "amount": amount,
+  "template_name": "template_name",
+  "width": width,
+  "height": height,
+  "depth": depth,
+  "add_height": add_height,
+  "add_info": "add_info",
+}
+
+const project_name = example_project
+
 fetch('/api/products/add/' + project_name, {
   method: 'POST',
   headers: {

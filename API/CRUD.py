@@ -24,7 +24,6 @@ def create_project(name, products):
     inserted_project = projects_col.find_one({"_id": inserted_id})
     return inserted_project
 
-
 def get_project_by_name(name):
     """
     Returns the project document with the given name, or None if not found.
@@ -58,7 +57,7 @@ def delete_project(name):
 
 # CRUD operations for Products
 
-def create_product(upc, drc_upc, name, count, amount, template_name, width, height, depth, add_height=None, add_info=None):
+def create_product(upc, name, count, amount, template_name, width, height, depth, add_height=None, add_info=None, drc_upc=None):
     """
     Creates a new product document with the given properties.
     Returns the inserted document's ID.
@@ -77,7 +76,9 @@ def create_product(upc, drc_upc, name, count, amount, template_name, width, heig
         "add_info": add_info,
     }
     result = products_col.insert_one(product)
-    return result.inserted_id
+    new_product_id = result.inserted_id
+    inserted_product = products_col.find_one({"_id" : new_product_id})
+    return inserted_product
 
 
 def get_product_by_upc(upc):

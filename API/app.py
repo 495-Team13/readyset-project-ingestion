@@ -155,7 +155,6 @@ def get_product_data(product_upc):
         return jsonify(error=f"Error Fetching Product {product_upc}. Status Code: 204"), 204
     
 # Create new Product Protected API endpoint 
-# [Finished]
 @app.route('/api/products/add/<project_name>', methods = ['POST'])
 @jwt_required()
 def add_new_product(project_name):
@@ -171,14 +170,24 @@ def add_new_product(project_name):
     Project : JSON Object
     '''
     product_data = request.get_json()
-    product_name = product_data['name']
     product_upc = product_data['upc']
-    CRUD.update_project(project_name, product_upc) # Add the New Product UPC to the project products array
+    product_drc_upc = product_data['drc_upc']
+    product_name = product_data['name']
+    product_count = product_data['count']
+    product_amount = product_data['amount']
+    product_template_name = product_data['template_name']
+    product_width = product_data['width']
+    product_height = product_data['height']
+    product_depth = product_data['depth']
+    product_add_height = product_data['add_height']
+    product_add_info = product_data['add_info']
+
     if get_data(project_name):
-        #Project was found, update projects product attribute with a push
-        return jsonify(data=DBClient.add_product(product, project_name)), 201
+        CRUD.update_project(project_name, product_upc) # Add the New Product UPC to the project products array
+        new_product = CRUD.create_product(product_upc, product_name, product_count, product_amount, product_template_name, product_width, product_height ,product_depth, product_add_height, product_add_info, product_drc_upc)
+        return jsonify(new_product), 200
     else:
-        return jsonify(data=f"Error when adding product {product} to {project_name}. Status Code: 400"), 400
+        return jsonify(data=f"Error when creating product {product_name} in {project_name}. Status Code: 400"), 400
 
 # Edit existing Product Protected API endpoint 
 # [In Progress]
