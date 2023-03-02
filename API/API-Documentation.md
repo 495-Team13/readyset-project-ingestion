@@ -204,7 +204,8 @@ Format of the Product Data
   "add_info": "string"
 }
 ```
-### Format of the JSON to be passed into the function (the values for the amount, and count attributes can be subdictionaries and it will work fine)
+### Format of the JSON to be passed into the function
+(the values for the amount, and count attributes can be subdictionaries and it will work fine)
 ```
 {
   "upc": upc,
