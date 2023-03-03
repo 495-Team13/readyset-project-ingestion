@@ -61,7 +61,7 @@ def get_data(project_name):
         return jsonify(message=f"Project {project_name} not found."), 400
 
 # Protected API endpoint, List all Projects
-@app.route('api/projects/all', methods=['GET'])
+@app.route('/api/projects/all', methods=['GET'])
 @jwt_required()
 def list_projects():
     projects = list(CRUD.get_all_projects())

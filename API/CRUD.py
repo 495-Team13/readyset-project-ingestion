@@ -1,16 +1,9 @@
-import pymongo
+from db import DBClient
 import json
 from bson import json_util
 
-# Replace with your MongoDB connection string
-client = pymongo.MongoClient("mongodb://admin:password@192.168.1.28:27017?authSource=admin")
-db = client["pi"]
-# Collection for Projects
-projects_col = db["projects"]
-# Collection for Products
-products_col = db["products"]
-# Collection for Templates
-templates_col = db["templates"]
+# Replace with your MongoDB connection info
+client = DBClient('192.168.1.28', 27017, 'admin', 'password', 'admin')
 
 # CRUD operations for Projects
 def create_project(name, products):
@@ -18,41 +11,31 @@ def create_project(name, products):
     Creates a new project document with the given name and products array.
     Returns the inserted project
     """
-    project = {"name": name, "products": products}
-    result = projects_col.insert_one(project)
-    inserted_id = result.inserted_id
-    inserted_project = projects_col.find_one({"_id": inserted_id})
-    return inserted_project
+    return client.add_project(name, products)
 
 def get_project_by_name(name):
     """
     Returns the project document with the given name, or None if not found.
     """
-    return projects_col.find_one({"name": name})
+    docs = client.get_projects({"name": name})
+    return docs[0] if len(docs) > 0 else None
 
 def get_all_projects():
-    return projects_col.find()
+    return client.get_projects()
 
 def update_project(name, products):
     """
     Updates the project document with the given name, setting the products array to the new value.
     Returns the Updated Project if the document was updated, or False if not found.
     """
-    result = projects_col.update_one({"name": name}, {"$addToSet": {"products": products}})
-    if result.modified_count > 0:
-        updated_project = projects_col.find_one({"name": name})
-        return updated_project
-    else:
-        return False
-
+    return client.update_project(name, {"$addToSet": {"products": products}})
 
 def delete_project(name):
     """
     Deletes the project document with the given name.
     Returns True if the document was deleted, or False if not found.
     """
-    result = projects_col.delete_one({"name": name})
-    return result.deleted_count > 0
+    return client.delete_project(name)
 
 
 # CRUD operations for Products
@@ -75,17 +58,15 @@ def create_product(upc, name, count, amount, template_name, width, height, depth
         "add_height": add_height,
         "add_info": add_info,
     }
-    result = products_col.insert_one(product)
-    new_product_id = result.inserted_id
-    inserted_product = products_col.find_one({"_id" : new_product_id})
-    return inserted_product
+    return client.add_product(product)
 
 
 def get_product_by_upc(upc):
     """
     Returns the product document with the given UPC, or None if not found.
     """
-    return products_col.find_one({"upc": upc})
+    docs = client.get_products({"upc": upc})
+    return docs[0] if len(docs) > 0 else None
 
 
 def update_product(upc, updates):
@@ -93,28 +74,21 @@ def update_product(upc, updates):
     Updates the product document with the given UPC, setting the properties in the `updates` dictionary.
     Returns True if the document was updated, or False if not found.
     """
-    result = products_col.update_one({"upc": upc}, {"$set": updates})
-    if result.modified_count > 0:
-        return products_col.find_one({"upc":upc})
-    else:
-        return None
-
+    return client.update_product(upc, {"$set": updates})
 
 def delete_product(upc):
     """
     Deletes the product document with the given UPC.
     Returns True if the document was deleted, or False if not found.
     """
-    result = products_col.delete_one({"upc": upc})
-    return result.deleted_count > 0
+    return client.delete_product(upc)
 
 def delete_product_from_project(project_name, product_upc):
     '''
     Removes the given product UPC from the project's product array.
     Returns True if the product was removed, or false if not found.
     '''
-    result = projects_col.update_one({"name": project_name}, {"$pull": {"products": {"upc": product_upc}}})
-    return result.modified_count > 0
+    return client.update_project(name, {"$pull": {"products": {"upc": product_upc}}})
 
 # CRUD operations for Templates
 
@@ -133,24 +107,21 @@ def create_template(name, type_, workflow, donor_shape, product_upc, notes, form
         "form_desc": form_desc,
         "gltf": gltf,
     }
-    result = templates_col.insert_one(template)
-    return templates_col.find_one({"_id": result.inserted_id})
-
+    return client.add_template(template)
 
 def get_template_by_name(name):
     """
     Returns the template document with the given name, or None if not found.
     """
-    return templates_col.find_one({"name": name})
-
+    docs = client.get_templates({"name": name})
+    return docs[0] if len(docs) > 0 else None
 
 def update_template(name, updates):
     """
     Updates the template document with the given name, setting the properties in the `updates` dictionary.
     Returns True if the document was updated, or False if not found.
     """
-    result = templates_col.update_one({"name": name}, {"$set": updates})
-    return result.modified_count > 0
+    return client.update_template(name, {"$set": updates})
 
 
 def delete_template(name):
@@ -158,5 +129,4 @@ def delete_template(name):
     Deletes the template document with the given name.
     Returns True if the document was deleted, or False if not found.
     """
-    result = templates_col.delete_one({"name": name})
-    return result.deleted_count > 0
+    return client.delete_template(name)
