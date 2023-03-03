@@ -18,12 +18,12 @@ app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY') #JWT Hashing Con
 jwt = JWTManager(app)
 
 #Basic Test API Endpoint to ensure it is up and running
-@app.route('/api/foo/', methods=['GET'])
+@app.route('/api/foo', methods=['GET'])
 def foo():
     return jsonify(message = "Connection to API Seccessful"), 200
 
 # Base Login endpoint
-@app.route('/api/login/', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     '''
     Login to the API with credential provided in the websites Login Page.
@@ -68,7 +68,7 @@ def list_projects():
     return jsonify(projects), 200
 
 # Create new Project Protected API endpoint
-@app.route('/api/projects/add/', methods = ['POST'])
+@app.route('/api/projects/add', methods = ['POST'])
 @jwt_required()
 def add_new_project():
     '''
@@ -89,7 +89,7 @@ def add_new_project():
         return jsonify(message=f"Project Name not Defined. "), 400
 
 # Edit existing Project Protected API endpoint
-@app.route('/api/projects/edit/', methods = ['PUT'])
+@app.route('/api/projects/edit', methods = ['PUT'])
 @jwt_required()
 def edit_project():
     '''
@@ -108,7 +108,7 @@ def edit_project():
     return jsonify(updated_project)
     
 # Delete existing Project Protected API endpoint
-@app.route('/api/projects/delete/', methods = ['DELETE'])
+@app.route('/api/projects/delete', methods = ['DELETE'])
 @jwt_required()
 def delete_project():
     '''
@@ -216,7 +216,7 @@ def edit_product(product_upc):
 
 # Delete existing Product Protexted API endpoint 
 # FIXME need to add delete the product upc from the project products array as well
-@app.route('/api/products/delete/', methods = ['DELETE'])
+@app.route('/api/products/delete', methods = ['DELETE'])
 @jwt_required()
 def delete_product_api():
     '''Function to delete a product based of the products UPC
@@ -266,7 +266,7 @@ def get_template_data(template_name):
         return jsonify(message=f"Failed to Fetch Template: {template_name}."), 404
 
 # Create new Template Protected API endpoint
-@app.route('/api/templates/add/', methods = ['POST'])
+@app.route('/api/templates/add', methods = ['POST'])
 @jwt_required()
 def add_new_template():
     '''Function to add a new blank template based on a template name
