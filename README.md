@@ -1,1 +1,2 @@
-Starting on the Flask API, currently the program will only work on my virtual environment because of python dependencies but should be easy to port over to the server once I get something up and running.
+# Testing
+For this sprint, we did manual testing.  API was tested using Postman.  A local MongoDB instance was used for testing the database module.
