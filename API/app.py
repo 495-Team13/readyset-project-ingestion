@@ -319,7 +319,7 @@ def edit_template(template_name):
         return jsonify(message=f"Template with name {template_name} not found"), 404
     
 
-# Delete existing Template Protexted API endpoint
+# Delete existing Template Protected API endpoint
 @app.route('/api/templates/delete/<template_name>', methods = ['DELETE'])
 @jwt_required()
 def delete_template(template_name):
@@ -341,6 +341,46 @@ def delete_template(template_name):
     else:
         #Failed Delete (No Content)
         return jsonify(data=f"Delete Operation failed on project:{template_name}. 204 Status Code."), 204
+
+#############################   #Export API Endpoints     #############################
+
+# Export document to CSV Protected API endpoint
+@app.route('/api/export/<collection>', methods = ['GET'])
+@jwt_required()
+def export_csv(collection):
+    '''Function to export a document from a collection based on a unique ID
+
+    Paramter
+    --------
+    collection : str
+
+    Returns
+    --------
+    csv : Response
+    '''
+
+    doc_id = request.args.get('id')
+    if doc_id is None
+        return jsonify(message="Document ID not provided"), 400
+    doc_id_field = request.args.get('id_field')
+    if doc_id_field is None:
+        return jsonify(message="Document ID field is not provided"), 400
+
+    get_doc_func = getattr(CRUD, f'get_{collection}_by_{doc_id_field}', None)
+    if get_doc_func is None:
+        return jsonify(message=f"No function to get {collection} by {doc_id_field}"), 400
+
+    export_func = getattr(export, f'export_{collection}', None)
+    if export_func is None:
+        return jsonify(message=f"No function to export {collection}"), 400
+
+    doc = get_doc_func(doc_id)
+    if doc is None:
+        return jsonify(message=f"{collection} with {doc_id_field} {doc_id} not found"), 404
+    csv_str = export_func(doc)
+
+    return Response(csv_str, mimetype='text/csv', headers={'Content-disposition': f'attachment; filename={collection}_{doc_id}.csv'})
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
