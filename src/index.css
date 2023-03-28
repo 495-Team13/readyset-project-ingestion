@@ -34,7 +34,7 @@ input {
 
 #dark {
   background-color: #403837;
-  color: green;
+  color: white;
 }
 
 #light {
@@ -93,7 +93,7 @@ input {
 
 /* element button styling */
 button:hover.login {
-  border: 1px solid green;
+  border: 10px solid green;
 }
 
 button.login {
