@@ -14,7 +14,7 @@ import CRUD
 
 load_dotenv() #Init Environment Variables
 app = Flask(__name__) #Flask API Init
-app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY') #JWT Hashing Configuration
+app.config['JWT_SECRET_KEY'] = "temp-key" #JWT Hashing Configuration
 jwt = JWTManager(app)
 
 #Basic Test API Endpoint to ensure it is up and running
@@ -34,7 +34,7 @@ def login():
     '''
     username = request.json.get('username', None)
     password = request.json.get('password', None)
-    if username != os.environ.get('API_USERNAME') or password != os.environ.get('API_PASSWORD'):
+    if username != "root" or password != "toor":
         return jsonify(error='Invalid username or password'), 401 #401 Unauthorized Request
     access_token = create_access_token(identity=username)
     return jsonify(access_token=access_token), 200  #Resource retrieved succefully (Unique JWT for each login session)
@@ -42,6 +42,12 @@ def login():
 #############################    #Projects API Endpoints     #############################
 
 # Protected API endpoint for, Get Project
+
+@app.route('/api/testjwt', methods=['GET'])
+@jwt_required()
+def test_jwt():
+	return jsonify("success"), 200
+
 @app.route('/api/projects/get/<project_name>', methods=['GET'])
 @jwt_required()
 def get_data(project_name):
