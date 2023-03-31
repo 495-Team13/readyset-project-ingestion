@@ -14,7 +14,6 @@ export const Projects = (props) => {
         ];
 
     const getProjects = () => {
-        console.log('in projects', localStorage.getItem('access_token'));
         /* old request
         fetch('http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all', {
             method: 'GET',
@@ -41,6 +40,7 @@ export const Projects = (props) => {
             headers: myHeaders,
             redirect: "follow"   
         };
+        console.log('in projects', myHeaders, requestOptions);
         fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all",requestOptions)          
           .then(response => {
             data = response.json;
