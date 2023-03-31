@@ -31,7 +31,7 @@ export const Projects = (props) => {
           });
           */
         // new request
-        const token = "Bearer " + localStorage.getItem("access_token");
+        const token = "Bearer " + JSON.parse(localStorage.getItem("access_token"));
         let myHeaders = new Headers({
             "Authorization":token
         });
