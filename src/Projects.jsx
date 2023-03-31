@@ -34,7 +34,7 @@ export const Projects = (props) => {
         // new request
         var myHeaders = new Headers();
         const token = "Bearer " + localStorage.getItem("access_token");
-        myHeaders.append("Authorization",token);
+        myHeaders.append("Authentication",token);
         // var raw = null;
         var requestOptions = {
             method: "GET",
