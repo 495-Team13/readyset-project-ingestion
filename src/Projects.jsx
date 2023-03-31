@@ -38,7 +38,7 @@ export const Projects = (props) => {
         // var raw = null;
         var requestOptions = {
             method: "GET",
-            headers: myHeaders,
+            headers: {"Authorization":token},
             redirect: "follow"   
         };
         console.log('in projects', myHeaders, requestOptions);
