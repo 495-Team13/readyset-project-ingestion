@@ -8,13 +8,14 @@ export const Projects = (props) => {
     const [value, setValue] = useState('');
     const [theme, setTheme] = useState(props.themeState);
     var data = [
-            { "project_name": "project1" },
-            { "project_name": "project11" },
-            { "project_name": "project26" }
+            { "name": "project1" },
+            { "name": "project11" },
+            { "name": "project26" }
         ];
 
     const getProjects = () => {
         console.log('in projects', localStorage.getItem('access_token'));
+        /* old request
         fetch('http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all', {
             method: 'GET',
             headers: {
@@ -22,6 +23,25 @@ export const Projects = (props) => {
               'Authorization': 'Bearer ' + localStorage.getItem('access_token')
             }
           })
+          .then(response => {
+            data = response.json;
+            return data;
+          })
+          .catch(error => {
+            props.onSwitch('Error', 'Error ' + error, theme);
+          });
+          */
+        // new request
+        var myHeaders = new Headers();
+        const token = "Bearer " + localStorage.getItem("access_token");
+        myHeaders.append("Authorization",token);
+        // var raw = null;
+        var requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+            redirect: "follow"   
+        };
+        fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all",requestOptions)          
           .then(response => {
             data = response.json;
             return data;
@@ -50,11 +70,11 @@ export const Projects = (props) => {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              name: item.project_name
+              name: item.name
             })
           })
           .then(response => {
-            console.log(item.project_name + " successfully deleted.");
+            console.log(item.name + " successfully deleted.");
           })
           .catch(error => {
             props.onSwitch('Error', error, theme);
@@ -80,14 +100,14 @@ export const Projects = (props) => {
                                     {getProjects()}
                                     {data.filter(item => {
                                         const searchTerm = value.toLowerCase();
-                                        const project_name = item.project_name.toLowerCase();
+                                        const name = item.name.toLowerCase();
 
-                                        return (searchTerm && project_name.startsWith(searchTerm)) || value === '';
+                                        return (searchTerm && name.startsWith(searchTerm)) || value === '';
                                     }).map((item)=> (
-                                        <div className="dropdown-row"  key={item.project_name}>
+                                        <div className="dropdown-row"  key={item.name}>
                                             <table><tbody><tr>
-                                                <td><p>{item.project_name}</p></td>
-                                                <td><button className="projects" id="green" onClick={()=>onSearch(item.project_name)}>Edit</button></td>
+                                                <td><p>{item.name}</p></td>
+                                                <td><button className="projects" id="green" onClick={()=>onSearch(item.name)}>Edit</button></td>
                                                 <td><button className="projects" id="red" onClick={()=>deleteButton}>Delete</button></td>
                                             </tr></tbody></table>
                                         </div>
