@@ -31,9 +31,10 @@ export const Projects = (props) => {
           });
           */
         // new request
-        var myHeaders = new Headers();
         const token = "Bearer " + localStorage.getItem("access_token");
-        myHeaders.append("Authorization",token);
+        let myHeaders = new Headers({
+            "Authorization":token
+        });
         // var raw = null;
         var requestOptions = {
             method: "GET",
