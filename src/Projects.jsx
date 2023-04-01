@@ -39,11 +39,13 @@ export const Projects = (props) => {
         fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
         .then(response => response.json())
         .then(data => {
-            <ol>
-                {data.map(item => {
-                 <li key={item.name}>{item.name}</li>
-                })}
-            </ol>
+            return(
+                <ol>
+                    {data.map(item => {
+                     <li key={item.name}>{item.name}</li>
+                    })}
+                </ol>
+            );
         });
     }
 
