@@ -26,7 +26,6 @@ export const EditProject = (props) => {
         }
     }
 
-    console.log("out", data);
     const [recordName, setRecordName] = useState('');
     const [projectName, setProjectName] = useState('');
     const [value, setValue] = useState('Search...');
@@ -106,11 +105,11 @@ export const EditProject = (props) => {
                         </tr></tbody></table></td>
                     </tr>
                     <tr>
-                        <td>{console.log("in", data)}
+                        <td>
                             {loadProducts().products.filter(record => {
                                 const searchTerm = value.toLowerCase();
                                 const record_name = record.toLowerCase();
-                                return searchTerm && record_name.startsWith(searchTerm) || value === '' || value === 'Search...';
+                                return (searchTerm && record_name.startsWith(searchTerm)) || (value === '' || value === 'Search...');
                             }).map((item)=> (
                                 <div className="dropdown-row" key={item}>
                                     <table><tbody><tr>
