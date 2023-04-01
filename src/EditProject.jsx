@@ -1,26 +1,31 @@
 import React, { useState } from "react";
 import { MainHeader } from "./MainHeader";
-var data = "default";
+
 export const EditProject = (props) => {
-    const obj = JSON.parse(localStorage.getItem("access_token"));
-    const token = "Bearer " + obj.access_token;
-    var requestOptions = {
-        method: "GET",
-        headers: {"Authorization":token},
-        redirect: "follow"
-    };
-    if(props.stateVars === "Untitled") {
-        data = "default"; 
-    } else {
-        console.log("before",data)
-        const str = 'http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/get/' + props.stateVars;
-        fetch(str, requestOptions)
-          .then(response => response.json())
-          .then(fetchData => {
-                data = fetchData
-          });
-      console.log("after",data)
+    const loadProducts = () => {
+        var data = "default";   
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        var requestOptions = {
+            method: "GET",
+            headers: {"Authorization":token},
+            redirect: "follow"
+        };
+        if(props.stateVars === "Untitled") {
+            data = "default"; 
+        } else {
+            console.log("before",data)
+            const str = 'http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/get/' + props.stateVars;
+            fetch(str, requestOptions)
+              .then(response => response.json())
+              .then(fetchData => {
+                    data = fetchData
+              });
+            console.log("after",data)
+            return data;
+        }
     }
+
     console.log("out", data);
     const [recordName, setRecordName] = useState('');
     const [projectName, setProjectName] = useState('');
@@ -102,7 +107,7 @@ export const EditProject = (props) => {
                     </tr>
                     <tr>
                         <td>{console.log("in", data)}
-                            {data.products.filter(record => {
+                            {loadProducts().products.filter(record => {
                                 const searchTerm = value.toLowerCase();
                                 const record_name = record.toLowerCase();
                                 return searchTerm && record_name.startsWith(searchTerm) || value === '' || value === 'Search...';
