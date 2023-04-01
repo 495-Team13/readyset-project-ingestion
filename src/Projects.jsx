@@ -65,7 +65,7 @@ export const Projects = (props) => {
                         <div className="search-container"> 
                             <div className="dropdown">
                                 <ol>
-                                   {data.map(item => {<li key={item.name}>{item.name}</li>})}
+                                   {data.map(item => { return (<li key={item.name}>{item.name}</li>) })}
                                 </ol>
                             </div> 
                          </div>
