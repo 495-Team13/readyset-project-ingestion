@@ -20,6 +20,7 @@ export const EditProject = (props) => {
                 data = fetchData
           });
     }
+    console.log(data);
     const [recordName, setRecordName] = useState('');
     const [projectName, setProjectName] = useState('');
     const [value, setValue] = useState('Search...');
