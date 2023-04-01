@@ -14,7 +14,7 @@ fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", 
                 .then(fetchData => {
                    data = fetchData
                 });
-console.log("data",data);
+
 export const Projects = (props) => {
 
     const [value, setValue] = useState('');
@@ -67,7 +67,14 @@ export const Projects = (props) => {
                         <div className="search-container"> 
                             <div className="dropdown">
                                 <ol>
-                                   {data.map(item => { return (<li key={item.name}>{item.name}</li>) })}
+                                   {data.map(item => { return 
+                                        (
+                                            <li key={item.name}>
+                                                <div>{item.name}
+                                                <button className="projects" id="green" onClick={()=>onSearch(item.name)}>Edit</button>
+                                                <button className="projects" id="red" onClick={()=>deleteButton}>Delete</button></div>
+                                            </li>
+                                        ) })}
                                 </ol>
                             </div> 
                          </div>
