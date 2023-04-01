@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { MainHeader } from "./MainHeader";
-var data;
 
 export const EditProject = (props) => {
+    const [data, setData] = useState();
     const obj = JSON.parse(localStorage.getItem("access_token"));
     const token = "Bearer " + obj.access_token;
     var requestOptions = {
@@ -11,13 +11,13 @@ export const EditProject = (props) => {
         redirect: "follow"
     };
     if(props.stateVars === "Untitled") {
-        data = ""; 
+        setData(''); 
     } else {
         const str = 'http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/get/' + props.stateVars;
         fetch(str, requestOptions)
           .then(response => response.json())
           .then(fetchData => {
-                data = fetchData
+                setData(fetchData)
                 console.log(data)
           });
     }
