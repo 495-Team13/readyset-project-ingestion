@@ -13,6 +13,7 @@ const data = fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/pr
                 .then(fetchData => {
                    return fetchData
                 });
+console.log("data",data);
 export const Projects = (props) => {
 
     const [value, setValue] = useState('');
