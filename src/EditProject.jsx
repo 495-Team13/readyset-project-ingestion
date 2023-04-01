@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { MainHeader } from "./MainHeader";
 
 export const EditProject = (props) => {
-    async const loadHelper = () => {
+    const loadHelper = () => {
         var data = "default";   
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
@@ -23,7 +23,7 @@ export const EditProject = (props) => {
               });
         }
     }
-    const loadProducts = () => {
+    ansyc function loadProducts() {
         var data = await loadProducts();
         return data;
     }
