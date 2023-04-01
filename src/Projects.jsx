@@ -66,16 +66,20 @@ export const Projects = (props) => {
                         <td>
                         <div className="search-container"> 
                             <div className="dropdown">
-                                <ol>
-                                   {data.map(item => { return 
-                                        (
-                                            <li key={item.name}>
-                                                {item.name}
-                                                <button className="projects" id="green" onClick={()=>onSearch(item.name)}>Edit</button>
-                                                <button className="projects" id="red" onClick={()=>deleteButton}>Delete</button>
-                                            </li>
-                                        ) })}
-                                </ol>
+                                    {data.filter(item => {
+                                        const searchTerm = value.toLowerCase();
+                                        const name = item.name.toLowerCase();
+
+                                        return (searchTerm && name.startsWith(searchTerm)) || value === '';
+                                    }).map((item) => (
+                                        <div className="dropdown-row"  key={item.name}>
+                                            <table><tbody><tr>
+                                                <td><p>{item.name}</p></td>
+                                                <td><button className="projects" id="green" onClick={()=>onSearch(item.name)}>Edit</button></td>
+                                                <td><button className="projects" id="red" onClick={()=>deleteButton}>Delete</button></td>
+                                            </tr></tbody></table>
+                                        </div>
+                                    ))} 
                             </div> 
                          </div>
                          </td>
