@@ -30,8 +30,8 @@ export const Projects = (props) => {
                              <li key={item.name}>{item.name}</li>
                             })}
                         </ol>
-                    );
-            });
+                    )
+            })
         );
     }
 
