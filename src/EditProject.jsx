@@ -100,12 +100,12 @@ export const EditProject = (props) => {
                         </tr></tbody></table></td>
                     </tr>
                     <tr>
-                        <td>{data.products.filter(item => {
+                        <td>{data.products.filter(record => {
                                 const searchTerm = value.toLowerCase();
-                                const item = item.toLowerCase();
+                                const record_name = record.toLowerCase();
                                 return searchTerm && record_name.startsWith(searchTerm) || value === '' || value === 'Search...';
                             }).map((item)=> (
-                                <div className="dropdown-row" key={item.record_name}>
+                                <div className="dropdown-row" key={item}>
                                     <table><tbody><tr>
                                         <td><input className="editproject" type="checkbox" onClick={()=>selectRecord(item)}></input></td>
                                         <td>{item}</td>  
