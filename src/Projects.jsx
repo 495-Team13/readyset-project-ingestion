@@ -38,11 +38,7 @@ export const Projects = (props) => {
         // new fetch from tutorial
         fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
         .then(response => response.json())
-        .then(data => {
-            console.log(data)
-            return data;
-        });
-        
+        .then(data => return data;);
     }
 
     const changeTheme =(newTheme) => {
@@ -91,8 +87,15 @@ export const Projects = (props) => {
                         <td>
                         <div className="search-container"> 
                                 <div className="dropdown">
-                                    {data = getProjects()}
-                                    {data.filter(item => {
+                                    {
+                                        data = getProjects();
+                                        console.log(data);
+
+                                        for (item of data) {
+                                           console.log(item.name);   
+                                        }
+                                    }
+                                    {console.log("old filtering");/*data.filter(item => {
                                         const searchTerm = value.toLowerCase();
                                         const name = item.name.toLowerCase();
 
@@ -105,7 +108,7 @@ export const Projects = (props) => {
                                                 <td><button className="projects" id="red" onClick={()=>deleteButton}>Delete</button></td>
                                             </tr></tbody></table>
                                         </div>
-                                    ))} 
+                                    ))*/} 
                                 </div> 
                             </div>
                          </td>
