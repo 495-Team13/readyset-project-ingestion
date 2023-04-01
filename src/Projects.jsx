@@ -14,39 +14,20 @@ export const Projects = (props) => {
         ];
 
     const getProjects = () => {
-        /* old request
-        fetch('http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all', {
-            method: 'GET',
-            headers: {
-                // ??? changed to token from login ???
-              'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-            }
-          })
-          .then(response => {
-            data = response.json;
-            return data;
-          })
-          .catch(error => {
-            props.onSwitch('Error', 'Error ' + error, theme);
-          });
-          */
-        // new request
         const obj = JSON.parse(localStorage.getItem("access_token"));
-        console.log(obj);
         const token = "Bearer " + obj.access_token;
-        let myHeaders = new Headers({
-            "Authorization":token
-        });
-        // var raw = null;
+
         var requestOptions = {
             method: "GET",
             headers: {"Authorization":token},
             redirect: "follow"   
         };
-        console.log('in projects', myHeaders, requestOptions);
+        
+        console.log('in projects', requestOptions);
         fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all",requestOptions)          
           .then(response => {
             data = response.json;
+            console.log(data);
             return data;
           })
           .catch(error => {
