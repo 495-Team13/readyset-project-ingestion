@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MainHeader } from "./MainHeader";
 
 export const EditProject = (props) => {
-    const loadHelper = () => {
-        var data = "default";   
+    const [products, setData] = useState([]);
+    useEffect(() => {
+        var mounted = true;
+        
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
         var requestOptions = {
@@ -19,14 +21,13 @@ export const EditProject = (props) => {
               .then(response => response.json())
               .then(fetchData => {
                     console.log(fetchData)
-                    return fetchData
+                    if(mounted) {
+                        setProducts(fetchData.products);   
+                    }
               });
         }
-    }
-    ansyc function loadProducts() {
-        var data = await loadProducts();
-        return data;
-    }
+        return () => mounted = false;
+    }, [])
 
     const [recordName, setRecordName] = useState('');
     const [projectName, setProjectName] = useState('');
@@ -108,7 +109,7 @@ export const EditProject = (props) => {
                     </tr>
                     <tr>
                         <td>
-                            {loadProducts().products.filter(record => {
+                            {products.filter(record => {
                                 const searchTerm = value.toLowerCase();
                                 const record_name = record.toLowerCase();
                                 return (searchTerm && record_name.startsWith(searchTerm)) || (value === '' || value === 'Search...');
