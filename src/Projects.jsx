@@ -8,10 +8,11 @@ var requestOptions = {
     headers: {"Authorization":token},
     redirect: "follow"   
 };
-const data = fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
+var data;
+fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
                 .then(response => response.json())
                 .then(fetchData => {
-                   return fetchData
+                   data = fetchData
                 });
 console.log("data",data);
 export const Projects = (props) => {
