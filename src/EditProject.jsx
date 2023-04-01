@@ -14,15 +14,14 @@ export const EditProject = (props) => {
         if(props.stateVars === "Untitled") {
             data = "default"; 
         } else {
-            console.log("before",data)
             const str = 'http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/get/' + props.stateVars;
             fetch(str, requestOptions)
               .then(response => response.json())
               .then(fetchData => {
-                    data = fetchData
+                    console.log(fetchData)
+                    return fetchData
               });
-            console.log("after",data)
-            return data;
+
         }
     }
 
