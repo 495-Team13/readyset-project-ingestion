@@ -17,11 +17,11 @@ export const EditProject = (props) => {
         fetch(str, requestOptions)
           .then(response => response.json())
           .then(fetchData => {
-                console.log(data)
                 data = fetchData
+                console.log(data)
           });
     }
-    console.log(data);
+    console.log("out", data);
     const [recordName, setRecordName] = useState('');
     const [projectName, setProjectName] = useState('');
     const [value, setValue] = useState('Search...');
@@ -101,7 +101,8 @@ export const EditProject = (props) => {
                         </tr></tbody></table></td>
                     </tr>
                     <tr>
-                        <td>{data.products.filter(record => {
+                        <td>{console.log("in", data)}
+                            {data.products.filter(record => {
                                 const searchTerm = value.toLowerCase();
                                 const record_name = record.toLowerCase();
                                 return searchTerm && record_name.startsWith(searchTerm) || value === '' || value === 'Search...';
