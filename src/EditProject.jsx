@@ -1,26 +1,25 @@
 import React, { useState } from "react";
 import { MainHeader } from "./MainHeader";
 
-const obj = JSON.parse(localStorage.getItem("access_token"));
-const token = "Bearer " + obj.access_token;
-var requestOptions = {
-    method: "GET",
-    headers: {"Authorization":token},
-    redirect: "follow"
-};
-var data;
-if(props.stateVars === "Untitled") {
-    data = ""; 
-} else {
-    const str = 'http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/get/' + props.stateVars;
-    fetch(str, requestOptions)
+export const EditProject = (props) => {
+    const obj = JSON.parse(localStorage.getItem("access_token"));
+    const token = "Bearer " + obj.access_token;
+    var requestOptions = {
+        method: "GET",
+        headers: {"Authorization":token},
+        redirect: "follow"
+    };
+    var data;
+    if(props.stateVars === "Untitled") {
+        data = ""; 
+    } else {
+        const str = 'http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/get/' + props.stateVars;
+        fetch(str, requestOptions)
           .then(response => response.json())
           .then(fetchData => {
                 data = fetchData
           });
-}
-
-export const EditProject = (props) => {
+    }
     const [recordName, setRecordName] = useState('');
     const [projectName, setProjectName] = useState('');
     const [value, setValue] = useState('Search...');
