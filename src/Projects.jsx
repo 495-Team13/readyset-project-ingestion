@@ -22,7 +22,7 @@ export const Projects = (props) => {
         console.log('in projects', requestOptions);
         fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all",requestOptions)          
           .then(response => {
-            const res = await response.json();
+            const res = response.json();
             console.log(res);
             var data = [{"name":"filtering json response should not be hard"}];
             console.log(data);
