@@ -7,12 +7,8 @@ export const Projects = (props) => {
 
     const [value, setValue] = useState('');
     const [theme, setTheme] = useState(props.themeState);
-    var data = [
-            { "name": "project1" },
-            { "name": "project11" },
-            { "name": "project26" }
-        ];
-
+    var data;
+    
     const getProjects = () => {
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
@@ -26,7 +22,7 @@ export const Projects = (props) => {
         console.log('in projects', requestOptions);
         fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all",requestOptions)          
           .then(response => {
-            data = response.json();
+            const data = response.json();
             console.log(data);
             return data;
           })
@@ -81,7 +77,7 @@ export const Projects = (props) => {
                         <td>
                         <div className="search-container"> 
                                 <div className="dropdown">
-                                    {getProjects()}
+                                    {data = getProjects()}
                                     {data.filter(item => {
                                         const searchTerm = value.toLowerCase();
                                         const name = item.name.toLowerCase();
