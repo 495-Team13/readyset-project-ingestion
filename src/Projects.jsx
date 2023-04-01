@@ -1,37 +1,23 @@
 import React, { useState } from "react";
 import { MainHeader } from "./MainHeader";
-/* placeholder data in form of JSON file, will be replaced with the same information taken from database 
-var data = require("./test-data.json"); */
 
+const obj = JSON.parse(localStorage.getItem("access_token"));
+const token = "Bearer " + obj.access_token;
+var requestOptions = {
+    method: "GET",
+    headers: {"Authorization":token},
+    redirect: "follow"   
+};
+const data = fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
+                .then(response => response.json())
+                .then(fetchData => {
+                   return fetchData
+                });
 export const Projects = (props) => {
 
     const [value, setValue] = useState('');
     const [theme, setTheme] = useState(props.themeState);
     
-    const getProjects = () => {
-        const obj = JSON.parse(localStorage.getItem("access_token"));
-        const token = "Bearer " + obj.access_token;
-        var data;
-
-        var requestOptions = {
-            method: "GET",
-            headers: {"Authorization":token},
-            redirect: "follow"   
-        };
-        
-        console.log('in projects', requestOptions);
-        fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
-                .then(response => response.json())
-                .then(fetchData => {
-                   data = fetchData
-                });
-        return (
-            <ol>
-                {data.map(item => {<li key={item.name}>{item.name}</li>})}
-            </ol>
-        );
-    }
-
     const changeTheme =(newTheme) => {
         setTheme(newTheme);
     }
@@ -78,7 +64,9 @@ export const Projects = (props) => {
                         <td>
                         <div className="search-container"> 
                             <div className="dropdown">
-                                {getProjects()}
+                                <ol>
+                                   {data.map(item => {<li key={item.name}>{item.name}</li>})}
+                                </ol>
                             </div> 
                          </div>
                          </td>
