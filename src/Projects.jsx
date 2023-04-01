@@ -20,33 +20,19 @@ export const Projects = (props) => {
         };
         
         console.log('in projects', requestOptions);
-        // old fetch
-        /*fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all",requestOptions)          
-          .then(response => {
-            const res = response.json();
-            console.log(res);
-            var data = [{"name":"filtering json response should not be hard"}];
-            console.log(data);
-            res.forEach((item) => {
-               console.log(item.name); 
+        return(
+            fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    return(
+                        <ol>
+                            {data.map(item => {
+                             <li key={item.name}>{item.name}</li>
+                            })}
+                        </ol>
+                    );
             });
-            return data;
-          })
-          .catch(error => {
-            props.onSwitch('Error', 'Error ' + error, theme);
-          });*/
-        // new fetch from tutorial
-        fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
-        .then(response => response.json())
-        .then(data => {
-            return(
-                <ol>
-                    {data.map(item => {
-                     <li key={item.name}>{item.name}</li>
-                    })}
-                </ol>
-            );
-        });
+        );
     }
 
     const changeTheme =(newTheme) => {
@@ -95,7 +81,7 @@ export const Projects = (props) => {
                         <td>
                         <div className="search-container"> 
                             <div className="dropdown">
-                                {data = getProjects()}
+                                {getProjects()}
                             </div> 
                          </div>
                          </td>
