@@ -70,9 +70,9 @@ export const Projects = (props) => {
                                    {data.map(item => { return 
                                         (
                                             <li key={item.name}>
-                                                <div>{item.name}
+                                                {item.name}
                                                 <button className="projects" id="green" onClick={()=>onSearch(item.name)}>Edit</button>
-                                                <button className="projects" id="red" onClick={()=>deleteButton}>Delete</button></div>
+                                                <button className="projects" id="red" onClick={()=>deleteButton}>Delete</button>
                                             </li>
                                         ) })}
                                 </ol>
