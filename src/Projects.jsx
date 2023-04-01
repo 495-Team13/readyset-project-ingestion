@@ -20,19 +20,11 @@ export const Projects = (props) => {
         };
         
         console.log('in projects', requestOptions);
-        return(
-            fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
+        fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
                 .then(response => response.json())
-                .then(data => {
-                    return(
-                        <ol>
-                            {data.map(item => {
-                             <li key={item.name}>{item.name}</li>
-                            })}
-                        </ol>
-                    )
-            })
-        );
+                .then(fetchData => {
+                    data = fetchData
+                });
     }
 
     const changeTheme =(newTheme) => {
@@ -82,6 +74,9 @@ export const Projects = (props) => {
                         <div className="search-container"> 
                             <div className="dropdown">
                                 {getProjects()}
+                                <ol>
+                                    {data.map(item => {<li key={item.name}>{item.name}</li>})}
+                                 </ol>
                             </div> 
                          </div>
                          </td>
