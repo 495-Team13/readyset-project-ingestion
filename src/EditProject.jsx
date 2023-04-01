@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MainHeader } from "./MainHeader";
 
 export const EditProject = (props) => {
-    const [products, setData] = useState([]);
+    const [products, setProducts] = useState([]);
     useEffect(() => {
         var mounted = true;
         
@@ -14,7 +14,7 @@ export const EditProject = (props) => {
             redirect: "follow"
         };
         if(props.stateVars === "Untitled") {
-            data = "default"; 
+            setProducts("default"); 
         } else {
             const str = 'http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/get/' + props.stateVars;
             fetch(str, requestOptions)
