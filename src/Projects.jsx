@@ -38,7 +38,7 @@ export const Projects = (props) => {
         // new fetch from tutorial
         fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
         .then(response => response.json())
-        .then(data => console.log(data);
+        .then(data => console.log(data));
     }
 
     const changeTheme =(newTheme) => {
