@@ -30,7 +30,7 @@ export const Projects = (props) => {
                     data.append([key,value]);
                     console.log("appended");
                 }
-            }
+            });
             console.log(data);
             return data;
           })
