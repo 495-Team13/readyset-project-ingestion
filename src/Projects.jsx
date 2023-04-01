@@ -87,9 +87,9 @@ export const Projects = (props) => {
                         <td>
                         <div className="search-container"> 
                             <div className="dropdown">
-                                {data = getProjects();}
-                                {console.log(data);}
-                                {for (item of data) {console.log(item.name);}}   
+                                {data = getProjects()}
+                                {console.log(data)}
+                                {for (item of data) {console.log(item.name)}}   
                             </div> 
                          </div>
                          </td>
