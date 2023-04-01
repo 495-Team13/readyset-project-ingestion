@@ -22,7 +22,15 @@ export const Projects = (props) => {
         console.log('in projects', requestOptions);
         fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all",requestOptions)          
           .then(response => {
-            const data = response.json();
+            const res = response.json();
+            var data;
+            Object.entries(res).forEach(([key,value]) => {
+                console.log(key,value);
+                if(key == "name") {
+                    data.append([key,value]);
+                    console.log("appended");
+                }
+            }
             console.log(data);
             return data;
           })
