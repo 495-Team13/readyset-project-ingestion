@@ -23,13 +23,9 @@ export const Projects = (props) => {
         fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all",requestOptions)          
           .then(response => {
             const res = response.json();
-            var data;
-            Object.entries(res).forEach(([key,value]) => {
-                console.log(key,value);
-                if(key == "name") {
-                    data.append([key,value]);
-                    console.log("appended");
-                }
+            var data = [{"name":"filtering json response should not be hard"}];
+            res.forEach((item) => {
+               console.log(item.name); 
             });
             console.log(data);
             return data;
