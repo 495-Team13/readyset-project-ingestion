@@ -26,7 +26,7 @@ export const Projects = (props) => {
         console.log('in projects', requestOptions);
         fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all",requestOptions)          
           .then(response => {
-            data = response.json;
+            data = response.json();
             console.log(data);
             return data;
           })
