@@ -25,7 +25,11 @@ export const Projects = (props) => {
                 .then(fetchData => {
                    data = fetchData
                 });
-        return data;
+        return (
+            <ol>
+                data.map(item => {<li key={item.name}>{item.name}</li>})
+            </ol>
+        );
     }
 
     const changeTheme =(newTheme) => {
@@ -74,10 +78,7 @@ export const Projects = (props) => {
                         <td>
                         <div className="search-container"> 
                             <div className="dropdown">
-                                {const data = getProjects()}
-                                <ol>
-                                    {data.map(item => {<li key={item.name}>{item.name}</li>})}
-                                 </ol>
+                                {getProjects()}
                             </div> 
                          </div>
                          </td>
