@@ -27,7 +27,7 @@ export const Projects = (props) => {
                 });
         return (
             <ol>
-                data.map(item => {<li key={item.name}>{item.name}</li>})
+                {data.map(item => {<li key={item.name}>{item.name}</li>})}
             </ol>
         );
     }
