@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MainHeader } from "./MainHeader";
+var data;
 
 export const EditProject = (props) => {
     const obj = JSON.parse(localStorage.getItem("access_token"));
@@ -9,7 +10,6 @@ export const EditProject = (props) => {
         headers: {"Authorization":token},
         redirect: "follow"
     };
-    var data;
     if(props.stateVars === "Untitled") {
         data = ""; 
     } else {
