@@ -38,7 +38,13 @@ export const Projects = (props) => {
         // new fetch from tutorial
         fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
         .then(response => response.json())
-        .then(data => {return data;});
+        .then(data => {
+            <ol>
+                {data.map(item => {
+                 <li key={item.name}>{item.name}</li>
+                })}
+            </ol>
+        });
     }
 
     const changeTheme =(newTheme) => {
@@ -88,8 +94,6 @@ export const Projects = (props) => {
                         <div className="search-container"> 
                             <div className="dropdown">
                                 {data = getProjects()}
-                                {console.log(data)}
-                                {for (item of data) {console.log(item.name)}}   
                             </div> 
                          </div>
                          </td>
