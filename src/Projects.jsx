@@ -20,7 +20,8 @@ export const Projects = (props) => {
         };
         
         console.log('in projects', requestOptions);
-        fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all",requestOptions)          
+        // old fetch
+        /*fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all",requestOptions)          
           .then(response => {
             const res = response.json();
             console.log(res);
@@ -33,7 +34,11 @@ export const Projects = (props) => {
           })
           .catch(error => {
             props.onSwitch('Error', 'Error ' + error, theme);
-          });
+          });*/
+        // new fetch from tutorial
+        fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
+        .then(response => response.json())
+        .then(data => console.log(data);
     }
 
     const changeTheme =(newTheme) => {
