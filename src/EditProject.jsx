@@ -17,6 +17,7 @@ export const EditProject = (props) => {
         fetch(str, requestOptions)
           .then(response => response.json())
           .then(fetchData => {
+                console.log(data)
                 data = fetchData
           });
     }
