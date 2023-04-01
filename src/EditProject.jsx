@@ -1,35 +1,30 @@
 import React, { useState } from "react";
 import { MainHeader } from "./MainHeader";
 
+const obj = JSON.parse(localStorage.getItem("access_token"));
+const token = "Bearer " + obj.access_token;
+var requestOptions = {
+    method: "GET",
+    headers: {"Authorization":token},
+    redirect: "follow"
+};
+var data;
+if(props.stateVars === "Untitled") {
+    data = ""; 
+} else {
+    const str = 'http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/get/' + props.stateVars;
+    fetch(str, requestOptions)
+          .then(response => response.json())
+          .then(fetchData => {
+                data = fetchData
+          });
+}
+
 export const EditProject = (props) => {
     const [recordName, setRecordName] = useState('');
     const [projectName, setProjectName] = useState('');
     const [value, setValue] = useState('Search...');
     const [theme, setTheme] = useState(props.themeState);
-    const data = [
-        { "record_name": "record1" },
-        { "record_name": "record11" },
-        { "record_name": "record26" }
-    ]
-
-    const loadProject = () => {
-        if(props.stateVars === "Untitled") {
-            return; 
-        }
-        const str = 'http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/get' + props.stateVars;
-        fetch(str, {
-            method: 'GET',
-            headers: {
-              'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-            }
-          })
-          .then(response => {
-            data = response.body;
-          })
-          .catch(error => {
-            props.onSwitch('Error', error, theme);
-          });
-    }
 
     const changeTheme = (newTheme) => {
         setTheme(newTheme);
@@ -84,7 +79,6 @@ export const EditProject = (props) => {
 
     return(
         <div className="background" id={theme}>
-            {loadProject()}
             <MainHeader current_theme={theme} switchTheme={changeTheme} onSwitch={(stateName, stateVars, theme) => props.onSwitch(stateName, stateVars, theme)} />
             <table className="editproject">
                 <tbody>
@@ -106,15 +100,15 @@ export const EditProject = (props) => {
                         </tr></tbody></table></td>
                     </tr>
                     <tr>
-                        <td>{data.filter(item => {
+                        <td>{data.products.filter(item => {
                                 const searchTerm = value.toLowerCase();
-                                const record_name = item.record_name.toLowerCase();
+                                const item = item.toLowerCase();
                                 return searchTerm && record_name.startsWith(searchTerm) || value === '' || value === 'Search...';
                             }).map((item)=> (
                                 <div className="dropdown-row" key={item.record_name}>
                                     <table><tbody><tr>
-                                        <td><input className="editproject" type="checkbox" onClick={()=>selectRecord(item.record_name)}></input></td>
-                                        <td>{item.record_name}</td>  
+                                        <td><input className="editproject" type="checkbox" onClick={()=>selectRecord(item)}></input></td>
+                                        <td>{item}</td>  
                                     </tr></tbody></table>
                                 </div>
                             ))}</td>
