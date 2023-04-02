@@ -1,36 +1,25 @@
 import React, { useState } from "react";
 import { MainHeader } from "./MainHeader";
-/* placeholder data in form of JSON file, will be replaced with the same information taken from database 
-var data = require("./test-data.json"); */
+
+const obj = JSON.parse(localStorage.getItem("access_token"));
+const token = "Bearer " + obj.access_token;
+var requestOptions = {
+    method: "GET",
+    headers: {"Authorization":token},
+    redirect: "follow"   
+};
+var data;
+fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
+                .then(response => response.json())
+                .then(fetchData => {
+                   data = fetchData
+                });
 
 export const Projects = (props) => {
 
     const [value, setValue] = useState('');
     const [theme, setTheme] = useState(props.themeState);
-    var data = [
-            { "project_name": "project1" },
-            { "project_name": "project11" },
-            { "project_name": "project26" }
-        ];
-
-    const getProjects = () => {
-        console.log('in projects', localStorage.getItem('access_token'));
-        fetch('http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all', {
-            method: 'GET',
-            headers: {
-                // ??? changed to token from login ???
-              'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-            }
-          })
-          .then(response => {
-            data = response.json;
-            return data;
-          })
-          .catch(error => {
-            props.onSwitch('Error', 'Error ' + error, theme);
-          });
-    }
-
+    
     const changeTheme =(newTheme) => {
         setTheme(newTheme);
     }
@@ -50,11 +39,11 @@ export const Projects = (props) => {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              name: item.project_name
+              name: item.name
             })
           })
           .then(response => {
-            console.log(item.project_name + " successfully deleted.");
+            console.log(item.name + " successfully deleted.");
           })
           .catch(error => {
             props.onSwitch('Error', error, theme);
@@ -76,24 +65,23 @@ export const Projects = (props) => {
                     <tr>
                         <td>
                         <div className="search-container"> 
-                                <div className="dropdown">
-                                    {getProjects()}
+                            <div className="dropdown">
                                     {data.filter(item => {
                                         const searchTerm = value.toLowerCase();
-                                        const project_name = item.project_name.toLowerCase();
+                                        const name = item.name.toLowerCase();
 
-                                        return (searchTerm && project_name.startsWith(searchTerm)) || value === '';
-                                    }).map((item)=> (
-                                        <div className="dropdown-row"  key={item.project_name}>
+                                        return (searchTerm && name.startsWith(searchTerm)) || value === '';
+                                    }).map((item) => (
+                                        <div className="dropdown-row"  key={item.name}>
                                             <table><tbody><tr>
-                                                <td><p>{item.project_name}</p></td>
-                                                <td><button className="projects" id="green" onClick={()=>onSearch(item.project_name)}>Edit</button></td>
+                                                <td><p>{item.name}</p></td>
+                                                <td><button className="projects" id="green" onClick={()=>onSearch(item.name)}>Edit</button></td>
                                                 <td><button className="projects" id="red" onClick={()=>deleteButton}>Delete</button></td>
                                             </tr></tbody></table>
                                         </div>
                                     ))} 
-                                </div> 
-                            </div>
+                            </div> 
+                         </div>
                          </td>
                     </tr>
                 </tbody>
