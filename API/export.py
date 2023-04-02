@@ -12,7 +12,7 @@ def export_project(project):
     drc_upc = []
     for product in products:
         product_convert_nested(product)
-        if product['drc_upc'] == '':
+        if product['drc_upc'] != '':
             drc_upc.append(product['drc_upc'])
 
     query = {'upc': {'$in': drc_upc}}
