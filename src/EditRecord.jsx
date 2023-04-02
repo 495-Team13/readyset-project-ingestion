@@ -5,7 +5,8 @@ import { MainHeader } from "./MainHeader";
 
 export const EditRecord = (props) => {
 
-    /* Form variables for sending to db*/
+    const [recordData, setRecordData] = useState([]);
+        /* Form variables for sending to db*/
     const [recordName, setRecordName] = useState(props.stateVars);
     const [productUPC, setProductUPC] = useState('');
     const [drc, setDRC] = useState('');
@@ -26,6 +27,33 @@ export const EditRecord = (props) => {
     const [workflow, setWorkflow] = useState('');
     const [additionalInfo, setAdditionalInfo] = useState('');
     const [theme, setTheme] = useState(props.themeState);
+    
+    useEffect(() => {
+        var mounted = true;
+        
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        var requestOptions = {
+            method: "GET",
+            headers: {"Authorization":token},
+            redirect: "follow"
+        };
+        if(props.stateVars === "Untitled") {
+            setProducts("default"); 
+        } else {
+            const str = 'http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/products/get/' + props.stateVars;
+            fetch(str, requestOptions)
+              .then(response => response.json())
+              .then(fetchData => {
+                    console.log(fetchData)
+                    if(mounted) {
+                        setAdditionalInfo(fetchData.add_info);
+                        set
+                    }
+              });
+        }
+        return () => mounted = false;
+    }, [])
 
     const changeTheme = (newTheme) => {
         setTheme(newTheme);

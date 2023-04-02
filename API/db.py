@@ -92,10 +92,10 @@ class DBClient:
         return list(self.templates.find(query, projection))
 
 if __name__ == '__main__':
-    host = '192.168.1.28'
+    host = 'localhost'
     port = 27017
     user = 'admin'
-    password = 'password'
+    password = 'q4m92DT%!EvsEd'
     auth_source = 'admin'
     client = DBClient(host, port, user, password, auth_source)
     print(client.get_projects())

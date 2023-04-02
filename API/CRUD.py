@@ -3,7 +3,8 @@ import json
 from bson import json_util
 
 # Replace with your MongoDB connection info
-client = DBClient('192.168.1.28', 27017, 'admin', 'password', 'admin')
+client = DBClient('localhost', 27017, 'admin', 'q4m92DT%!EvsEd', 'admin')
+client.check_connection()
 
 # CRUD operations for Projects
 def create_project(name, products):
@@ -88,7 +89,7 @@ def delete_product_from_project(project_name, product_upc):
     Removes the given product UPC from the project's product array.
     Returns True if the product was removed, or false if not found.
     '''
-    return client.update_project(name, {"$pull": {"products": {"upc": product_upc}}})
+    return client.update_project(project_name, {"$pull": {"products": {"upc": product_upc}}})
 
 # CRUD operations for Templates
 
