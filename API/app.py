@@ -264,9 +264,9 @@ def get_template_data(template_name):
     ---------
     template : JSON Object
     '''
-    if CRUD.get_templates(template_name):
+    if CRUD.get_template_by_name(template_name):
         #Template was found in DB
-        return jsonify(CRUD.get_templates(template_name)), 200
+        return jsonify(CRUD.get_template_by_name(template_name)), 200
     else:
         #Template was not found in DB
         return jsonify(message=f"Failed to Fetch Template: {template_name}."), 404
