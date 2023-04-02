@@ -1,7 +1,7 @@
 # Framing the API
 from dotenv import load_dotenv
 import os
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 import CRUD
 import export
@@ -367,7 +367,7 @@ def export_csv(collection):
     '''
 
     doc_id = request.args.get('id')
-    if doc_id is None
+    if doc_id is None:
         return jsonify(message="Document ID not provided"), 400
     doc_id_field = request.args.get('id_field')
     if doc_id_field is None:
