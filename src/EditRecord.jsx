@@ -33,7 +33,7 @@ export const EditRecord = (props) => {
             redirect: "follow"
         };
         if(props.stateVars === "Untitled") {
-            setProducts("default"); 
+            clearRecord(); 
         } else {
             const str = 'http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/products/get/' + props.stateVars;
             fetch(str, requestOptions)
