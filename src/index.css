@@ -226,7 +226,7 @@ table.editproject {
 
 /****************************** END EDIT PROJECT */
 /* EDIT RECORD                                   */
-::placeholder.editrecord {
+::placeholder {
   color: white; 
 }
 
