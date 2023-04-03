@@ -25,3 +25,9 @@ def export_project(project):
 
     df = pd.DataFrame(products)
     return df.to_csv(index=False)
+
+def export_category(category):
+    query = {'name': {'$in': category['templates']}}
+    templates = CRUD.client.get_templates(query)
+    df = pd.DataFrame(templates)
+    return df.to_csv(index=False)
