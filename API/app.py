@@ -388,6 +388,103 @@ def export_csv(collection):
 
     return Response(csv_str, mimetype='text/csv', headers={'Content-disposition': f'attachment; filename={collection}_{doc_id}.csv'})
 
+#############################   #Category API Endpoints     #############################
+
+# Protected API endpoint for, Get Category
+@app.route('/api/categories/get/<category_name>', methods=['GET'])
+@jwt_required()
+def get_category_data(category_name):
+    '''Base Function to Retrieve the Category from the MongoDB database using the category name as an ID
+
+    Parameter
+    ---------
+    category_name : str
+
+    Returns
+    ---------
+    Category : JSON Object
+    '''
+    if CRUD.get_category_by_name(category_name):
+        return jsonify(CRUD.get_category_by_name(category_name)), 200
+    else:
+        return jsonify(message=f"Category {category_name} not found."), 400
+
+# Protected API endpoint, List all Categories
+@app.route('/api/categories/all', methods=['GET'])
+@jwt_required()
+def list_categories():
+    categories = list(CRUD.get_all_categories())
+    return jsonify(categories), 200
+
+# Create new Category Protected API endpoint
+@app.route('/api/categories/add', methods = ['POST'])
+@jwt_required()
+def add_new_category():
+    '''
+    Function to add a new category to the database.
+    Parameter
+    ---------
+    Takes in a JSON object formatted as a category as a parameter, requires a name
+
+    Returns
+    ---------
+    Category : JSON object
+    '''
+    name = request.json['name']
+    definition = request.json['definition']
+    templates = request.json['templates']
+
+    if name:
+        return jsonify(CRUD.create_category(name, definition, templates)), 200
+    else:
+        return jsonify(message=f"Category Name not Defined. "), 400
+
+# Edit existing Category Protected API endpoint
+@app.route('/api/categories/edit/<category_name>', methods = ['PUT'])
+@jwt_required()
+def edit_category(category_name):
+    '''
+    Function to edit an existing category in the database.
+
+    Parameters
+    ---------
+    category_name : str
+
+    Returns
+    ---------
+    Category : JSON object   (Will return false if nothing updated, or category not found by name)
+    '''
+    updates = request.get_json()
+    if not updates:
+        return jsonify(message="No updates priveded"), 400
+    
+    if CRUD.update_category(category_name, updates):
+        category = CRUD.get_category_by_name(category_name)
+        return jsonify(category), 200
+    else:
+        return jsonify(message=f"Category with name {category_name} not found"), 404
+
+# Delete existing Category Protected API endpoint
+@app.route('/api/categories/delete/<category_name>', methods = ['DELETE'])
+@jwt_required()
+def delete_category(category_name):
+    '''
+    Function to delete an existing category in the database.
+
+    Parameters:
+    category_name : str
+    
+    Returns
+    ---------
+    data : JSON object
+    '''
+    if CRUD.delete_category(category_name):
+        #Seccessful Delete
+        return jsonify(data="Delete Sucessful"), 200
+    else:
+        #Failed Delete (No Content)
+        return jsonify(data=f"Delete Operation failed on category: {category_name}. 204 Status Code."), 204
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
