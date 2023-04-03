@@ -1,10 +1,11 @@
 // TODO: discern between editing record and new record 
 //(e.g. load in the existing record data and populate the fields with them).
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MainHeader } from "./MainHeader";
 
 export const EditRecord = (props) => {
 
+    const [theme, setTheme] = useState(props.themeState);
         /* Form variables for sending to db*/    
     const [projectName, setProjectName] = useState('');
     const [addHeight, setAddHeight] = useState('');
@@ -129,7 +130,7 @@ export const EditRecord = (props) => {
                 <tr>
                     <td><table><tbody><tr>
                         <td><h4>Record&nbsp;Name</h4></td>
-                        <td><input className="editrecord" type="text" placeholder={name} onChange={(e) => setdName(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={name} onChange={(e) => setName(e.target.value)}></input></td>
                         <td><button className="editrecord" onClick={() => {props.onSwitch('Projects','', theme)}}>Return</button></td>
                         <td><button className="editrecord" onClick={saveRecord()}>Save</button></td>
                         <td><button className="editrecord" onClick={clearRecord()}>Clear</button></td>
