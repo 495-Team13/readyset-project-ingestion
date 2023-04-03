@@ -5,28 +5,21 @@ import { MainHeader } from "./MainHeader";
 
 export const EditRecord = (props) => {
 
-    const [recordData, setRecordData] = useState([]);
-        /* Form variables for sending to db*/
-    const [recordName, setRecordName] = useState(props.stateVars);
-    const [productUPC, setProductUPC] = useState('');
-    const [drc, setDRC] = useState('');
-    const [upcOfItemInDRC, setUPCOfItemInDRC] = useState('');
-    const [productName, setProductName] = useState('');
-    const [itemCount, setItemCount] = useState('');
-    const [unitOfMeasurement, setUnitOfMeasurement] = useState('');
-    const [weightVolume, setWeightVolume] = useState('');
-    const [unitOfMeasurement2, setUnitOfMeasurement2] = useState('');
-    const [templateName, setTemplateName] = useState('');
-    const [neww, setNew] = useState('');
-    const [templateType, setTemplateType] = useState('');
-    const [width, setWidth] = useState('');
-    const [height, setHeight] = useState('');
+        /* Form variables for sending to db*/    
+    const [projectName, setProjectName] = useState('');
+    const [addHeight, setAddHeight] = useState('');
+    const [addInfo, setAddInfo] = useState('');
+    const [amountMeasurement, setAmountMeasurement] = useState('');
+    const [amountUnit, setAmountUnit] = useState('');
+    const [countNum, setCountNum] = useState('');
+    const [countUnit, setCountUnit] = useState('');
     const [depth, setDepth] = useState('');
-    const [additionalHeight, setAdditionalHeight] = useState('');
-    const [formDescription, setFormDescription] = useState('');
-    const [workflow, setWorkflow] = useState('');
-    const [additionalInfo, setAdditionalInfo] = useState('');
-    const [theme, setTheme] = useState(props.themeState);
+    const [drcUpc, setDrcUpc] = useState('');
+    const [height, setHeight] = useState('');
+    const [name, setName] = useState('');
+    const [templateName, setTemplateName] = useState('');
+    const [upc, setUpc] = useState('');
+    const [width, setWidth] = useState('');
     
     useEffect(() => {
         var mounted = true;
@@ -47,8 +40,19 @@ export const EditRecord = (props) => {
               .then(fetchData => {
                     console.log(fetchData)
                     if(mounted) {
-                        setAdditionalInfo(fetchData.add_info);
-                        set
+                        setAddHeight(fetchData.add_height);
+                        setAddInfo(fetchData.add_info);
+                        setAmountMeasurement(fetchData.amount.measurement);
+                        setAmountUnit(fetchData.amount.unit);
+                        setCountNum(fetchData.count.num);
+                        setCountUnit(fetchData.count.unit);
+                        setDepth(fetchData.depth);
+                        setDrcUpc(fetchData.drc_upc);
+                        setHeight(fetchData.height);
+                        setName(fetchData.name);
+                        setTemplateName(fetchData.template_name);
+                        setUpc(fetchData.upc);
+                        setWidth(fetchData.width);
                     }
               });
         }
@@ -61,25 +65,25 @@ export const EditRecord = (props) => {
 
     const saveRecord = () => { 
         const count = {
-            "measurement": itemCount,
-            "unit": unitOfMeasurement
+            "measurement": countNum,
+            "unit": countUnit
         }
         const amount = { 
-            "measurement": weightVolume,
-            "unit": unitOfMeasurement2
+            "measurement": amountMeasurement,
+            "unit": amountUnit
         }
         const product = {
-            "upc": productUPC,
-            "drc_upc": upcOfItemInDRC,
-            "name": productName,
+            "upc": upc,
+            "drc_upc": drcUpc,
+            "name": name,
             "count": count,
             "amount": amount,
             "template_name": templateName,
             "width": width,
             "height": height,
             "depth": depth,
-            "add_height": additionalHeight,
-            "add_info": additionalInfo
+            "add_height": addHeight,
+            "add_info": addInfo
           }
           
           const project_name = "";
@@ -103,23 +107,19 @@ export const EditRecord = (props) => {
     }
 
     const clearRecord = () => {
-        setProductUPC('');
-        setDRC('');
-        setUPCOfItemInDRC('');
-        setProductName('');
-        setItemCount('');
-        setUnitOfMeasurement('');
-        setWeightVolume('');
-        setUnitOfMeasurement2('');
-        setTemplateName('');
-        setNew('');
-        setWidth('');
-        setHeight('');
+        setAddHeight('');
+        setAddInfo('');
+        setAmountMeasurement('');
+        setAmountUnit('');
+        setCountNum('');
+        setCountUnit('');
         setDepth('');
-        setAdditionalHeight('');
-        setFormDescription('');
-        setWorkflow('');
-        setAdditionalInfo('');
+        setDrcUpc('');
+        setHeight('');
+        setName('');
+        setTemplateName('');
+        setUpc('');
+        setWidth('');
     }
 
     return(
@@ -129,7 +129,7 @@ export const EditRecord = (props) => {
                 <tr>
                     <td><table><tbody><tr>
                         <td><h4>Record&nbsp;Name</h4></td>
-                        <td><input className="editrecord" type="text" placeholder={recordName} onChange={(e) => setRecordName(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={name} onChange={(e) => setdName(e.target.value)}></input></td>
                         <td><button className="editrecord" onClick={() => {props.onSwitch('Projects','', theme)}}>Return</button></td>
                         <td><button className="editrecord" onClick={saveRecord()}>Save</button></td>
                         <td><button className="editrecord" onClick={clearRecord()}>Clear</button></td>
@@ -145,16 +145,16 @@ export const EditRecord = (props) => {
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
-                        <td><input className="editrecord" type="text" onChange={(e) => setProductUPC(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" onChange={(e) => setDRC(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" onChange={(e) => setUPCOfItemInDRC(e.target.value)}></input></td>     
+                        <td><input className="editrecord" type="text" placeHolder={upc} onChange={(e) => setUpc(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeHolder="?" ></input></td>
+                        <td><input className="editrecord" type="text" placeHolder={drcUpc} onChange={(e) => setDrcUpc(e.target.value)}></input></td>     
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
                     <td><table><tbody><tr><h5>Product Name (Brand Name Flavor)</h5></tr></tbody></table></td>
                 </tr>
                 <tr>
-                    <td><table><tbody><tr><input className="editrecord" type="text" onChange={(e) => setProductName(e.target.value)}></input></tr></tbody></table></td>
+                    <td><table><tbody><tr><input className="editrecord" type="text" placeholder={name} onChange={(e) => setName(e.target.value)}></input></tr></tbody></table></td>
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
@@ -166,10 +166,10 @@ export const EditRecord = (props) => {
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
-                        <td><input className="editrecord" type="text" onChange={(e) => setItemCount(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" onChange={(e) => setUnitOfMeasurement(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" onChange={(e) => setWeightVolume(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" onChange={(e) => setUnitOfMeasurement2(e.target.value)}></input></td> 
+                        <td><input className="editrecord" type="text" placeholder={countNum} onChange={(e) => setCountNum(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={countUnit} onChange={(e) => setCountUnit(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={amountMeasurement} onChange={(e) => setAmountMeasurement(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={amountUnit} onChange={(e) => setAmountUnit(e.target.value)}></input></td> 
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
@@ -181,9 +181,9 @@ export const EditRecord = (props) => {
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
-                        <td><input className="editrecord" type="text" onChange={(e) => setTemplateName(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" onChange={(e) => setNew(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" onChange={(e) => setTemplateType(e.target.value)}></input></td> 
+                        <td><input className="editrecord" type="text" placeholder={templateName} onChange={(e) => setTemplateName(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder="?" ></input></td>
+                        <td><input className="editrecord" type="text" placeholder="?" ></input></td> 
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
@@ -197,11 +197,11 @@ export const EditRecord = (props) => {
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
-                        <td><input className="editrecord" type="text" onChange={(e) => setWidth(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" onChange={(e) => setHeight(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" onChange={(e) => setDepth(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" onChange={(e) => setAdditionalHeight(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" onChange={(e) => setFormDescription(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={width} onChange={(e) => setWidth(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={height} onChange={(e) => setHeight(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={depth} onChange={(e) => setDepth(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={addHeight} onChange={(e) => setAddHeight(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder="?" ></input></td>
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
@@ -211,7 +211,7 @@ export const EditRecord = (props) => {
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
-                        <td><input className="editrecord" type="text" onChange={(e) => setWorkflow(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder="?" ></input></td>
                     </tr></tbody></table></td>
 
                 </tr>
@@ -222,7 +222,7 @@ export const EditRecord = (props) => {
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
-                        <td><input className="editrecord" type="text" onChange={(e) => setAdditionalInfo(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={addInfo} onChange={(e) => setAddInfo(e.target.value)}></input></td>
                     </tr></tbody></table></td>
                 </tr>
             </table>
