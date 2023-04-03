@@ -8,6 +8,7 @@ PI_DB = 'pi'
 PROJECTS_COL = 'projects'
 PRODUCTS_COL = 'products'
 TEMPLATES_COL = 'templates'
+CATEGORIES_COL = 'categories'
 
 class DBClient:
     # Create MongoClient and store references to collections
@@ -17,6 +18,7 @@ class DBClient:
         self.projects = self.client[PI_DB][PROJECTS_COL]
         self.products = self.client[PI_DB][PRODUCTS_COL]
         self.templates = self.client[PI_DB][TEMPLATES_COL]
+        self.categories = self.client[PI_DB][CATEGORIES_COL]
 
     # Check if successfully connected to database
     def check_connection(self):
@@ -35,6 +37,8 @@ class DBClient:
     def check_duplicate(self, col_name, id_filter, existing=False):
         n = len(list(self.client[PI_DB][col_name].find(id_filter)))
         return n > 1 if existing else n > 0
+
+    ### Projects ###
 
     # Add new project
     def add_project(self, name, products=[]):
@@ -55,6 +59,8 @@ class DBClient:
     def get_projects(self, query={}, projection={'_id': 0}):
         return list(self.projects.find(query, projection))
 
+    ### Products ###
+
     # Add new product to project and products collection
     def add_product(self, product):
         result = self.products.insert_one(product)
@@ -73,6 +79,8 @@ class DBClient:
     def get_products(self, query={}, projection={'_id': 0}):
         return list(self.products.find(query, projection))
 
+    ### Templates ###
+
     # Add template to templates collection
     def add_template(self, template):
         result = self.templates.insert_one(template)
@@ -85,11 +93,31 @@ class DBClient:
 
     # Delete template by name
     def delete_template(self, name):
-        self.templates.delete_one({'name': name}).deleted_count > 0
+        return self.templates.delete_one({'name': name}).deleted_count > 0
 
     # Query templates and projection
     def get_templates(self, query={}, projection={'_id': 0}):
         return list(self.templates.find(query, projection))
+
+    ### Categories ###
+
+    # Add category
+    def add_category(self, category):
+        result = self.categories.insert_one(category)
+        return self.products.find_one({'_id': result.inserted_id}, {'_id': 0})
+
+    # Apply update to category by name
+    def update_category(self, name, update):
+        result = self.categories.update_one({'name': name}, update)
+        return self.categories.find_one({'name': name}, {'_id': 0}) if result.modified_count > 0 else None
+
+    # Delete category by name
+    def delete_category(self, name):
+        return self.categories.delete_one({'name': name}).deleted_count > 0
+
+    # Query categories and projection
+    def get_categories(self, query={}, projection={'_id': 0}):
+        return list(self.categories.find(query, projection))
 
 if __name__ == '__main__':
     host = 'localhost'

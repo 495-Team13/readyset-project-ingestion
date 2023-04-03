@@ -3,7 +3,8 @@ import json
 from bson import json_util
 
 # Replace with your MongoDB connection info
-client = DBClient('localhost', 27017, 'admin', 'q4m92DT%!EvsEd', 'admin')
+#client = DBClient('localhost', 27017, 'admin', 'q4m92DT%!EvsEd', 'admin')
+client = DBClient('192.168.1.28', 27017, 'admin', 'password', 'admin')
 client.check_connection()
 
 # CRUD operations for Projects
@@ -131,3 +132,41 @@ def delete_template(name):
     Returns True if the document was deleted, or False if not found.
     """
     return client.delete_template(name)
+
+# CRUD operations for Categories
+
+def create_category(name, definition, templates):
+    """
+    Creates a new category document with the given properties.
+    Returns the inserted document's ID.
+    """
+    category = {
+        "name": name,
+        "definition": definition,
+        "templates": templates
+    }
+    return client.add_category(category)
+
+def get_category_by_name(name):
+    """
+    Returns the category document with the given name, or None if not found.
+    """
+    docs = client.get_categories({"name": name})
+    return docs[0] if len(docs) > 0 else None
+
+def get_all_categories():
+    return client.get_categories()
+
+def update_category(name, updates):
+    """
+    Updates the category document with the given name, setting the properties in the 'updates' dictionary.
+    Returns True if the document was updated, or False if not found.
+    """
+    return client.update_category(name, {"$set": updates})
+
+def delete_category(name):
+    """
+    Deletes the template document with the given name.
+    Returns True if the document was deleted, or False if not found.
+    """
+    return client.delete_category(name)
