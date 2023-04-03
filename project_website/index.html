@@ -1,53 +1,55 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CS 495 Team 13 Project</title>
-    <style>
-      body {
-        background-color: gold;
-        font-family: Arial, sans-serif;
-      }
-      
-      h1 {
-        color: crimson;
-        text-align: center;
-      }
-      
-      section {
-        margin: 50px;
-        padding: 20px;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
-      }
-      
-      button {
-        display: block;
-        margin: 50px auto;
-        padding: 10px 20px;
-        background-color: crimson;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 20px;
-        cursor: pointer;
-      }
-      
-      button:hover {
-        background-color: #c62828;
-      }
-    </style>
+    <title>ReadySet Inventory Management</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <h1>CS 495 Team 13 Project</h1>
-    <section>
-      <h2>(placeholder) - Sprint One</h2>
-      <p>Insert information about your sprint one here.</p>
-    </section>
-    <section>
-      <h2>(placeholder) - Sprint Two</h2>
-      <p>Insert information about your sprint two here.</p>
-    </section>
-    <button onclick="location.href='http://ingestion-sandbox.dev.readysetvr.com/'">View Our Project Website</button>
+    <div class="container">
+      <div class="header">
+        <h1>ReadySet Inventory Management</h1>
+      </div>
+      <div class="section">
+        <h2>Project Goals</h2>
+        <p>Provide a centralized website that can be accessed by anyone at the company and contains useful and organized information about various projects that people at the company are working on. Users should be able to add projects, view projects, search project, make new projects from a template, create templates, export templates, export projects, export all projects, among other things.</p>
+      </div>
+      <div class="section">
+        <h2>Approach</h2>
+        <p>My team collaborated remotely and in person. We used Jira to keep us on task, and manage our progress throughout our sprints. We met three times a week at minimum and sometimes more to troubleshoot specific issues. At every meeting we gave updates on our progress, talked about our troubles, and focused on what we would do for next time. We communicated on Discord and via text message when urgent.</p>
+      </div>
+      <div class="section">
+        <h2>Tools and Frameworks Used</h2>
+        <ul>
+          <li>Flask API</li>
+          <li>Python</li>
+          <li>MongoDB</li>
+          <li>React</li>
+          <li>Figma</li>
+          <li>GitHub</li>
+          <li>Ubuntu Server</li>
+          <li>Apache2</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h2>User Experience</h2>
+        <p>A general use case for adding a new project would be something like this:</p>
+        <ol>
+          <li>User visits the website via a link or bookmark</li>
+          <li>User logs into the website</li>
+          <li>User can now see all projects and templates</li>
+          <li>User can search or query for certain parameters. When the user sees that the project is not available, they decide to add it</li>
+          <li>User adds the project. They add various information about the project, and can optionally build off of a pre existing template.</li>
+          <li>User can then optionally decide to export the project</li>
+          <li>User saves the new project, now it is added to the website and is visible to others.</li>
+        </ol>
+      </div>
+      <div class="section">
+        <h2>Team Members</h2>
+        <p>Gabe Kroeger, Jacob Levendoski, Josh LaCount, Owen Russell</p>
+      </div>
+      <div class="button-container">
+        <a href="http://ingestion-sandbox.dev.readysetvr.com/" class="button">Visit Website</a>
+      </div>
+    </div>
   </body>
 </html>
