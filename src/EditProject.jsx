@@ -14,7 +14,7 @@ export const EditProject = (props) => {
             redirect: "follow"
         };
         if(props.stateVars === "Untitled") {
-            setProducts("default"); 
+            console.log("Creating new project");
         } else {
             const str = 'http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/get/' + props.stateVars;
             fetch(str, requestOptions)
