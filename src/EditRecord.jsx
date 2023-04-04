@@ -1,5 +1,3 @@
-// TODO: discern between editing record and new record 
-//(e.g. load in the existing record data and populate the fields with them).
 import React, { useEffect, useState } from "react";
 import { MainHeader } from "./MainHeader";
 
