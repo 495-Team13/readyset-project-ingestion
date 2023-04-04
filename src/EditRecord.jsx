@@ -88,7 +88,7 @@ export const EditRecord = (props) => {
           }
           
           fetch('http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/products/edit/' + upc, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
               'Authorization': 'Bearer ' + localStorage.getItem("access_token"),
               'Content-Type': 'application/json'
