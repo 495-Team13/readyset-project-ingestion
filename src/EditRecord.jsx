@@ -96,13 +96,11 @@ export const EditRecord = (props) => {
             body: JSON.stringify(product)
           })
           .then(response => {
-            // handle the response
-            console.log("saved record");
+            response.json()
           })
-          .catch(error => {
-            // handle the error
-            console.log(error);
-          });
+          .then(data => {
+            console.log(data)   
+          })
     }
 
     const clearRecord = () => {
