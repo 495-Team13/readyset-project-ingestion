@@ -42,7 +42,7 @@ export const EditProject = (props) => {
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
   
-        fetch('http://ingestion-sandbox.dev.readysetvr/testFlask/api/projects/add/', {
+        fetch('http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/add/', {
           method: 'POST',
           headers: {
             'Authorization':token,
