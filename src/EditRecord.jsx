@@ -87,9 +87,7 @@ export const EditRecord = (props) => {
             "add_info": addInfo
           }
           
-          const project_name = "";
-          
-          fetch('http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/products/add/' + project_name, {
+          fetch('http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/products/edit/' + upc, {
             method: 'POST',
             headers: {
               'Authorization': 'Bearer ' + localStorage.getItem("access_token"),
