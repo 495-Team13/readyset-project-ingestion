@@ -39,8 +39,26 @@ export const EditProject = (props) => {
     }
 
     const updateName = (e) => {
-        /* api call to set the projectName in the database for now just print new name to console. */
-        console.log({projectName});
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+  
+        fetch('http://ingestion-sandbox.dev.readysetvr/testFlask/api/projects/add/', {
+          method: 'POST',
+          headers: {
+            'Authorization':token,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: projectName,
+            products: products
+          })
+        })
+        .then(response => {
+           response.json()
+        })
+        .then(data => {
+          console.log(data)  
+        })
     } 
 
     const createRecord = () => {
