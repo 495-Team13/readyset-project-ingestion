@@ -3,7 +3,8 @@ import json
 from bson import json_util
 
 # Replace with your MongoDB connection info
-client = DBClient('localhost', 27017, 'admin', 'q4m92DT%!EvsEd', 'admin')
+#client = DBClient('localhost', 27017, 'admin', 'q4m92DT%!EvsEd', 'admin')
+client = DBClient('192.168.1.28', 27017, 'admin', 'password', 'admin')
 client.check_connection()
 
 # CRUD operations for Projects
@@ -169,3 +170,40 @@ def delete_category(name):
     Returns True if the document was deleted, or False if not found.
     """
     return client.delete_category(name)
+
+# CRUD operations for Users
+
+def create_user(username, password):
+    """
+    Creates a new user document with the given properties.
+    Returns the inserted document's ID.
+    """
+    user = {
+        "username": username,
+        "password": password
+    }
+    return client.add_user(user)
+
+def get_user_by_username(username):
+    """
+    Returns the user document with the given username, or None if not found.
+    """
+    docs = client.get_users({"username": username})
+    return docs[0] if len(docs) > 0 else None
+
+def get_all_users():
+    return client.get_users(projection={"_id": 0, "password": 0})
+
+def update_user(username, updates):
+    """
+    Updates the user document with the given name, setting the properties in the 'updates' dictionary.
+    Returns True if the document was updated, or False if not found.
+    """
+    return client.update_user(username, {"$set": updates})
+
+def delete_user(username):
+    """
+    Deletes the user document with the given username.
+    Returns True if the document was deleted, or False if not found.
+    """
+    return client.delete_user(username)

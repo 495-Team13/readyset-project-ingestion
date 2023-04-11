@@ -5,6 +5,7 @@ from flask import Flask, jsonify, request, Response
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 import CRUD
 import export
+import auth
 
 # Init the Dependencies and API, the code is kinda messy up here. 
 # 
@@ -35,7 +36,9 @@ def login():
     '''
     username = request.json.get('username', None)
     password = request.json.get('password', None)
-    if username != "root" or password != "toor":
+
+    user = CRUD.get_user_by_username(username)
+    if user is None or password is None or not auth.verify_password(password, user['password']):
         return jsonify(error='Invalid username or password'), 401 #401 Unauthorized Request
     access_token = create_access_token(identity=username)
     return jsonify(access_token=access_token), 200  #Resource retrieved succefully (Unique JWT for each login session)
@@ -484,6 +487,111 @@ def delete_category(category_name):
     else:
         #Failed Delete (No Content)
         return jsonify(data=f"Delete Operation failed on category: {category_name}. 204 Status Code."), 204
+
+#############################   #User API Endpoints     #############################
+
+# Protected API endpoint for, Get User
+@app.route('/api/users/get/<username>', methods=['GET'])
+@jwt_required()
+def get_user_data(username):
+    '''Base Function to Retrieve the User from the MongoDB database using the username as an ID
+
+    Parameter
+    ---------
+    username : str
+
+    Returns
+    ---------
+    User : JSON Object
+    '''
+    user = CRUD.get_user_by_username(username)
+    if user:
+        del user['password']
+        return jsonify(user), 200
+    else:
+        return jsonify(message=f"User {username} not found."), 400
+
+# Protected API endpoint, List all Users
+@app.route('/api/users/all', methods=['GET'])
+@jwt_required()
+def list_users():
+    users = list(CRUD.get_all_users())
+    return jsonify(users), 200
+
+# Create new User Protected API endpoint
+@app.route('/api/users/add', methods = ['POST'])
+@jwt_required()
+def add_new_user():
+    '''
+    Function to add a new user to the database.
+    Parameter
+    ---------
+    Takes in a JSON object formatted as a user as a parameter, requires a username and password
+
+    Returns
+    ---------
+    User : JSON object
+    '''
+    username = request.json['username']
+    password = request.json['password']
+
+    if username and password:
+        hashed_password = auth.hash_password(password)
+        return jsonify(CRUD.create_user(username, hashed_password)), 200
+    else:
+        return jsonify(message=f"Required user info missing."), 400
+
+# Edit existing User Protected API endpoint
+@app.route('/api/users/edit/<username>', methods = ['PUT'])
+@jwt_required()
+def edit_user(username):
+    '''
+    Function to edit an existing user in the database.
+
+    Parameters
+    ---------
+    username : str
+
+    Returns
+    ---------
+    User : JSON object   (Will return false if nothing updated, or user not found by username)
+    '''
+    updates = request.get_json()
+    if not updates:
+        return jsonify(message="No updates priveded"), 400
+    
+    if 'password' in updates:
+        updates['password'] = auth.hash_password(updates['password'])
+
+    if CRUD.update_user(username, updates):
+        user = CRUD.get_user_by_username(username)
+        del user['password']
+        return jsonify(user), 200
+    else:
+        return jsonify(message=f"User with username {username} not found"), 404
+
+# Delete existing User Protected API endpoint
+@app.route('/api/users/delete/<username>', methods = ['DELETE'])
+@jwt_required()
+def delete_user(username):
+    '''
+    Function to delete an existing user in the database.
+
+    Parameters:
+    username : str
+    
+    Returns
+    ---------
+    data : JSON object
+    '''
+    if username == 'admin':
+        return jsonify(message="Can't delete user admin."), 405
+
+    if CRUD.delete_user(username):
+        #Seccessful Delete
+        return jsonify(data="Delete Sucessful"), 200
+    #Failed Delete (No Content)
+    return jsonify(data=f"Delete Operation failed on user: {username}. 204 Status Code."), 204
 
 
 if __name__ == '__main__':

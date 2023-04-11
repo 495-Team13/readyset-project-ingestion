@@ -9,6 +9,7 @@ PROJECTS_COL = 'projects'
 PRODUCTS_COL = 'products'
 TEMPLATES_COL = 'templates'
 CATEGORIES_COL = 'categories'
+USERS_COL = 'users'
 
 class DBClient:
     # Create MongoClient and store references to collections
@@ -19,6 +20,7 @@ class DBClient:
         self.products = self.client[PI_DB][PRODUCTS_COL]
         self.templates = self.client[PI_DB][TEMPLATES_COL]
         self.categories = self.client[PI_DB][CATEGORIES_COL]
+        self.users = self.client[PI_DB][USERS_COL]
 
     # Check if successfully connected to database
     def check_connection(self):
@@ -104,7 +106,7 @@ class DBClient:
     # Add category
     def add_category(self, category):
         result = self.categories.insert_one(category)
-        return self.products.find_one({'_id': result.inserted_id}, {'_id': 0})
+        return self.categories.find_one({'_id': result.inserted_id}, {'_id': 0})
 
     # Apply update to category by name
     def update_category(self, name, update):
@@ -118,6 +120,26 @@ class DBClient:
     # Query categories and projection
     def get_categories(self, query={}, projection={'_id': 0}):
         return list(self.categories.find(query, projection))
+
+    ### Users ###
+
+    # Add user
+    def add_user(self, user):
+        result = self.users.insert_one(user)
+        return self.users.find_one({'_id': result.inserted_id}, {'_id': 0, 'password': 0})
+
+    # Apply update to user by username
+    def update_user(self, username, update):
+        result = self.users.update_one({'username': username}, update)
+        return self.users.find_one({'username': username}, {'_id': 0}) if result.modified_count > 0 else None
+
+    # Delete user by username
+    def delete_user(self, username):
+        return self.users.delete_one({'username': username}).deleted_count > 0
+
+    # Query users and projection
+    def get_users(self, query={}, projection={'_id': 0}):
+        return list(self.users.find(query, projection))
 
 if __name__ == '__main__':
     host = 'localhost'
