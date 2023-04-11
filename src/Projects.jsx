@@ -18,6 +18,8 @@ export const Projects = (props) => {
             redirect: "follow"   
         };
         
+        console.log(requestOptions);
+        
         fetch("http://ingestion-sandbox.dev.readysetvr.com/api/projects/all", requestOptions)
                 .then(response => response.json())
                 .then(fetchData => {
