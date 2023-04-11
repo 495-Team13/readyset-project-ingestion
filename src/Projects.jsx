@@ -42,7 +42,7 @@ export const Projects = (props) => {
     const deleteButton = (item) => {
         console.log(item.name);
         
-        const obj = localStorage.getItem('access_token');
+        const obj = JSON.parse(localStorage.getItem('access_token'));
         const token = "Bearer " + obj.access_token;
         
         var raw = JSON.stringify({
