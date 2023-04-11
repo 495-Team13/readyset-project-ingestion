@@ -6,6 +6,7 @@ export const Projects = (props) => {
     const [value, setValue] = useState('');
     const [theme, setTheme] = useState(props.themeState);
     const [data, setData] = useState([]);
+    const [updated, setUpdated] = useState(false);
     
     useEffect(() => {
         var mounted = true;
@@ -17,9 +18,7 @@ export const Projects = (props) => {
             headers: {"Authorization":token},
             redirect: "follow"   
         };
-        
-        console.log(requestOptions);
-        
+                
         fetch("http://ingestion-sandbox.dev.readysetvr.com/api/projects/all", requestOptions)
                 .then(response => response.json())
                 .then(fetchData => {
@@ -27,6 +26,7 @@ export const Projects = (props) => {
                         setData(fetchData);   
                     }
                 });
+        setUpdated(false);
         return () => mounted = false;
     }, [])
     
@@ -59,8 +59,7 @@ export const Projects = (props) => {
                 
         fetch('http://ingestion-sandbox.dev.readysetvr.com/api/projects/delete', requestOptions)
           .then(response => {
-            console.log(response);
-            window.location.reload(false);
+            setUpdated(true);
           })
           .catch(error => {
             props.onSwitch('Error', error, theme);
