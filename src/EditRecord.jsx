@@ -98,14 +98,23 @@ export const EditRecord = (props) => {
             body: JSON.stringify(product),
             redirect: "follow"
         };
-          
-          fetch('http://ingestion-sandbox.dev.readysetvr.com/api/products/edit/' + upc, requestOptions)
-          .then(response => {
-            response.json()
-          })
-          .then(data => {
-            console.log(data)   
-          })
+        if(props.stateVars === "Untitled") {
+            fetch('http://ingestion-sandbox.dev.readysetvr.com/api/products/add/' + props.parentName, requestOptions)
+            .then(response => {
+                response.json()
+            })
+            .then(data => {
+                console.log(data)
+            }
+        } else {
+            fetch('http://ingestion-sandbox.dev.readysetvr.com/api/products/edit/' + upc, requestOptions)
+                .then(response => {
+                    response.json()
+            })
+            .then(data => {
+                console.log(data)   
+            })
+        }
     }
 
     const clearRecord = () => {
