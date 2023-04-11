@@ -51,7 +51,10 @@ export const Projects = (props) => {
         
         var requestOptions = {
             method: 'DELETE',
-            headers: {"Authorization":token},
+            headers: {
+                "Content-Type":"application/json",
+                "Authorization":token
+            },
             body: raw,
             redirect:"follow"
         };
