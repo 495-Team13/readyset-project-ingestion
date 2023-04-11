@@ -112,7 +112,7 @@ export const EditProject = (props) => {
                         <td><table><tbody><tr>
                             <td><h4 className="editproject">Project&nbsp;Name</h4></td>
                             <td><input className="editproject" value={projectName} onChange={(e) => setProjectName(e.target.value)} type="text" placeholder={props.stateVars} id="projectName" name="projectName"></input></td>
-                            <td><button className="editproject" onClick={updateName}>Update</button></td>
+                            <td><button className="editproject" onClick={updateName}>Save</button></td>
                             <td><input className="editproject" onChange={(e) => setValue(e.target.value)} type="text" placeholder={value}></input></td>
                         </tr></tbody></table></td>
 
