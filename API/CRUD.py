@@ -3,8 +3,7 @@ import json
 from bson import json_util
 
 # Replace with your MongoDB connection info
-#client = DBClient('localhost', 27017, 'admin', 'q4m92DT%!EvsEd', 'admin')
-client = DBClient('192.168.1.28', 27017, 'admin', 'password', 'admin')
+client = DBClient('localhost', 27017, 'admin', 'q4m92DT%!EvsEd', 'admin')
 client.check_connection()
 
 # CRUD operations for Projects
