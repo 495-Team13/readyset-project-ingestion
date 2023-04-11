@@ -59,6 +59,7 @@ export const EditProject = (props) => {
         .then(data => {
           console.log(data)  
         })
+        props.onSwitch('Projects', '', theme);
     } 
 
     const createRecord = () => {
