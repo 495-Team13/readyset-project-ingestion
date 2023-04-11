@@ -6,9 +6,8 @@ export const Projects = (props) => {
     const [value, setValue] = useState('');
     const [theme, setTheme] = useState(props.themeState);
     const [data, setData] = useState([]);
-    const [updated, setUpdated] = useState(false);
-    
-    useEffect(() => {
+
+    const render() => {
         var mounted = true;
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
@@ -26,8 +25,11 @@ export const Projects = (props) => {
                         setData(fetchData);   
                     }
                 });
-        setUpdated(false);
         return () => mounted = false;
+    }
+    
+    useEffect(() => {
+        render();
     }, [])
     
     const changeTheme =(newTheme) => {
@@ -59,7 +61,8 @@ export const Projects = (props) => {
                 
         fetch('http://ingestion-sandbox.dev.readysetvr.com/api/projects/delete', requestOptions)
           .then(response => {
-            setUpdated(true);
+            console.log(response);
+            render();
           })
           .catch(error => {
             props.onSwitch('Error', error, theme);
