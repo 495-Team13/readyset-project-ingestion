@@ -83,7 +83,7 @@ export const Projects = (props) => {
                                             <table><tbody><tr>
                                                 <td><p>{item.name}</p></td>
                                                 <td><button className="projects" id="green" onClick={()=>onSearch(item.name)}>Edit</button></td>
-                                                <td><button className="projects" id="red" onClick={()=>deleteButton}>Delete</button></td>
+                                                <td><button className="projects" id="red" onClick={()=>deleteButton(item}>Delete</button></td>
                                             </tr></tbody></table>
                                         </div>
                                     ))} 
