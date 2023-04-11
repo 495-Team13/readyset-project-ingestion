@@ -21,7 +21,7 @@ export const Projects = (props) => {
                 .then(response => response.json())
                 .then(fetchData => {
                     if(mounted) {
-                        setData(data);   
+                        setData(fetchData);   
                     }
                 });
         return () => mounted = false;
