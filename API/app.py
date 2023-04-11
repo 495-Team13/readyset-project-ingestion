@@ -27,7 +27,7 @@ def debug():
     return jsonify(serializable_env), 200
 
 #Test Environment Variable
-@app.rout('/envars', methods=['GET'])
+@app.route('/envars', methods=['GET'])
 def envars():
     return jsonify(message = os.environ.get("TEST_VARIABLE")), 200
 
