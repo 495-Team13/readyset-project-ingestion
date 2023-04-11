@@ -19,7 +19,7 @@ app.config['JWT_SECRET_KEY'] = os.environ.get("JWT_KEY") #JWT Hashing Configurat
 jwt = JWTManager(app)
 
 #Test Route for Environment Variables
-@app.route('/envars' methods=['GET'])
+@app.route('/envars', methods=['GET'])
 def envvars():
     return jsonify(message = os.environ.get("TEST_VARIABLE")), 200
 
