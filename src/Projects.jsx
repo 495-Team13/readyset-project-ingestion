@@ -7,7 +7,7 @@ export const Projects = (props) => {
     const [theme, setTheme] = useState(props.themeState);
     const [data, setData] = useState([]);
 
-    const render() => {
+    const render = () => {
         var mounted = true;
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
