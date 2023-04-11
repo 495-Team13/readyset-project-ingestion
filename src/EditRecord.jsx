@@ -99,7 +99,8 @@ export const EditRecord = (props) => {
             redirect: "follow"
         };
         if(props.stateVars === "Untitled") {
-            fetch('http://ingestion-sandbox.dev.readysetvr.com/api/products/add/' + props.parentName, requestOptions)
+            const projectName = JSON.parse(localStorage.getItem("current_project")).current_project;
+            fetch('http://ingestion-sandbox.dev.readysetvr.com/api/products/add/' + projectName, requestOptions)
             .then(response => {
                 response.json()
             })
