@@ -11,12 +11,13 @@ export const Projects = (props) => {
         var mounted = true;
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
+        
         var requestOptions = {
             method: "GET",
             headers: {"Authorization":token},
             redirect: "follow"   
         };
-        var data;
+        
         fetch("http://ingestion-sandbox.dev.readysetvr.com/api/projects/all", requestOptions)
                 .then(response => response.json())
                 .then(fetchData => {
@@ -37,20 +38,23 @@ export const Projects = (props) => {
     }
 
     const deleteButton = (item) => {
-        /* send name of project to be deleted to the db 
-        console.log("delete item " + item); */
-        fetch('http://ingestion-sandbox.dev.readysetvr.com/api/projects/delete', {
+        const obj = localStorage.getItem('access_token');
+        const token = "Bearer " + obj.access_token;
+        
+        var raw = JSON.stringify({
+            "name":item.name
+        });
+        
+        var requestOptions = {
             method: 'DELETE',
-            headers: {
-              'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              name: item.name
-            })
-          })
+            headers: {"Authorization":token},
+            body: raw,
+            redirect:"follow"
+        };
+        
+        fetch('http://ingestion-sandbox.dev.readysetvr.com/api/projects/delete', requestOptions)
           .then(response => {
-            console.log(item.name + " successfully deleted.");
+            console.log(response);
           })
           .catch(error => {
             props.onSwitch('Error', error, theme);
