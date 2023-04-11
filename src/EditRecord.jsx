@@ -33,7 +33,7 @@ export const EditRecord = (props) => {
         if(props.stateVars === "Untitled") {
             clearRecord(); 
         } else {
-            const str = 'http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/products/get/' + props.stateVars;
+            const str = 'http://ingestion-sandbox.dev.readysetvr.com/api/products/get/' + props.stateVars;
             fetch(str, requestOptions)
               .then(response => response.json())
               .then(fetchData => {
@@ -85,7 +85,7 @@ export const EditRecord = (props) => {
             "add_info": addInfo
           }
           
-          fetch('http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/products/edit/' + upc, {
+          fetch('http://ingestion-sandbox.dev.readysetvr.com/api/products/edit/' + upc, {
             method: 'PUT',
             headers: {
               'Authorization': 'Bearer ' + localStorage.getItem("access_token"),
