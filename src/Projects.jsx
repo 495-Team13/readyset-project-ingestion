@@ -39,7 +39,7 @@ export const Projects = (props) => {
     const deleteButton = (item) => {
         /* send name of project to be deleted to the db 
         console.log("delete item " + item); */
-        fetch('http://ingestion-sandbox.dev.readysetvr.com/api/projects/delete/', {
+        fetch('http://ingestion-sandbox.dev.readysetvr.com/api/projects/delete', {
             method: 'DELETE',
             headers: {
               'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
