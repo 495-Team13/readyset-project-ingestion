@@ -15,8 +15,13 @@ import export
 
 load_dotenv() #Init Environment Variables
 app = Flask(__name__) #Flask API Init
-app.config['JWT_SECRET_KEY'] = "temp-key" #JWT Hashing Configuration
+app.config['JWT_SECRET_KEY'] = os.environ.get("JWT_KEY") #JWT Hashing Configuration
 jwt = JWTManager(app)
+
+#Test Route for Environment Variables
+@app.route('/envars' methods=['GET'])
+def envvars():
+    return jsonify(message = os.environ.get("TEST_VARIABLE")), 200
 
 #Basic Test API Endpoint to ensure it is up and running
 @app.route('/foo', methods=['GET'])
