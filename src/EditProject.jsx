@@ -16,7 +16,7 @@ export const EditProject = (props) => {
         if(props.stateVars === "Untitled") {
             console.log("Creating new project");
         } else {
-            const str = 'http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/get/' + props.stateVars;
+            const str = 'http://ingestion-sandbox.dev.readysetvr.com/api/projects/get/' + props.stateVars;
             fetch(str, requestOptions)
               .then(response => response.json())
               .then(fetchData => {
@@ -42,7 +42,7 @@ export const EditProject = (props) => {
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
   
-        fetch('http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/add', {
+        fetch('http://ingestion-sandbox.dev.readysetvr.com/api/projects/add', {
           method: 'POST',
           headers: {
             'Authorization':token,

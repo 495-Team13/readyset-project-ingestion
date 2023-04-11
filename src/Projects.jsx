@@ -1,24 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MainHeader } from "./MainHeader";
-
-const obj = JSON.parse(localStorage.getItem("access_token"));
-const token = "Bearer " + obj.access_token;
-var requestOptions = {
-    method: "GET",
-    headers: {"Authorization":token},
-    redirect: "follow"   
-};
-var data;
-fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
-                .then(response => response.json())
-                .then(fetchData => {
-                   data = fetchData
-                });
 
 export const Projects = (props) => {
 
     const [value, setValue] = useState('');
     const [theme, setTheme] = useState(props.themeState);
+    const [data, setData] = useState([]);
+
+    const render = () => {
+        var mounted = true;
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        
+        var requestOptions = {
+            method: "GET",
+            headers: {"Authorization":token},
+            redirect: "follow"   
+        };
+                
+        fetch("http://ingestion-sandbox.dev.readysetvr.com/api/projects/all", requestOptions)
+                .then(response => response.json())
+                .then(fetchData => {
+                    if(mounted) {
+                        setData(fetchData);   
+                    }
+                });
+        return () => mounted = false;
+    }
+    
+    useEffect(() => {
+        render();
+    }, [])
     
     const changeTheme =(newTheme) => {
         setTheme(newTheme);
@@ -29,21 +41,28 @@ export const Projects = (props) => {
         props.onSwitch("EditProject", searchTerm, theme);
     }
 
-    const deleteButton = (item) => {
-        /* send name of project to be deleted to the db 
-        console.log("delete item " + item); */
-        fetch('http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/delete/', {
+    const deleteButton = (item) => {        
+        const obj = JSON.parse(localStorage.getItem('access_token'));
+        const token = "Bearer " + obj.access_token;
+        
+        var raw = JSON.stringify({
+            "name":item.name
+        });
+        
+        var requestOptions = {
             method: 'DELETE',
             headers: {
-              'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
-              'Content-Type': 'application/json'
+                "Content-Type":"application/json",
+                "Authorization":token
             },
-            body: JSON.stringify({
-              name: item.name
-            })
-          })
+            body: raw,
+            redirect:"follow"
+        };
+                
+        fetch('http://ingestion-sandbox.dev.readysetvr.com/api/projects/delete', requestOptions)
           .then(response => {
-            console.log(item.name + " successfully deleted.");
+            console.log(response);
+            render();
           })
           .catch(error => {
             props.onSwitch('Error', error, theme);
@@ -76,7 +95,7 @@ export const Projects = (props) => {
                                             <table><tbody><tr>
                                                 <td><p>{item.name}</p></td>
                                                 <td><button className="projects" id="green" onClick={()=>onSearch(item.name)}>Edit</button></td>
-                                                <td><button className="projects" id="red" onClick={()=>deleteButton}>Delete</button></td>
+                                                <td><button className="projects" id="red" onClick={()=>deleteButton(item)}>Delete</button></td>
                                             </tr></tbody></table>
                                         </div>
                                     ))} 

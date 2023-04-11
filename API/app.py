@@ -1,11 +1,12 @@
 # Framing the API
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
 from flask import Flask, jsonify, request, Response
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 import CRUD
 import export
 import auth
+import evar
 
 # Init the Dependencies and API, the code is kinda messy up here. 
 # 
@@ -16,16 +17,21 @@ import auth
 
 load_dotenv() #Init Environment Variables
 app = Flask(__name__) #Flask API Init
-app.config['JWT_SECRET_KEY'] = "temp-key" #JWT Hashing Configuration
+app.config['JWT_SECRET_KEY'] = "test-key" #JWT Hashing Configuration
 jwt = JWTManager(app)
 
+#Test Route for Environment Variables
+@app.route('/envars', methods=['GET'])
+def envvars():
+    return jsonify(message = evar.test_access()), 200
+
 #Basic Test API Endpoint to ensure it is up and running
-@app.route('/api/foo', methods=['GET'])
+@app.route('/foo', methods=['GET'])
 def foo():
     return jsonify(message = "Connection to API Seccessful"), 200
 
 # Base Login endpoint
-@app.route('/api/login', methods=['POST'])
+@app.route('/login', methods=['POST'])
 def login():
     '''
     Login to the API with credential provided in the websites Login Page.
@@ -47,12 +53,12 @@ def login():
 
 # Protected API endpoint for, Get Project
 
-@app.route('/api/testjwt', methods=['GET'])
+@app.route('/testjwt', methods=['GET'])
 @jwt_required()
 def test_jwt():
 	return jsonify("success"), 200
 
-@app.route('/api/projects/get/<project_name>', methods=['GET'])
+@app.route('/projects/get/<project_name>', methods=['GET'])
 @jwt_required()
 def get_data(project_name):
     '''Base Function to Retrieve the Project from the MongoDB database using the project name as an ID
@@ -71,14 +77,14 @@ def get_data(project_name):
         return jsonify(message=f"Project {project_name} not found."), 400
 
 # Protected API endpoint, List all Projects
-@app.route('/api/projects/all', methods=['GET'])
+@app.route('/projects/all', methods=['GET'])
 @jwt_required()
 def list_projects():
     projects = list(CRUD.get_all_projects())
     return jsonify(projects), 200
 
 # Create new Project Protected API endpoint
-@app.route('/api/projects/add', methods = ['POST'])
+@app.route('/projects/add', methods = ['POST'])
 @jwt_required()
 def add_new_project():
     '''
@@ -99,7 +105,7 @@ def add_new_project():
         return jsonify(message=f"Project Name not Defined. "), 400
 
 # Edit existing Project Protected API endpoint
-@app.route('/api/projects/edit', methods = ['PUT'])
+@app.route('/projects/edit', methods = ['PUT'])
 @jwt_required()
 def edit_project():
     '''
@@ -118,7 +124,7 @@ def edit_project():
     return jsonify(updated_project)
     
 # Delete existing Project Protected API endpoint
-@app.route('/api/projects/delete', methods = ['DELETE'])
+@app.route('/projects/delete', methods = ['DELETE'])
 @jwt_required()
 def delete_project():
     '''
@@ -144,7 +150,7 @@ def delete_project():
 #############################   #Products API Endpoints     #############################
 
 # Retrieve product Protected API endpoint 
-@app.route('/api/products/get/<product_upc>', methods=['GET'])
+@app.route('/products/get/<product_upc>', methods=['GET'])
 @jwt_required()
 def get_product_data(product_upc):
     '''Function to Retrieve the product from the MongoDB database using the product name as an ID
@@ -165,7 +171,7 @@ def get_product_data(product_upc):
         return jsonify(error=f"Error Fetching Product {product_upc}. Status Code: 204"), 204
     
 # Create new Product Protected API endpoint 
-@app.route('/api/products/add/<project_name>', methods = ['POST'])
+@app.route('/products/add/<project_name>', methods = ['POST'])
 @jwt_required()
 def add_new_product(project_name):
     '''Function to add a new product linked to a specified project
@@ -200,7 +206,7 @@ def add_new_product(project_name):
         return jsonify(data=f"Error when creating product {product_name} in {project_name}. Status Code: 400"), 400
 
 # Edit existing Product Protected API endpoint 
-@app.route('/api/products/edit/<product_upc>', methods = ['PUT'])
+@app.route('/products/edit/<product_upc>', methods = ['PUT'])
 @jwt_required()
 def edit_product(product_upc):
     '''Function to edit a product based of the product name
@@ -226,7 +232,7 @@ def edit_product(product_upc):
 
 # Delete existing Product Protexted API endpoint 
 # FIXME need to add delete the product upc from the project products array as well
-@app.route('/api/products/delete', methods = ['DELETE'])
+@app.route('/products/delete', methods = ['DELETE'])
 @jwt_required()
 def delete_product_api():
     '''Function to delete a product based of the products UPC
@@ -255,7 +261,7 @@ def delete_product_api():
 #############################   #Templates API Endpoints     #############################
 
 # Retrieve Template Protected API endpoint
-@app.route('/api/templates/get/<template_name>', methods=['GET'])
+@app.route('/templates/get/<template_name>', methods=['GET'])
 @jwt_required()
 def get_template_data(template_name):
     '''Function to fetch template data based on the unique template name
@@ -276,7 +282,7 @@ def get_template_data(template_name):
         return jsonify(message=f"Failed to Fetch Template: {template_name}."), 404
 
 # Create new Template Protected API endpoint
-@app.route('/api/templates/add', methods = ['POST'])
+@app.route('/templates/add', methods = ['POST'])
 @jwt_required()
 def add_new_template():
     '''Function to add a new blank template based on a template name
@@ -305,7 +311,7 @@ def add_new_template():
 
 
 # Edit existing Template Protected API endpoint
-@app.route('/api/templates/edit/<template_name>', methods = ['PUT'])
+@app.route('/templates/edit/<template_name>', methods = ['PUT'])
 @jwt_required()
 def edit_template(template_name):
     '''Function to edit an existing template using the unique template name
@@ -330,7 +336,7 @@ def edit_template(template_name):
     
 
 # Delete existing Template Protected API endpoint
-@app.route('/api/templates/delete/<template_name>', methods = ['DELETE'])
+@app.route('/templates/delete/<template_name>', methods = ['DELETE'])
 @jwt_required()
 def delete_template(template_name):
     '''Function to delete an existing template using the unique template name
@@ -355,7 +361,7 @@ def delete_template(template_name):
 #############################   #Export API Endpoints     #############################
 
 # Export document to CSV Protected API endpoint
-@app.route('/api/export/<collection>', methods = ['GET'])
+@app.route('/export/<collection>', methods = ['GET'])
 @jwt_required()
 def export_csv(collection):
     '''Function to export a document from a collection based on a unique ID
@@ -394,7 +400,7 @@ def export_csv(collection):
 #############################   #Category API Endpoints     #############################
 
 # Protected API endpoint for, Get Category
-@app.route('/api/categories/get/<category_name>', methods=['GET'])
+@app.route('/categories/get/<category_name>', methods=['GET'])
 @jwt_required()
 def get_category_data(category_name):
     '''Base Function to Retrieve the Category from the MongoDB database using the category name as an ID
@@ -413,14 +419,14 @@ def get_category_data(category_name):
         return jsonify(message=f"Category {category_name} not found."), 400
 
 # Protected API endpoint, List all Categories
-@app.route('/api/categories/all', methods=['GET'])
+@app.route('/categories/all', methods=['GET'])
 @jwt_required()
 def list_categories():
     categories = list(CRUD.get_all_categories())
     return jsonify(categories), 200
 
 # Create new Category Protected API endpoint
-@app.route('/api/categories/add', methods = ['POST'])
+@app.route('/categories/add', methods = ['POST'])
 @jwt_required()
 def add_new_category():
     '''
@@ -443,7 +449,7 @@ def add_new_category():
         return jsonify(message=f"Category Name not Defined. "), 400
 
 # Edit existing Category Protected API endpoint
-@app.route('/api/categories/edit/<category_name>', methods = ['PUT'])
+@app.route('/categories/edit/<category_name>', methods = ['PUT'])
 @jwt_required()
 def edit_category(category_name):
     '''
@@ -468,7 +474,7 @@ def edit_category(category_name):
         return jsonify(message=f"Category with name {category_name} not found"), 404
 
 # Delete existing Category Protected API endpoint
-@app.route('/api/categories/delete/<category_name>', methods = ['DELETE'])
+@app.route('/categories/delete/<category_name>', methods = ['DELETE'])
 @jwt_required()
 def delete_category(category_name):
     '''
