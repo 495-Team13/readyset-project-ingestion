@@ -29,7 +29,7 @@ export const EditRecord = (props) => {
             method: "GET",
             headers: {
                 "Authorization":token,
-                'Content-Type':'application/json
+                'Content-Type':'application/json'
             },
             redirect: "follow"
         };
