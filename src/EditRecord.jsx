@@ -84,15 +84,17 @@ export const EditRecord = (props) => {
             "add_height": addHeight,
             "add_info": addInfo
           }
+        
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        var requestOptions = {
+            method: "PUT",
+            headers: {"Authorization":token},
+            body: JSON.stringify(product),
+            redirect: "follow"
+        };
           
-          fetch('http://ingestion-sandbox.dev.readysetvr.com/api/products/edit/' + upc, {
-            method: 'PUT',
-            headers: {
-              'Authorization': 'Bearer ' + localStorage.getItem("access_token"),
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(product)
-          })
+          fetch('http://ingestion-sandbox.dev.readysetvr.com/api/products/edit/' + upc, requestOptions)
           .then(response => {
             response.json()
           })
