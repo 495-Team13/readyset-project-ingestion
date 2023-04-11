@@ -50,8 +50,8 @@ export const Login = (props) => {
       myHeaders.append("Content-Type","application/json");
 
       var raw = JSON.stringify({
-        "username": "root",
-        "password": "toor"
+        "username": "admin",
+        "password": "password"
       });
 
       var requestOptions = {
