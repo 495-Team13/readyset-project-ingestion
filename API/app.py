@@ -26,6 +26,11 @@ def debug():
     serializable_env = {k: v for k, v in os.environ.items() if isinstance(v, str)}
     return jsonify(serializable_env), 200
 
+#Test Environment Variable
+@app.rout('/envars', methods=['GET'])
+def envars():
+    return jsonify(message = os.environ.get("TEST_VARIABLE")), 200
+
 #Basic Test API Endpoint to ensure it is up and running
 @app.route('/foo', methods=['GET'])
 def foo():
