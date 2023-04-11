@@ -21,10 +21,10 @@ app.config['JWT_SECRET_KEY'] = "test-key" #JWT Hashing Configuration
 jwt = JWTManager(app)
 
 #Test Route for Environment Variables
-@app.route('/envars', methods=['GET'])
-def envvars():
-    #return jsonify(message = os.environ.get("TEST_VARIABLE")), 200
-    return os.environ, 200
+@app.route('/debug', methods=['GET'])
+def debug():
+    serializable_env = {k: v for k, v in os.environ.items() if isinstance(v, str)}
+    return jsonify(serializable_env), 200
 
 #Basic Test API Endpoint to ensure it is up and running
 @app.route('/foo', methods=['GET'])
