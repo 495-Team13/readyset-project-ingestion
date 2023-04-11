@@ -27,7 +27,10 @@ export const EditRecord = (props) => {
         const token = "Bearer " + obj.access_token;
         var requestOptions = {
             method: "GET",
-            headers: {"Authorization":token},
+            headers: {
+                "Authorization":token,
+                'Content-Type':'application/json'
+            },
             redirect: "follow"
         };
         if(props.stateVars === "Untitled") {
