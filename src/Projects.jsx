@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MainHeader } from "./MainHeader";
 
 export const Projects = (props) => {
