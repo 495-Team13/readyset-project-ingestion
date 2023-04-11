@@ -39,9 +39,7 @@ export const Projects = (props) => {
         props.onSwitch("EditProject", searchTerm, theme);
     }
 
-    const deleteButton = (item) => {
-        console.log(item.name);
-        
+    const deleteButton = (item) => {        
         const obj = JSON.parse(localStorage.getItem('access_token'));
         const token = "Bearer " + obj.access_token;
         
@@ -58,12 +56,11 @@ export const Projects = (props) => {
             body: raw,
             redirect:"follow"
         };
-        
-        console.log(requestOptions);
-        
+                
         fetch('http://ingestion-sandbox.dev.readysetvr.com/api/projects/delete', requestOptions)
           .then(response => {
             console.log(response);
+            window.location.reload(false);
           })
           .catch(error => {
             props.onSwitch('Error', error, theme);
