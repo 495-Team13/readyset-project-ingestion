@@ -1,10 +1,11 @@
 # Framing the API
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
 from flask import Flask, jsonify, request, Response
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 import CRUD
 import export
+import evar
 
 # Init the Dependencies and API, the code is kinda messy up here. 
 # 
@@ -21,7 +22,7 @@ jwt = JWTManager(app)
 #Test Route for Environment Variables
 @app.route('/envars', methods=['GET'])
 def envvars():
-    return jsonify(message = os.environ.get("TEST_VARIABLE")), 200
+    return jsonify(message = evar.test_access()), 200
 
 #Basic Test API Endpoint to ensure it is up and running
 @app.route('/foo', methods=['GET'])
