@@ -61,7 +61,7 @@ export const Login = (props) => {
         redirect: 'follow'
       };
 
-      fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/login", requestOptions)
+      fetch("http://ingestion-sandbox.dev.readysetvr.com/api/login", requestOptions)
       .then(response => response.text())
       .then(result => {
         console.log(result);
