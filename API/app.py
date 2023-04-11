@@ -15,8 +15,8 @@ import auth
 # The DOCString Comments are an idea for what the functions will end up doing (some are not fully flushed yet because of ambiguity)
 #
 
-load_dotenv(find_dotenv()) #Init Environment Variables
 app = Flask(__name__) #Flask API Init
+load_dotenv(find_dotenv()) #Init Environment Variables
 app.config['JWT_SECRET_KEY'] = "test-key" #JWT Hashing Configuration
 jwt = JWTManager(app)
 
