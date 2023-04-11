@@ -39,6 +39,7 @@ export const Projects = (props) => {
     const onSearch = (searchTerm) => {
         setValue(searchTerm);
         props.onSwitch("EditProject", searchTerm, theme);
+        render();
     }
 
     const deleteButton = (item) => {        
