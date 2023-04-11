@@ -1,24 +1,31 @@
 import React, { useState } from "react";
 import { MainHeader } from "./MainHeader";
 
-const obj = JSON.parse(localStorage.getItem("access_token"));
-const token = "Bearer " + obj.access_token;
-var requestOptions = {
-    method: "GET",
-    headers: {"Authorization":token},
-    redirect: "follow"   
-};
-var data;
-fetch("http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/all", requestOptions)
-                .then(response => response.json())
-                .then(fetchData => {
-                   data = fetchData
-                });
-
 export const Projects = (props) => {
 
     const [value, setValue] = useState('');
     const [theme, setTheme] = useState(props.themeState);
+    const [data, setData] = useState([]);
+    
+    useEffect(() => {
+        var mounted = true;
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        var requestOptions = {
+            method: "GET",
+            headers: {"Authorization":token},
+            redirect: "follow"   
+        };
+        var data;
+        fetch("http://ingestion-sandbox.dev.readysetvr.com/api/projects/all", requestOptions)
+                .then(response => response.json())
+                .then(fetchData => {
+                    if(mounted) {
+                        setData(data);   
+                    }
+                });
+        return () => mounted = false;
+    }, [])
     
     const changeTheme =(newTheme) => {
         setTheme(newTheme);
@@ -32,7 +39,7 @@ export const Projects = (props) => {
     const deleteButton = (item) => {
         /* send name of project to be deleted to the db 
         console.log("delete item " + item); */
-        fetch('http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/projects/delete/', {
+        fetch('http://ingestion-sandbox.dev.readysetvr.com/api/projects/delete/', {
             method: 'DELETE',
             headers: {
               'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
