@@ -29,7 +29,6 @@ export const EditRecord = (props) => {
             method: "GET",
             headers: {
                 "Authorization":token,
-                'Content-Type':'application/json'
             },
             redirect: "follow"
         };
@@ -92,7 +91,10 @@ export const EditRecord = (props) => {
         const token = "Bearer " + obj.access_token;
         var requestOptions = {
             method: "PUT",
-            headers: {"Authorization":token},
+            headers: {
+                "Authorization":token,
+                'Content-Type':'application/json'
+            },
             body: JSON.stringify(product),
             redirect: "follow"
         };
