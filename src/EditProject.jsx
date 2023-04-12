@@ -77,7 +77,7 @@ export const EditProject = (props) => {
     // see if we can change product upc to recordName (?)
     // otherwise need to come up with a way to set selected record upc from select during selectRecord() 
     const deleteRecord = () => {
-        fetch('/api/products/delete/' + recordName, {
+        fetch('http://ingestion-sandbox.dev.readysetvr.com/api/products/delete/' + recordName, {
             method: 'DELETE',
             headers: {
               'Authorization': 'Bearer ' + localStorage.getItem('access_token')
