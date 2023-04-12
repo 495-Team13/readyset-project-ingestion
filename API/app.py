@@ -20,12 +20,14 @@ jwt = JWTManager(app)
 
 #Test Route for Environment Variables
 @app.route('/debug', methods=['GET'])
+@jwt_required()
 def debug():
     serializable_env = {k: v for k, v in os.environ.items() if isinstance(v, str)}
     return jsonify(serializable_env), 200
 
 #Test Environment Variable
 @app.route('/envars', methods=['GET'])
+@jwt_required()
 def envars():
     return jsonify(message = os.environ.get("TEST_VARIABLE")), 200
 
