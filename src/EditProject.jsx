@@ -4,7 +4,7 @@ import { MainHeader } from "./MainHeader";
 export const EditProject = (props) => {
     const [products, setProducts] = useState([]);
     
-    const render() => {
+    const render = () => {
         var mounted = true;
         
         const obj = JSON.parse(localStorage.getItem("access_token"));
