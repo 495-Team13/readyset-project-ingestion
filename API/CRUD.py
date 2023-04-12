@@ -89,7 +89,7 @@ def delete_product_from_project(project_name, product_upc):
     Removes the given product UPC from the project's product array.
     Returns True if the product was removed, or false if not found.
     '''
-    return client.update_project(project_name, {"$pull": {"products": {"upc": product_upc}}})
+    return client.update_project(project_name, {"$pull": {"products": {"$elemMatch" : {"upc": product_upc}}}})
 
 # CRUD operations for Templates
 
