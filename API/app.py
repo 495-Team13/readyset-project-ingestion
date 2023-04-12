@@ -1,6 +1,5 @@
 # Framing the API
 import os
-from dotenv import load_dotenv, find_dotenv
 from flask import Flask, jsonify, request, Response
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 import CRUD
@@ -16,7 +15,6 @@ import auth
 #
 
 app = Flask(__name__) #Flask API Init
-load_dotenv('~/readyset-project-ingestion/API/.env') #Init Environment Variables
 app.config['JWT_SECRET_KEY'] = os.environ.get("JWT_KEY") #JWT Hashing Configuration
 jwt = JWTManager(app)
 
