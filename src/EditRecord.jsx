@@ -89,16 +89,17 @@ export const EditRecord = (props) => {
         
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
-        var requestOptions = {
-            method: "PUT",
-            headers: {
-                "Authorization":token,
-                'Content-Type':'application/json'
-            },
-            body: JSON.stringify(product),
-            redirect: "follow"
-        };
+
         if(props.stateVars === "new record") {
+            var requestOptions = {
+                method: "POST",
+                headers: {
+                    "Authorization":token,
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify(product),
+                redirect: "follow"
+            };
             const project = JSON.parse(localStorage.getItem("current_project"))
             const projectName = project.current_project;
             console.log(projectName);
@@ -111,6 +112,15 @@ export const EditRecord = (props) => {
             })
         } else {
             console.log(props.stateVars);
+            var requestOptions = {
+                method: "PUT",
+                headers: {
+                    "Authorization":token,
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify(product),
+                redirect: "follow"
+            };
             fetch('http://ingestion-sandbox.dev.readysetvr.com/api/products/edit/' + upc, requestOptions)
                 .then(response => {
                     response.json()
