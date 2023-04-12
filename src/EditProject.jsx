@@ -49,7 +49,7 @@ export const EditProject = (props) => {
         fetch('http://ingestion-sandbox.dev.readysetvr.com/api/projects/add', {
           method: 'POST',
           headers: {
-            'Authorization':token,
+            'Authorization': token,
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
@@ -77,12 +77,22 @@ export const EditProject = (props) => {
     // see if we can change product upc to recordName (?)
     // otherwise need to come up with a way to set selected record upc from select during selectRecord() 
     const deleteRecord = () => {
-        fetch('http://ingestion-sandbox.dev.readysetvr.com/api/products/delete/' + recordName, {
-            method: 'DELETE',
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        
+        var requestOptions = {
+            method: "DELETE",
             headers: {
-              'Authorization': 'Bearer ' + localStorage.getItem('access_token')
-            }
-          })
+                "Authorization": token,
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({
+                "product_upc" : recordName,
+                "project_name" : props.stateVars
+            }),
+            redirect: "follow"
+        }
+        fetch('http://ingestion-sandbox.dev.readysetvr.com/api/products/delete', requestOptions)
           .then(response => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
