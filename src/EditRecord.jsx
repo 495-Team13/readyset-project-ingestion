@@ -108,6 +108,7 @@ export const EditRecord = (props) => {
                 console.log(data)
             })
         } else {
+            console.log(props.stateVars);
             fetch('http://ingestion-sandbox.dev.readysetvr.com/api/products/edit/' + upc, requestOptions)
                 .then(response => {
                     response.json()
