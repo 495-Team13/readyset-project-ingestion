@@ -32,7 +32,7 @@ export const EditRecord = (props) => {
             },
             redirect: "follow"
         };
-        if(props.stateVars === "Untitled") {
+        if(props.stateVars === "new record") {
             clearRecord(); 
         } else {
             const str = 'http://ingestion-sandbox.dev.readysetvr.com/api/products/get/' + props.stateVars;
@@ -98,7 +98,7 @@ export const EditRecord = (props) => {
             body: JSON.stringify(product),
             redirect: "follow"
         };
-        if(props.stateVars === "Untitled") {
+        if(props.stateVars === "new record") {
             const projectName = JSON.parse(localStorage.getItem("current_project")).current_project;
             fetch('http://ingestion-sandbox.dev.readysetvr.com/api/products/add/' + projectName, requestOptions)
             .then(response => {
