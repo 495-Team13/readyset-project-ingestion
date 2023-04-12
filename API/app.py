@@ -258,7 +258,7 @@ def delete_product_api():
     data = request.get_json()
     product_upc = data['product_upc']
     project_name = data['project_name']
-    if CRUD.remove_product_from_project(project_name, product_upc):
+    if CRUD.delete_product_from_project(project_name, product_upc):
         return jsonify(message=f"Product with UPC {product_upc} removed from project {project_name}"), 200
     else:
         return jsonify(message=f"Product with UPC {product_upc} not found in project {project_name}"), 404
