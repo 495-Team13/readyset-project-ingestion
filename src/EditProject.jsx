@@ -102,12 +102,11 @@ export const EditProject = (props) => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
             }
+            render();
             return response.json();
           })
           .then(data => {
-            // handle successful response
             console.log("Deleted Record");
-            render();
           })
           .catch(error => {
             // handle error
