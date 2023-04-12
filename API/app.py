@@ -17,7 +17,7 @@ import auth
 
 app = Flask(__name__) #Flask API Init
 load_dotenv('~/readyset-project-ingestion/API/.env') #Init Environment Variables
-app.config['JWT_SECRET_KEY'] = "test-key" #JWT Hashing Configuration
+app.config['JWT_SECRET_KEY'] = os.environ.get("JWT_KEY") #JWT Hashing Configuration
 jwt = JWTManager(app)
 
 #Test Route for Environment Variables
