@@ -18,7 +18,9 @@ export const EditProject = (props) => {
             console.log("Creating new project");
         } else {
             const str = 'http://ingestion-sandbox.dev.readysetvr.com/api/projects/get/' + props.stateVars;
-            localStorage.setItem("current_project", JSON.Stringify({"current_project":props.stateVars});
+            const temp = "\"current_project\":\"" + props.stateVars + "\"";
+            console.log(temp);
+            localStorage.setItem("current_project", temp);
             fetch(str, requestOptions)
               .then(response => response.json())
               .then(fetchData => {
