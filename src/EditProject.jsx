@@ -3,7 +3,8 @@ import { MainHeader } from "./MainHeader";
 
 export const EditProject = (props) => {
     const [products, setProducts] = useState([]);
-    useEffect(() => {
+    
+    const render() => {
         var mounted = true;
         
         const obj = JSON.parse(localStorage.getItem("access_token"));
@@ -31,6 +32,10 @@ export const EditProject = (props) => {
               });
         }
         return () => mounted = false;
+    }
+    
+    useEffect(() => {
+        render();
     }, [])
 
     const [recordName, setRecordName] = useState('');
@@ -102,6 +107,7 @@ export const EditProject = (props) => {
           .then(data => {
             // handle successful response
             console.log("Deleted Record");
+            render();
           })
           .catch(error => {
             // handle error
