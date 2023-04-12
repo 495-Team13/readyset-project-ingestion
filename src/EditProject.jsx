@@ -14,9 +14,11 @@ export const EditProject = (props) => {
             redirect: "follow"
         };
         if(props.stateVars === "Untitled") {
+            localStorage.setItem("current_project", "new project");
             console.log("Creating new project");
         } else {
             const str = 'http://ingestion-sandbox.dev.readysetvr.com/api/projects/get/' + props.stateVars;
+            localStorage.setItem("current_project", props.stateVars);
             fetch(str, requestOptions)
               .then(response => response.json())
               .then(fetchData => {
