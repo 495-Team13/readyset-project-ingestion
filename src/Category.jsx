@@ -4,6 +4,32 @@ import React, { useState } from "react";
 export const Category = (props) => {
 
     const [theme, setTheme] = useState(props.themeState);
+    const [data, setData] = useState([]);
+    
+    const render = () => {
+        var mounted = true;
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        
+        var requestOptions = {
+            method: "GET",
+            headers: {"Authorization":token},
+            redirect: "follow"   
+        };
+                
+        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/all", requestOptions)
+                .then(response => response.json())
+                .then(fetchData => {
+                    if(mounted) {
+                        setData(fetchData);   
+                    }
+                });
+        return () => mounted = false;
+    }
+    
+    useEffect(() => {
+        render();
+    }, [])
 
     const changeTheme =(newTheme) => {
         setTheme(newTheme);
@@ -50,7 +76,26 @@ export const Category = (props) => {
                     <td><button className="editrecord" onClick={deleteRecord}>Delete Selected</button></td>
                 </tr>
                 <tr>
-                    <td> {/*Insert search here*/} </td>
+                    <td>
+                        <div className="search-container"> 
+                            <div className="dropdown">
+                                    {data.filter(item => {
+                                        const searchTerm = value.toLowerCase();
+                                        const name = item.name.toLowerCase();
+
+                                        return (searchTerm && name.startsWith(searchTerm)) || value === '';
+                                    }).map((item) => (
+                                        <div className="dropdown-row"  key={item.name}>
+                                            <table><tbody><tr>
+                                                <td><p>{item.name}</p></td>
+                                                <td><button className="projects" id="green" onClick={()=>onSearch(item.name)}>Edit</button></td>
+                                                <td><button className="projects" id="red" onClick={()=>deleteButton(item)}>Delete</button></td>
+                                            </tr></tbody></table>
+                                        </div>
+                                    ))} 
+                            </div> 
+                         </div>    
+                    </td>
                 </tr>
                 <tr>
                     <td> {/* What goes here? */}</td>
