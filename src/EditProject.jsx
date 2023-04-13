@@ -18,7 +18,7 @@ export const EditProject = (props) => {
             localStorage.setItem("current_project", JSON.Stringify({"current_project":"new project"}));
             console.log("Creating new project");
         } else {
-            const str = 'http://ingestion-sandbox.dev.readysetvr.com/api/projects/get/' + props.stateVars;
+            const str = 'https://ingestion-sandbox.dev.readysetvr.com/api/projects/get/' + props.stateVars;
             const temp = "{\"current_project\":\"" + props.stateVars + "\"}";
             console.log(temp);
             localStorage.setItem("current_project", temp);
@@ -51,7 +51,7 @@ export const EditProject = (props) => {
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
   
-        fetch('http://ingestion-sandbox.dev.readysetvr.com/api/projects/add', {
+        fetch('https://ingestion-sandbox.dev.readysetvr.com/api/projects/add', {
           method: 'POST',
           headers: {
             'Authorization': token,
@@ -97,7 +97,7 @@ export const EditProject = (props) => {
             }),
             redirect: "follow"
         }
-        fetch('http://ingestion-sandbox.dev.readysetvr.com/api/products/delete', requestOptions)
+        fetch('https://ingestion-sandbox.dev.readysetvr.com/api/products/delete', requestOptions)
           .then(response => {
             if (!response.ok) {
               throw new Error('Network response was not ok');

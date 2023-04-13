@@ -18,7 +18,7 @@ export const Projects = (props) => {
             redirect: "follow"   
         };
                 
-        fetch("http://ingestion-sandbox.dev.readysetvr.com/api/projects/all", requestOptions)
+        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/projects/all", requestOptions)
                 .then(response => response.json())
                 .then(fetchData => {
                     if(mounted) {
@@ -60,7 +60,7 @@ export const Projects = (props) => {
             redirect:"follow"
         };
                 
-        fetch('http://ingestion-sandbox.dev.readysetvr.com/api/projects/delete', requestOptions)
+        fetch('https://ingestion-sandbox.dev.readysetvr.com/api/projects/delete', requestOptions)
           .then(response => {
             console.log(response);
             render();
