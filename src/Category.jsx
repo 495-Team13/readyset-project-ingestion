@@ -50,6 +50,10 @@ export const Category = (props) => {
     const deleteRecord = () => {
         /* api call to drop record from table */ 
     }
+    
+    const onSearch = (categoryName) => {
+        /* switch to other page */   
+    }
 
     return(
         <div id={theme} class="background">
@@ -70,11 +74,6 @@ export const Category = (props) => {
                 </tr>
                 <tr>
                     <td><input className="editrecord" type="text"></input></td>
-                </tr>
-                <tr>
-                    <td><button className="editrecord" onClick={() => {props.onSwitch('EditRecord','new record', theme)}}>Create Record</button></td>
-                    <td><button className="editrecord" onClick={() => {props.onSwitch('EditRecord', 'needs json to populate', theme)}}>Edit Selected</button></td>
-                    <td><button className="editrecord" onClick={deleteRecord}>Delete Selected</button></td>
                 </tr>
                 <tr>
                     <td>
@@ -101,7 +100,7 @@ export const Category = (props) => {
                                                         <table><tbody><tr>
                                                             <td><p>{item.name}</p></td>
                                                             <td><button className="projects" id="green" onClick={()=>onSearch(item.name)}>Edit</button></td>
-                                                            <td><button className="projects" id="red" onClick={()=>deleteButton(item)}>Delete</button></td>
+                                                            <td><button className="projects" id="red" onClick={()=>deleteCategory(item.name)}>Delete</button></td>
                                                         </tr></tbody></table>
                                                     </div>
                                                 ))} 
