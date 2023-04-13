@@ -13,7 +13,7 @@ export const Login = (props) => {
 
     /*const handleSubmit = (e) => {
         console.log("submitted to api");
-        fetch('http://ingestion-sandbox.dev.readysetvr.com/testFlask/api/login', {
+        fetch('https://ingestion-sandbox.dev.readysetvr.com/testFlask/api/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ export const Login = (props) => {
         redirect: 'follow'
       };
 
-      fetch("http://ingestion-sandbox.dev.readysetvr.com/api/login", requestOptions)
+      fetch("https://ingestion-sandbox.dev.readysetvr.com/api/login", requestOptions)
       .then(response => response.text())
       .then(result => {
         console.log(result);
