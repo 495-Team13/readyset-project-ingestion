@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Login } from "./Login.jsx";
+import { Admin } from "./Admin.jsx";
 import { Projects } from "./Projects.jsx";
 import { EditProject } from "./EditProject.jsx";
 import { EditRecord } from "./EditRecord.jsx";
@@ -8,7 +9,7 @@ import { EditCategory } from "./EditCategory.jsx";
 import { Error } from "./Error.jsx";
 
 export const StateManager = () => {
-    const [state, setState] = useState('Login');
+    const [state, setState] = useState('Admin');
     const [stateVars, setStateVars] = useState('');
     const [theme, setTheme] = useState('dark');
 
@@ -21,6 +22,8 @@ export const StateManager = () => {
     switch(state) {
         case 'Login':
             return <Login onSwitch={switchState} themeState={theme}/>;
+        case 'Admin':
+            return <Admin stateVars={stateVars} onSwitch={switchState} themeState={theme}/>;
         case 'Projects':
             return <Projects stateVars={stateVars} onSwitch={switchState} themeState={theme}/>;
         case 'EditProject':
