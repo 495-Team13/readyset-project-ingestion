@@ -9,7 +9,7 @@ import { EditCategory } from "./EditCategory.jsx";
 import { Error } from "./Error.jsx";
 
 export const StateManager = () => {
-    const [state, setState] = useState('Admin');
+    const [state, setState] = useState('Login');
     const [stateVars, setStateVars] = useState('');
     const [theme, setTheme] = useState('dark');
 
