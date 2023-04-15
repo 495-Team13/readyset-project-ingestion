@@ -58,25 +58,6 @@ export const Category = (props) => {
     return(
         <div id={theme} class="background">
             <MainHeader current_theme={theme} switchTheme={changeTheme} onSwitch={(stateName, stateVars, theme) => props.onSwitch(stateName, stateVars, theme)} />
-            <table id={theme}>
-                <tr>
-                    <td><h4>Category Name</h4></td>
-                </tr>
-                <tr>
-                    <td><input className="editrecord" type="text"></input></td>
-                    <td><button className="editrecord" onClick={deleteCategory('')}>Delete Category</button></td>
-                    <td><button className="editrecord" onClick={()=> {props.onSwitch('EditCategory','',theme)}}>New Category</button></td>
-                    <td><button className="editrecord" onClick={exportCSV}>Export CSV</button></td>
-                </tr>
-                <tr>
-                    <td><h5 className="editrecord">Category Shape Definition</h5></td>
-                    <td><img></img></td>
-                </tr>
-                <tr>
-                    <td><input className="editrecord" type="text"></input></td>
-                </tr>
-                <tr>
-                    <td>
                         <table className="projects" id={theme}> 
                             <tbody>
                                 <tr>
@@ -110,12 +91,6 @@ export const Category = (props) => {
                                 </tr>
                             </tbody>
                         </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td> {/* What goes here? */}</td>
-                </tr>
-            </table>
         </div>
 
     )
