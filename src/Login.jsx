@@ -66,7 +66,7 @@ export const Login = (props) => {
       .then(result => {
         console.log(result);
         localStorage.setItem("access_token", result);
-        props.onSwitch('Projects','',theme);
+        props.onSwitch('Admin','',theme);
       })
       .catch(error => console.log('error', error));
     }
