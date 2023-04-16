@@ -79,6 +79,7 @@ export const Admin = (props) => {
                             <td><h2 className="projects">Users</h2></td>
                             <td><button className="projects" id="add-project" onClick={() => props.onSwitch('EditUser', 'Untitled', theme)}>+</button></td>
                             <td><input className="projects" value={value} onChange={(e) => setValue(e.target.value)} type="text" placeholder="Search..."></input></td>
+                            <td><button className="projects" onClick={()=> render()}>Refresh</button></td>
                         </tr></tbody></table></td>
                     </tr>
                     <tr>
