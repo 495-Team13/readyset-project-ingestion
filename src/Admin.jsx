@@ -47,7 +47,7 @@ export const Admin = (props) => {
         const token = "Bearer " + obj.access_token;
         
         var raw = JSON.stringify({
-            "name":item.name
+            "name":item
         });
         
         var requestOptions = {
@@ -94,7 +94,7 @@ export const Admin = (props) => {
                                     }).map((item) => (
                                         <div className="dropdown-row"  key={item.name}>
                                             <table><tbody><tr>
-                                                <td><p>{item.name}</p></td>
+                                                <td><p>{item}</p></td>
                                                 <td><button className="projects" id="green" onClick={()=>onSearch(item)}>Edit</button></td>
                                                 <td><button className="projects" id="red" onClick={()=>deleteButton(item)}>Delete</button></td>
                                             </tr></tbody></table>
