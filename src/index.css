@@ -187,47 +187,52 @@ input.login {
 }
 /* END 'GREEN' */
 
+/* ADD PROJECT 'ADDPROJECT' ELEMENT */
+
 #add-project {
   font-weight: bolder;
   color: green;
   border-radius: 25px;
 }
 
-button:hover.projects {
+button:hover.addproject {
   border: 2px solid green;
 }
 
-button.projects {
+button.addproject {
   color: white;
   background-color: #787878;
   border: 1px solid white;
   border-radius: 25px;
+  margin: 10px;
+  position: relative;
 }
 
-table.projects {
+table.addproject {
   position: absolute;
   width: 50%;
   margin: 0;
   padding: 10px;
   top: 50%;
   left: 50%;
-  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   border: 1px solid white;
   border-radius: 25px;
 }
 
-input:focus.projects {
+input:focus.addproject {
   text-align: left;
 }
 
-input.projects {
+input.addproject {
   position: relative;
   background-color: #787878;
   color: white;
 }
-/*********************************** END PROJECT */
-/* EDIT PROJECT 'EDITPROJECT' ELEMENT            */
+
+
+/* EDIT PROJECT 'EDITPROJECT' ELEMENT */
+
 button:hover.editproject {
   border: 2px solid green;
 }
@@ -236,12 +241,15 @@ button.editproject {
   color: white;
   background-color: #787878;
   border: 2px solid white;
-  border-radius: 25px; 
+  border-radius: 25px;
   margin-right: 10px;
 }
 
 h4.editproject {
   padding-right: 10px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bolder;
+  border-bottom: 2px solid #787878;
 }
 
 input:focus.editproject {
@@ -261,17 +269,19 @@ table.editproject {
   padding: 10px;
   top: 50%;
   left: 50%;
-  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   border: 1px solid white;
   border-radius: 25px;
 }
+
 
 /****************************** END EDIT PROJECT */
 /* EDIT RECORD                                   */
 ::placeholder {
   color: white; 
 }
+
+/* EDIT RECORD 'EDITRECORD' ELEMENT */
 
 button:hover.editrecord {
   border: 2px solid green;
@@ -282,13 +292,16 @@ button.editrecord {
   color: white;
   font-weight: bolder;
   border-radius: 25px;
-  border: 1px solid white;
+  border: 2px solid white;
 }
 
 h5.editrecord {
   margin-left: 10px;
   margin-right: 75px;
   margin-bottom: 0px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bolder;
+  font-size: 18px;
 }
 
 input:focus.editrecord {
@@ -300,6 +313,8 @@ input.editrecord {
   color: white;
   width: 150px;
   border-radius: 5px;
+  border: 2px solid white;
+  padding: 5px;
 }
 
 table.editrecord {
@@ -311,12 +326,14 @@ table.editrecord {
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  border: 1px solid white;
+  border: 2px solid white;
   border-radius: 25px;
 }
 
-/*************** HELPER DIV CLASSES **************/
+/*********************************** HELPER DIV CLASSES ***********************************/
+
 /* BACKGROUND --OUTSIDE CONTAINER FOR LIGHT/DARK */
+
 .background {
   position: fixed;
   top: 0;
@@ -325,7 +342,8 @@ table.editrecord {
   height: 100%;
 }
 
-/* CENTERING                                      */
+/* CENTERING */
+
 .center {
   margin: 0;
   position: absolute;
