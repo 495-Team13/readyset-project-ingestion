@@ -15,7 +15,7 @@ export const EditProject = (props) => {
             redirect: "follow"
         };
         if(props.stateVars === "Untitled") {
-            localStorage.setItem("current_project", JSON.Stringify({"current_project":"new project"}));
+            localStorage.setItem("current_project", JSON.stringify({"current_project":"new project"}));
             console.log("Creating new project");
         } else {
             const str = 'https://ingestion-sandbox.dev.readysetvr.com/api/projects/get/' + props.stateVars;
