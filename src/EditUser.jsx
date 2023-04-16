@@ -40,6 +40,16 @@ export const EditUser = (props) => {
   return (
     <div className="background" id={theme}>
       <MainHeader current_theme={theme} switchTheme={changeTheme} onSwitch={(stateName, stateVars, theme) => props.onSwitch(stateName, stateVars, theme)} />
+      <table>
+        <tbody>
+          <tr>
+            <td><h2>{props.stateVars}</h2></td>
+          </tr>
+          <tr>
+            <td><p>This is text</p></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   )
   
