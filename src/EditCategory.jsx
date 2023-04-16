@@ -18,6 +18,7 @@ export const EditCategory = (props) => {
             redirect: "follow"   
         };
                 
+        console.log("fetching");
         fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + props.stateVars, requestOptions)
                 .then(response => response.json())
                 .then(fetchData => {
