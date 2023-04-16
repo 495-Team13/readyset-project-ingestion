@@ -42,6 +42,7 @@ export const EditUser = (props) => {
     /* api call goes here */ 
     console.log(username);
     console.log(password);
+    props.switchState('Admin', '', theme);
   }
   
   return (
