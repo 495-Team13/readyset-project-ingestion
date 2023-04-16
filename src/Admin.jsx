@@ -22,7 +22,8 @@ export const Admin = (props) => {
                 .then(response => response.json())
                 .then(fetchData => {
                     if(mounted) {
-                        setData(fetchData);   
+                        setData(fetchData); 
+                        console.log(data);
                     }
                 });
         return () => mounted = false;
