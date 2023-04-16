@@ -503,7 +503,7 @@ def delete_category(category_name):
 #############################   #User API Endpoints     #############################
 
 # Protected API endpoint for, Get User
-@app.route('/api/users/get/<username>', methods=['GET'])
+@app.route('/users/get/<username>', methods=['GET'])
 @jwt_required()
 def get_user_data(username):
     '''Base Function to Retrieve the User from the MongoDB database using the username as an ID
@@ -524,14 +524,14 @@ def get_user_data(username):
         return jsonify(message=f"User {username} not found."), 400
 
 # Protected API endpoint, List all Users
-@app.route('/api/users/all', methods=['GET'])
+@app.route('/users/all', methods=['GET'])
 @jwt_required()
 def list_users():
     users = list(CRUD.get_all_users())
     return jsonify(users), 200
 
 # Create new User Protected API endpoint
-@app.route('/api/users/add', methods = ['POST'])
+@app.route('/users/add', methods = ['POST'])
 @jwt_required()
 def add_new_user():
     '''
@@ -554,7 +554,7 @@ def add_new_user():
         return jsonify(message=f"Required user info missing."), 400
 
 # Edit existing User Protected API endpoint
-@app.route('/api/users/edit/<username>', methods = ['PUT'])
+@app.route('/users/edit/<username>', methods = ['PUT'])
 @jwt_required()
 def edit_user(username):
     '''
@@ -583,7 +583,7 @@ def edit_user(username):
         return jsonify(message=f"User with username {username} not found"), 404
 
 # Delete existing User Protected API endpoint
-@app.route('/api/users/delete/<username>', methods = ['DELETE'])
+@app.route('/users/delete/<username>', methods = ['DELETE'])
 @jwt_required()
 def delete_user(username):
     '''
