@@ -38,13 +38,19 @@ export const EditUser = (props) => {
     setTheme(newTheme);
   }
   
+  const saveRecord = () => {
+    /* api call goes here */ 
+    console.log(username);
+    console.log(password);
+  }
+  
   return (
     <div className="background" id={theme}>
       <MainHeader current_theme={theme} switchTheme={changeTheme} onSwitch={(stateName, stateVars, theme) => props.onSwitch(stateName, stateVars, theme)} />
       <table>
         <tbody>
           <tr>
-            <td><h2>Current user: {props.stateVars}</h2></td>
+            <td><h2 className="editrecord">Current user: {props.stateVars}</h2></td>
           </tr>
           <tr>
             <td><p>Username: </p></td>
@@ -53,6 +59,7 @@ export const EditUser = (props) => {
           <tr> 
               <td><input className="editrecord" type="text" placeholder={username} onChange={(e) => setUsername(e.target.value)}></input></td>
               <td><input className="editrecord" type="text" placeholder={password} onChange={(e) => setPassword(e.target.value)}></input></td>
+              <td><button className="editrecord" onClick={() => saveRecord()}>Save</button></td>
           </tr>
         </tbody>
       </table>
