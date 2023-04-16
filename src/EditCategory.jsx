@@ -5,6 +5,7 @@ export const EditCategory = (props) => {
 
     const [theme, setTheme] = useState(props.themeState);
     const [data, setData] = useState([]);
+    const [name, setName] = useState('');
     const [value, setValue] = useState('');
     
     const render = () => {
@@ -17,14 +18,17 @@ export const EditCategory = (props) => {
             headers: {"Authorization":token},
             redirect: "follow"   
         };
-                
-        console.log("fetching");
+        if(props.stateVars === "Untitled") {
+            setName("Untitled");
+            setData([]);
+        }
         fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + props.stateVars, requestOptions)
                 .then(response => response.json())
                 .then(fetchData => {
                     if(mounted) {
-                        setData(fetchData);   
-                        console.log(Object.values(data));
+                        setName(fetchData.name);   
+                        setData(fetchData.templates);
+                        console.log(data);
                     }
                 });
         return () => mounted = false;    
@@ -62,7 +66,7 @@ export const EditCategory = (props) => {
                                     <td>
                                         <div className="search-container"> 
                                             <div className="dropdown">
-                                                {Object.values(data).filter(item => {
+                                                {data.filter(item => {
                                                     const searchTerm = value.toLowerCase();
                                                     const name = item.name.toLowerCase();
 
