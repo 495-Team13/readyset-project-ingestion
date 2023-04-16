@@ -35,6 +35,14 @@ export const EditCategory = (props) => {
     const changeTheme = (newTheme) => {
         setTheme(newTheme);
     }
+    
+    const onSearch = (templateName) => {
+          console.log(templateName); 
+    }
+    
+    const deleteTemplate = (templateName) => {
+            /* delete api call */
+    }
 
     return(
         <div id={theme} class="background">
@@ -62,7 +70,7 @@ export const EditCategory = (props) => {
                                                         <table><tbody><tr>
                                                             <td><p>{item.name}</p></td>
                                                             <td><button className="projects" id="green" onClick={()=>onSearch(item.name)}>Edit</button></td>
-                                                            <td><button className="projects" id="red" onClick={()=>deleteCategory(item.name)}>Delete</button></td>
+                                                            <td><button className="projects" id="red" onClick={()=>deleteTemplate(item.name)}>Delete</button></td>
                                                         </tr></tbody></table>
                                                     </div>
                                                 ))} 
