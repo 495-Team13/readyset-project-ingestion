@@ -42,6 +42,37 @@ export const EditUser = (props) => {
     /* api call goes here */ 
     console.log(username);
     console.log(password);
+    
+    if(props.stateVars === 'Untitled') {
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+      
+        var raw = {
+          "username":username,
+          "password":password
+        };
+        
+        var requestOptions = {
+            method: "POST",
+            headers: {
+              "Authorization":token,
+              "Content-Type":"application/json"
+            },
+            body: JSON.stringify(raw),
+            redirect: "follow"   
+        };
+      
+         fetch('https://ingestion-sandbox.dev.readysetvr.com/api/users/add', requestOptions)
+            .then(response => {
+                response.json()
+            })
+            .then(data => {
+                console.log(data)
+            })
+      
+    } else {
+      console.log('edit');
+    }
     props.onSwitch('Admin', '', theme);
   }
   
