@@ -62,7 +62,7 @@ export const EditCategory = (props) => {
                                     <td>
                                         <div className="search-container"> 
                                             <div className="dropdown">
-                                                {data.filter(item => {
+                                                {Object.values(data).filter(item => {
                                                     const searchTerm = value.toLowerCase();
                                                     const name = item.name.toLowerCase();
 
