@@ -4,7 +4,8 @@ import { MainHeader } from "./MainHeader";
 export const EditUser = (props) => {
   
   const [theme, setTheme] = useState(props.themeState);
-  const [data, setData] = useState([]);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('No defaults provided');
   
   const render = () => {
         var mounted = true;
@@ -22,8 +23,7 @@ export const EditUser = (props) => {
                 .then(response => response.json())
                 .then(fetchData => {
                     if(mounted) {
-                        setData(fetchData);   
-                        console.log(data.username);
+                        setUsername(fetchData.username)
                     }
                 });
         return () => mounted = false;
@@ -43,10 +43,15 @@ export const EditUser = (props) => {
       <table>
         <tbody>
           <tr>
-            <td><h2>{props.stateVars}</h2></td>
+            <td><h2>Current user: {props.stateVars}</h2></td>
           </tr>
           <tr>
-            <td><p>This is text</p></td>
+            <td><p>Edit name: </p></td>
+            <td><p>Edit password: </p></td>
+          </tr>
+          <tr> 
+              <td><input className="editrecord" type="text" placeholder={username} onChange={(e) => setUsername(e.target.value)}></input></td>
+              <td><input className="editrecord" type="text" placeholder={password} onChange={(e) => setPassword(e.target.value)}></input></td>
           </tr>
         </tbody>
       </table>
