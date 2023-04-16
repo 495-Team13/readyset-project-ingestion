@@ -28,7 +28,6 @@ export const EditCategory = (props) => {
                     if(mounted) {
                         setName(fetchData.name);   
                         setData(fetchData.templates);
-                        console.log(data);
                     }
                 });
         return () => mounted = false;    
@@ -68,15 +67,15 @@ export const EditCategory = (props) => {
                                             <div className="dropdown">
                                                 {data.filter(item => {
                                                     const searchTerm = value.toLowerCase();
-                                                    const name = item.name.toLowerCase();
+                                                    const name = item.toLowerCase();
 
                                                     return (searchTerm && name.startsWith(searchTerm)) || value === '';
                                                 }).map((item) => (
-                                                    <div className="dropdown-row"  key={item.name}>
+                                                    <div className="dropdown-row"  key={item}>
                                                         <table><tbody><tr>
                                                             <td><p>{item.name}</p></td>
-                                                            <td><button className="projects" id="green" onClick={()=>onSearch(item.name)}>Edit</button></td>
-                                                            <td><button className="projects" id="red" onClick={()=>deleteTemplate(item.name)}>Delete</button></td>
+                                                            <td><button className="projects" id="green" onClick={()=>onSearch(item)}>Edit</button></td>
+                                                            <td><button className="projects" id="red" onClick={()=>deleteTemplate(item)}>Delete</button></td>
                                                         </tr></tbody></table>
                                                     </div>
                                                 ))} 
