@@ -23,7 +23,8 @@ export const EditUser = (props) => {
                 .then(response => response.json())
                 .then(fetchData => {
                     if(mounted) {
-                        setUsername(fetchData.username)
+                        setUsername(fetchData.username);
+                        setPassword(fetchData.password);
                     }
                 });
         return () => mounted = false;
@@ -46,8 +47,8 @@ export const EditUser = (props) => {
             <td><h2>Current user: {props.stateVars}</h2></td>
           </tr>
           <tr>
-            <td><p>Edit name: </p></td>
-            <td><p>Edit password: </p></td>
+            <td><p>Username: </p></td>
+            <td><p>Password: </p></td>
           </tr>
           <tr> 
               <td><input className="editrecord" type="text" placeholder={username} onChange={(e) => setUsername(e.target.value)}></input></td>
