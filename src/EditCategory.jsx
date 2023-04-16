@@ -24,6 +24,7 @@ export const EditCategory = (props) => {
                 .then(fetchData => {
                     if(mounted) {
                         setData(fetchData);   
+                        console.log(data);
                     }
                 });
         return () => mounted = false;    
