@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 export const EditCategory = (props) => {
 
     const [theme, setTheme] = useState(props.themeState);
+    const [data, setData] = useState([]);
     
     const render = () => {
         var mounted = true;
