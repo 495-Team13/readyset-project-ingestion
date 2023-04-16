@@ -95,7 +95,7 @@ export const Admin = (props) => {
                                     }).map((item) => (
                                         <div className="dropdown-row"  key={item.username}>
                                             <table><tbody><tr>
-                                                <td><p>{item}</p></td>
+                                                <td><p>{item.username}</p></td>
                                                 <td><button className="projects" id="green" onClick={()=>onSearch(item.username)}>Edit</button></td>
                                                 <td><button className="projects" id="red" onClick={()=>deleteButton(item.username)}>Delete</button></td>
                                             </tr></tbody></table>
