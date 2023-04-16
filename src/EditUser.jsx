@@ -74,6 +74,7 @@ export const EditUser = (props) => {
       console.log('edit');
     }
     props.onSwitch('Admin', '', theme);
+    render();
   }
   
   return (
