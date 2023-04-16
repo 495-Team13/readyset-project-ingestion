@@ -95,7 +95,7 @@ export const EditUser = (props) => {
               <td><button className="editrecord" onClick={() => saveRecord()}>Save</button></td>
           </tr>
           <tr>
-              <td><button className="editrecord" onClick={() => props.onSwitch('Admin', '', theme}>Return without saving</button></td>
+              <td><button className="editrecord" onClick={() => props.onSwitch('Admin', '', theme}>"Return without saving"</button></td>
           </tr>
         </tbody>
       </table>
