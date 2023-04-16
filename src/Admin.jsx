@@ -23,7 +23,6 @@ export const Admin = (props) => {
                 .then(fetchData => {
                     if(mounted) {
                         setData(fetchData); 
-                        console.log(data);
                     }
                 });
         return () => mounted = false;
@@ -63,7 +62,6 @@ export const Admin = (props) => {
                 
         fetch('https://ingestion-sandbox.dev.readysetvr.com/api/users/delete', requestOptions)
           .then(response => {
-            console.log(response);
             render();
           })
           .catch(error => {
