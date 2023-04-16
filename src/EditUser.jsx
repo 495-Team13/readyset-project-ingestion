@@ -19,14 +19,18 @@ export const EditUser = (props) => {
         };
                 
         console.log(props.stateVars);
-        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/users/get/" + props.stateVars, requestOptions)
-                .then(response => response.json())
-                .then(fetchData => {
-                    if(mounted) {
-                        setUsername(fetchData.username);
-                        setPassword(fetchData.password);
-                    }
-                });
+        if(props.stateVars === "Untitled") {
+          setUsername("Untitled); 
+        } else {
+          fetch("https://ingestion-sandbox.dev.readysetvr.com/api/users/get/" + props.stateVars, requestOptions)
+                  .then(response => response.json())
+                  .then(fetchData => {
+                      if(mounted) {
+                          setUsername(fetchData.username);
+                          setPassword(fetchData.password);
+                      }
+                  });
+        }
         return () => mounted = false;
   }
   
