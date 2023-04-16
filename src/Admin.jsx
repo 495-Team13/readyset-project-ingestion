@@ -48,7 +48,7 @@ export const Admin = (props) => {
         const token = "Bearer " + obj.access_token;
         
         var raw = JSON.stringify({
-            "name":item
+            "username":item
         });
         
         var requestOptions = {
@@ -89,15 +89,15 @@ export const Admin = (props) => {
                             <div className="dropdown">
                                     {data.filter(item => {
                                         const searchTerm = value.toLowerCase();
-                                        const name = item.toLowerCase();
+                                        const name = item.username.toLowerCase();
 
                                         return (searchTerm && name.startsWith(searchTerm)) || value === '';
                                     }).map((item) => (
-                                        <div className="dropdown-row"  key={item.name}>
+                                        <div className="dropdown-row"  key={item.username}>
                                             <table><tbody><tr>
                                                 <td><p>{item}</p></td>
-                                                <td><button className="projects" id="green" onClick={()=>onSearch(item)}>Edit</button></td>
-                                                <td><button className="projects" id="red" onClick={()=>deleteButton(item)}>Delete</button></td>
+                                                <td><button className="projects" id="green" onClick={()=>onSearch(item.username)}>Edit</button></td>
+                                                <td><button className="projects" id="red" onClick={()=>deleteButton(item.username)}>Delete</button></td>
                                             </tr></tbody></table>
                                         </div>
                                     ))} 
