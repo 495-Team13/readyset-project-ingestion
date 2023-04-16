@@ -94,6 +94,9 @@ export const EditUser = (props) => {
               <td><input className="editrecord" type="text" placeholder={password} onChange={(e) => setPassword(e.target.value)}></input></td>
               <td><button className="editrecord" onClick={() => saveRecord()}>Save</button></td>
           </tr>
+          <tr>
+              <td><button className="editrecord" onClick={() => props.onSwitch('Admin', '', theme}>Return without saving</button></td>
+          </tr>
         </tbody>
       </table>
     </div>
