@@ -4,6 +4,7 @@ import { Admin } from "./Admin.jsx";
 import { Projects } from "./Projects.jsx";
 import { EditProject } from "./EditProject.jsx";
 import { EditRecord } from "./EditRecord.jsx";
+import { EditUser } from "./EditUser.jsx";
 import { Category } from "./Category.jsx";
 import { EditCategory } from "./EditCategory.jsx";
 import { Error } from "./Error.jsx";
@@ -30,6 +31,8 @@ export const StateManager = () => {
             return <EditProject stateVars={stateVars} onSwitch={switchState} themeState={theme}/>; 
         case 'EditRecord':
             return <EditRecord stateVars={stateVars} onSwitch={switchState} themeState={theme}/>; 
+        case 'EditUser':
+            return <EditUser stateVars={stateVars} onSwitch={switchState} themeState={theme}/>;
         case 'Category':
             return <Category stateVars={stateVars} onSwitch={switchState} themeState={theme}/>;
         case 'EditCategory':
