@@ -44,15 +44,12 @@ export const Category = (props) => {
     }
 
     const exportCSV = () => {
-        /* write after we agree on information order and work flow */ 
-    }
-
-    const deleteRecord = () => {
-        /* api call to drop record from table */ 
+        /* switch to api call */ 
     }
     
     const onSearch = (categoryName) => {
         /* switch to other page */   
+        props.onSwitch('EditCategory', categoryName, theme);
     }
 
     return(
