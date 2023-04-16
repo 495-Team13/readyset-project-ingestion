@@ -17,12 +17,13 @@ export const EditUser = (props) => {
             redirect: "follow"   
         };
                 
+        console.log(props.stateVars);
         fetch("https://ingestion-sandbox.dev.readysetvr.com/api/users/get/" + props.stateVars, requestOptions)
                 .then(response => response.json())
                 .then(fetchData => {
                     if(mounted) {
                         setData(fetchData);   
-                        console.log(data);
+                        console.log(data.username);
                     }
                 });
         return () => mounted = false;
