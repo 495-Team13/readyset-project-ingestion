@@ -20,7 +20,7 @@ export const EditUser = (props) => {
                 
         console.log(props.stateVars);
         if(props.stateVars === "Untitled") {
-          setUsername("Untitled); 
+          setUsername("Untitled"); 
         } else {
           fetch("https://ingestion-sandbox.dev.readysetvr.com/api/users/get/" + props.stateVars, requestOptions)
                   .then(response => response.json())
