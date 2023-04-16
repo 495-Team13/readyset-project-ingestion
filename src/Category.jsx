@@ -60,7 +60,7 @@ export const Category = (props) => {
                                 <tr>
                                     <td><table><tbody><tr>
                                         <td><h2 className="projects">Categories</h2></td>
-                                        <td><button className="projects" id="add-project" onClick={() => props.onSwitch('EditProject', 'Untitled', theme)}>+</button></td>
+                                        <td><button className="projects" id="add-project" onClick={() => props.onSwitch('EditCategory', 'Untitled', theme)}>+</button></td>
                                         <td><input className="projects" value={value} onChange={(e) => setValue(e.target.value)} type="text" placeholder="Search..."></input></td>
                                     </tr></tbody></table></td>
                                 </tr>
