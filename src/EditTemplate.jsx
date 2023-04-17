@@ -74,10 +74,10 @@ export const EditTemplate = (props) => {
             <table>
                 <tbody>
                     <tr>
-                        <td><h3>Category Name</h5></td>
+                        <td><h3>Category Name</h3></td>
                     </tr>
                     <tr>
-                        <td><h4>{props.stateVars}</h6></td>
+                        <td><h4>{props.stateVars}</h4></td>
                         <td><button>Return</button></td>
                         <td><button>Save</button></td>
                         <td><button>Clear</button></td>
