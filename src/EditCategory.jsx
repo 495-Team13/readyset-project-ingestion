@@ -42,6 +42,7 @@ export const EditCategory = (props) => {
     }
     
     const onSearch = (templateName) => {
+          props.onSwitch("EditTemplate", templateName, theme);
           console.log(templateName); 
     }
     
@@ -73,7 +74,7 @@ export const EditCategory = (props) => {
                                                 }).map((item) => (
                                                     <div className="dropdown-row"  key={item}>
                                                         <table><tbody><tr>
-                                                            <td><p>{item.name}</p></td>
+                                                            <td><p>{item}</p></td>
                                                             <td><button className="projects" id="green" onClick={()=>onSearch(item)}>Edit</button></td>
                                                             <td><button className="projects" id="red" onClick={()=>deleteTemplate(item)}>Delete</button></td>
                                                         </tr></tbody></table>
