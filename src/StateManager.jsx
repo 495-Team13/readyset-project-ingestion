@@ -35,7 +35,7 @@ export const StateManager = () => {
         case 'EditUser':
             return <EditUser stateVars={stateVars} onSwitch={switchState} themeState={theme}/>;
             case 'EditTemplate':
-            return <EditTempalte stateVars={stateVars} onSwitch={switchState} themeState={theme}/>;
+            return <EditTemplate stateVars={stateVars} onSwitch={switchState} themeState={theme}/>;
         case 'Category':
             return <Category stateVars={stateVars} onSwitch={switchState} themeState={theme}/>;
         case 'EditCategory':
