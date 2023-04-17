@@ -7,6 +7,7 @@ import { EditRecord } from "./EditRecord.jsx";
 import { EditUser } from "./EditUser.jsx";
 import { Category } from "./Category.jsx";
 import { EditCategory } from "./EditCategory.jsx";
+import { EditTemplate } from "./EditTemplate.jsx";
 import { Error } from "./Error.jsx";
 
 export const StateManager = () => {
@@ -33,6 +34,8 @@ export const StateManager = () => {
             return <EditRecord stateVars={stateVars} onSwitch={switchState} themeState={theme}/>; 
         case 'EditUser':
             return <EditUser stateVars={stateVars} onSwitch={switchState} themeState={theme}/>;
+            case 'EditTemplate':
+            return <EditTempalte stateVars={stateVars} onSwitch={switchState} themeState={theme}/>;
         case 'Category':
             return <Category stateVars={stateVars} onSwitch={switchState} themeState={theme}/>;
         case 'EditCategory':
