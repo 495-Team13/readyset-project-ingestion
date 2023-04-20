@@ -37,6 +37,8 @@ export const Category = (props) => {
     }
 
     const deleteCategory = (categoryName) => {
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
         var requestOptions = {
                 method: "DELETE",
                 headers: {"Authorization":token},
