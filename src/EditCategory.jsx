@@ -92,7 +92,7 @@ export const EditCategory = (props) => {
                 .then(response => response.json())
                 .then(data => console.log(data))
         }
-        props.onSwitch("Categories", '', theme)
+        props.onSwitch("Category", '', theme)
         render();
     }
 
