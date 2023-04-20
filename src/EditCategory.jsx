@@ -5,7 +5,7 @@ export const EditCategory = (props) => {
 
     const [theme, setTheme] = useState(props.themeState);
     const [data, setData] = useState([]);
-    const [name, setName] = useState('');
+    const [categoryName, setCategoryName] = useState('');
     const [value, setValue] = useState('Search...');
     
     const render = () => {
@@ -26,7 +26,7 @@ export const EditCategory = (props) => {
                 .then(response => response.json())
                 .then(fetchData => {
                     if(mounted) {
-                        setName(fetchData.name);   
+                        setCategoryName(fetchData.name);   
                         setData(fetchData.templates);
                     }
                 });
@@ -53,6 +53,27 @@ export const EditCategory = (props) => {
     
     const edit = () => {
             /* update api call */
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        
+        if(props.stateVars === 'Untitled') {
+            // add api call
+            var raw = {
+                "name":categoryName                
+            }
+            
+            var requestOptions = {
+                
+            }
+            
+            fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/add", requestOptions)
+                .then(response => response.JSON)
+                .then(fetchData => console.log(fetchData);
+        } else {
+            // edit api call  
+        }
+        
+        render();
     }
 
     return(
@@ -63,10 +84,11 @@ export const EditCategory = (props) => {
                                 <tr>
                                     <td><table><tbody><tr>
                                         <td><h2 className="projects">Category</h2></td>
-                                        <td><input className="projects"  value={name} onChange={(e) => setName(e.target.value)} type="text" placeHolder={name}></input></td>
+                                        <td><input className="projects"  value={categoryName} onChange={(e) => setName(e.target.value)} type="text" placeHolder={props.stateVars}></input></td>
                                         <td><button className="projects" id="update-name" onClick={() => edit()}>Update</button></td>
-                                        <td><button className="projects" id="add-project" onClick={() => props.onSwitch('EditTemplate', 'Untitled', theme)}>+</button></td>
-                                        <td><input className="projects" onChange={(e) => setValue(e.target.value)} type="text" placeHolder={value}></input></td>
+                                        <td><button className="projects" onClick={() => props.onSwitch('EditTemplate', 'Untitled', theme)}>Add Template</button></td>
+                                        <td><input className="editproject" onChange={(e) => setValue(e.target.value)} type="text" placeholder={value}></input></td>
+
                                     </tr></tbody></table></td>
                                 </tr>
                                 <tr>
