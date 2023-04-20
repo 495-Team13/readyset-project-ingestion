@@ -37,10 +37,16 @@ export const Category = (props) => {
     }
 
     const deleteCategory = (categoryName) => {
-        // DELETE TEMPLATE SAME AS DELETE PRODUCT? 
-        // ALSO DO WE EVEN DELETE TEMPLATES? 
-        // AND WHAT OF THE PRODUCTS ASSOC WITH THAT TEMPLATE IF SO? 
-        /* api call */ 
+        var requestOptions = {
+                method: "DELETE",
+                headers: {"Authorization":token},
+                redirect: "follow"
+             }
+            fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/delete/"+categoryName, requestOptions)
+                .then(response => response.json())
+                .then(data => console.log(data))
+        render();
+        props.onSwitch("Category,'',theme)
     }
 
     const exportCSV = () => {
