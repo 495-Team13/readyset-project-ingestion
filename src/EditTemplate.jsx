@@ -82,7 +82,7 @@ export const EditTemplate = (props) => {
                     </tr>
                     <tr>
                         <td><h4>{props.stateVars}</h4></td>
-                        <td><button onClick={() => props.onSwitch("Categories", '', theme)}>Return</button></td>
+                        <td><button onClick={() => props.onSwitch("Category", '', theme)}>Return</button></td>
                         <td><button onClick={() => saveRecord()}>Save</button></td>
                         <td><button onClick={() => clearRecord()}>Clear</button></td>
                     </tr>
