@@ -19,7 +19,6 @@ export const EditCategory = (props) => {
             redirect: "follow"   
         };
         if(props.stateVars === "Untitled") {
-            setCategoryName("Untitled");
             setData([]);
         } else {
             fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + props.stateVars, requestOptions)
@@ -64,7 +63,6 @@ export const EditCategory = (props) => {
                                     <td><table><tbody><tr>
                                         <td><h2 className="projects">Category</h2></td>
                                         <td><input className="editproject" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} type="text" placeholder={props.stateVars} id="categoryName" name="categoryName"></input></td>
-                                        <td><input className="projects"  value={categoryName} onChange={(e) => setCategoryName(e.target.value)} type="text" placeHolder={props.stateVars}></input></td>
                                         <td><button className="projects" id="update-name" onClick={() => edit()}>Update</button></td>
                                         <td><button className="projects" onClick={() => props.onSwitch('EditTemplate', 'Untitled', theme)}>Add Template</button></td>
                                         <td><input className="editproject" onChange={(e) => setValue(e.target.value)} type="text" placeholder={value}></input></td>
