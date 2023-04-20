@@ -14,7 +14,7 @@ export const EditTemplate = (props) => {
     const [type, set_type] = useState('');
     const [workflow, set_workflow] = useState('');
 
-    const changeTheme =(newTheme) => {
+    const changeTheme = (newTheme) => {
         setTheme(newTheme);
     }
     
@@ -27,6 +27,10 @@ export const EditTemplate = (props) => {
         set_product_upc('');
         set_type('');
         set_workflow('');
+    }
+    
+    const saveRecord = () => {
+           // save or add record depending on stateVar
     }
     
     const render = () => {
@@ -78,9 +82,9 @@ export const EditTemplate = (props) => {
                     </tr>
                     <tr>
                         <td><h4>{props.stateVars}</h4></td>
-                        <td><button>Return</button></td>
-                        <td><button>Save</button></td>
-                        <td><button>Clear</button></td>
+                        <td><button onClick={() => props.onSwitch("Categories", '', theme)}>Return</button></td>
+                        <td><button onClick={() => saveRecord()}>Save</button></td>
+                        <td><button onClick={() => clearRecord()}>Clear</button></td>
                     </tr>
                     <tr>
                         <td><h5>Template Name</h5></td>
