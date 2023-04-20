@@ -21,8 +21,8 @@ export const EditCategory = (props) => {
         if(props.stateVars === "Untitled") {
             setName("Untitled");
             setData([]);
-        }
-        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + props.stateVars, requestOptions)
+        } else {
+            fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + props.stateVars, requestOptions)
                 .then(response => response.json())
                 .then(fetchData => {
                     if(mounted) {
@@ -30,6 +30,7 @@ export const EditCategory = (props) => {
                         setData(fetchData.templates);
                     }
                 });
+        }
         return () => mounted = false;    
     }
     
@@ -49,6 +50,10 @@ export const EditCategory = (props) => {
     const deleteTemplate = (templateName) => {
             /* delete api call */
     }
+    
+    const edit = () => {
+            /* update api call */
+    }
 
     return(
         <div id={theme} class="background">
@@ -57,7 +62,9 @@ export const EditCategory = (props) => {
                             <tbody>
                                 <tr>
                                     <td><table><tbody><tr>
-                                        <td><h2 className="projects">Categories</h2></td>
+                                        <td><h2 className="projects">Category</h2></td>
+                                        <td><input className="projects" value={name} onChange={(e) => setName(e.target.value)} type="text" placeHolder={name}></input></td>
+                                        <td><button className="projects" id="update-name" onClick={() => edit()}>Update</button></td>
                                         <td><button className="projects" id="add-project" onClick={() => props.onSwitch('EditTemplate', 'Untitled', theme)}>+</button></td>
                                         <td><input className="projects" value={value} onChange={(e) => setValue(e.target.value)} type="text" placeholder="Search..."></input></td>
                                     </tr></tbody></table></td>
