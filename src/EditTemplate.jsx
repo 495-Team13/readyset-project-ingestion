@@ -100,6 +100,24 @@ export const EditTemplate = (props) => {
                         <td><input className="editrecord" type="text" placeHolder={workflow} onChange={(e) => set_workflow(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeHolder={donor_shape} onChange={(e) => set_donor_shape(e.target.value)}></input></td>
                    </tr>
+                   <tr>
+                        <td><h5>Scan Product UPC</h5></td>
+                   </tr>
+                   <tr>
+                        <td><input className="editrecord" type="text" placeHolder={product_upc} onChange={(e) => set_product_upc(e.target.value)}></input></td>
+                   </tr>
+                   <tr>
+                        <td><h5>Notes</h5></td>
+                   </tr>
+                   <tr>
+                        <td><input className="editrecord" type="text" placeHolder={notes} onChange={(e) => set_notes(e.target.value)}></input></td>
+                   </tr>
+                   <tr>
+                        <td><h5>Form Description</h5></td>
+                   </tr>
+                   <tr>
+                        <td><input className="editrecord" type="text" placeHolder={form_desc} onChange={(e) => set_form_desc(e.target.value)}></input></td>
+                   </tr>
                 </tbody>
             </table>
         </div>
