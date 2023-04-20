@@ -6,7 +6,7 @@ export const EditCategory = (props) => {
     const [theme, setTheme] = useState(props.themeState);
     const [data, setData] = useState([]);
     const [name, setName] = useState('');
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState('Search...');
     
     const render = () => {
         var mounted = true;
@@ -63,10 +63,10 @@ export const EditCategory = (props) => {
                                 <tr>
                                     <td><table><tbody><tr>
                                         <td><h2 className="projects">Category</h2></td>
-                                        <td><input className="projects"  onChange={(e) => setName(e.target.value)} type="text" placeHolder={name}></input></td>
+                                        <td><input className="projects"  value={name} onChange={(e) => setName(e.target.value)} type="text" placeHolder={name}></input></td>
                                         <td><button className="projects" id="update-name" onClick={() => edit()}>Update</button></td>
                                         <td><button className="projects" id="add-project" onClick={() => props.onSwitch('EditTemplate', 'Untitled', theme)}>+</button></td>
-                                        <td><input className="projects" value={value} onChange={(e) => setValue(e.target.value)} type="text" placeholder="Search..."></input></td>
+                                        <td><input className="projects" value={value} onChange={(e) => setValue(e.target.value)} type="text"></input></td>
                                     </tr></tbody></table></td>
                                 </tr>
                                 <tr>
@@ -77,7 +77,7 @@ export const EditCategory = (props) => {
                                                     const searchTerm = value.toLowerCase();
                                                     const name = item.toLowerCase();
 
-                                                    return (searchTerm && name.startsWith(searchTerm)) || value === '';
+                                                    return (searchTerm && name.startsWith(searchTerm)) || value === 'Search...';
                                                 }).map((item) => (
                                                     <div className="dropdown-row"  key={item}>
                                                         <table><tbody><tr>
