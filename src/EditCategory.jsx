@@ -63,7 +63,7 @@ export const EditCategory = (props) => {
                                 <tr>
                                     <td><table><tbody><tr>
                                         <td><h2 className="projects">Category</h2></td>
-                                        <td><input className="projects" value={name} onChange={(e) => setName(e.target.value)} type="text" placeHolder={name}></input></td>
+                                        <td><input className="projects"  onChange={(e) => setName(e.target.value)} type="text" placeHolder={name}></input></td>
                                         <td><button className="projects" id="update-name" onClick={() => edit()}>Update</button></td>
                                         <td><button className="projects" id="add-project" onClick={() => props.onSwitch('EditTemplate', 'Untitled', theme)}>+</button></td>
                                         <td><input className="projects" value={value} onChange={(e) => setValue(e.target.value)} type="text" placeholder="Search..."></input></td>
