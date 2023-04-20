@@ -17,7 +17,6 @@ export const EditCategory = (props) => {
             method: "GET",
             headers: {
                 "Authorization":token,
-                "Content-Type":"application/json"
             },
             redirect: "follow"   
         };
@@ -62,7 +61,10 @@ export const EditCategory = (props) => {
         /* add new category */
              var requestOptions = {
                 method: "POST",
-                headers: {"Authorization":token},
+                headers: {
+                    "Authorization":token,
+                    "Content-Type":"application/json"
+                },
                 body: JSON.stringify({
                     "name":categoryName,
                     "definition":"",
@@ -77,7 +79,10 @@ export const EditCategory = (props) => {
         /* edit category */
               var requestOptions = {
                 method: "PUT",
-                headers: {"Authorization":token},
+                headers: {
+                    "Authorization":token,
+                    "Content-Type":"application/json"
+                },
                 body: JSON.stringify({
                     name:categoryName,
                 }),
