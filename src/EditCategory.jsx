@@ -68,7 +68,7 @@ export const EditCategory = (props) => {
             
             fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/add", requestOptions)
                 .then(response => response.JSON)
-                .then(fetchData => console.log(fetchData);
+                .then(fetchData => console.log(fetchData)
         } else {
             // edit api call  
         }
