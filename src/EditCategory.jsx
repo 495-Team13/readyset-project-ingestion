@@ -51,7 +51,39 @@ export const EditCategory = (props) => {
     }
     
     const edit = () => {
+        /* update button */
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
         
+        if(props.stateVars === "Untitled") {
+        /* add new category */
+             var requestOptions {
+                method: "POST",
+                headers: {"Authorization":token},
+                body: JSON.stringify({
+                    "name":name
+                }),
+                redirect: "follow"
+             }
+            fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/add", requestOptions)
+                .then(response => response.json())
+                .then(data => console.log(data)
+        } else {
+        /* edit category */
+              var requestOptions {
+                method: "PUT",
+                headers: {"Authorization":token},
+                body: JSON.stringify({
+                    name:name,
+                }),
+                redirect: "follow"
+              }
+            fetch("https//ingestion-sandbox.dev.readysetvr.com/api/categories/" + props.stateVars, requestOptions)
+                .then(response => response.json())
+                .then(data => console.log(data)
+        }
+        props.onSwitch("Categories", '', theme)
+        render();
     }
 
     return(
