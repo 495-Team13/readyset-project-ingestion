@@ -57,7 +57,7 @@ export const EditCategory = (props) => {
         
         if(props.stateVars === "Untitled") {
         /* add new category */
-             var requestOptions {
+             var requestOptions = {
                 method: "POST",
                 headers: {"Authorization":token},
                 body: JSON.stringify({
@@ -70,7 +70,7 @@ export const EditCategory = (props) => {
                 .then(data => console.log(data)
         } else {
         /* edit category */
-              var requestOptions {
+              var requestOptions = {
                 method: "PUT",
                 headers: {"Authorization":token},
                 body: JSON.stringify({
