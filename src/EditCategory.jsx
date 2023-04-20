@@ -15,7 +15,10 @@ export const EditCategory = (props) => {
         
         var requestOptions = {
             method: "GET",
-            headers: {"Authorization":token},
+            headers: {
+                "Authorization":token,
+                "Content-Type":"application/json"
+            },
             redirect: "follow"   
         };
         if(props.stateVars === "Untitled") {
