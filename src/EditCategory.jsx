@@ -52,28 +52,7 @@ export const EditCategory = (props) => {
     }
     
     const edit = () => {
-            /* update api call */
-        const obj = JSON.parse(localStorage.getItem("access_token"));
-        const token = "Bearer " + obj.access_token;
         
-        if(props.stateVars === 'Untitled') {
-            // add api call
-            var raw = {
-                "name":categoryName                
-            }
-            
-            var requestOptions = {
-                
-            }
-            
-            fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/add", requestOptions)
-                .then(response => response.JSON)
-                .then(fetchData => console.log(fetchData)
-        } else {
-            // edit api call  
-        }
-        
-        render();
     }
 
     return(
