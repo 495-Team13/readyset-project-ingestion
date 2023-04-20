@@ -67,7 +67,7 @@ export const EditCategory = (props) => {
              }
             fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/add", requestOptions)
                 .then(response => response.json())
-                .then(data => console.log(data)
+                .then(data => console.log(data))
         } else {
         /* edit category */
               var requestOptions = {
@@ -80,7 +80,7 @@ export const EditCategory = (props) => {
               }
             fetch("https//ingestion-sandbox.dev.readysetvr.com/api/categories/" + props.stateVars, requestOptions)
                 .then(response => response.json())
-                .then(data => console.log(data)
+                .then(data => console.log(data))
         }
         props.onSwitch("Categories", '', theme)
         render();
