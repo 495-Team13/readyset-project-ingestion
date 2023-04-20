@@ -61,7 +61,9 @@ export const EditCategory = (props) => {
                 method: "POST",
                 headers: {"Authorization":token},
                 body: JSON.stringify({
-                    "name":categoryName
+                    "name":categoryName,
+                    "definition":"",
+                    "templates":""
                 }),
                 redirect: "follow"
              }
