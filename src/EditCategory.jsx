@@ -61,7 +61,7 @@ export const EditCategory = (props) => {
                 method: "POST",
                 headers: {"Authorization":token},
                 body: JSON.stringify({
-                    "name":name
+                    "name":categoryName
                 }),
                 redirect: "follow"
              }
@@ -74,7 +74,7 @@ export const EditCategory = (props) => {
                 method: "PUT",
                 headers: {"Authorization":token},
                 body: JSON.stringify({
-                    name:name,
+                    name:categoryName,
                 }),
                 redirect: "follow"
               }
