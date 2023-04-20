@@ -46,7 +46,7 @@ export const Category = (props) => {
                 .then(response => response.json())
                 .then(data => console.log(data))
         render();
-        props.onSwitch("Category,'',theme)
+        props.onSwitch("Category",'',theme)
     }
 
     const exportCSV = () => {
