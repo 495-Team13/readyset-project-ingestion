@@ -30,7 +30,59 @@ export const EditTemplate = (props) => {
     }
     
     const saveRecord = () => {
-           // save or add record depending on stateVar
+        /* save button */
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        
+        if(props.stateVars === "Untitled") {
+        /* add new template */
+             var requestOptions = {
+                method: "POST",
+                headers: {
+                    "Authorization":token,
+                    "Content-Type":"application/json"
+                },
+                body: JSON.stringify({
+                    "donor_shape":donor_shape,
+                    "form_desc":form_desc,
+                    "gltf":gltf,
+                    "name":name,
+                    "notes":notes,
+                    "product_upc":product_upc,
+                    "type":type,
+                    "workflow":workflow
+                }),
+                redirect: "follow"
+             }
+            fetch("https://ingestion-sandbox.dev.readysetvr.com/api/templates/add", requestOptions)
+                .then(response => response.json())
+                .then(data => console.log(data))
+        } else {
+        /* edit template */
+              var requestOptions = {
+                method: "PUT",
+                headers: {
+                    "Authorization":token,
+                    "Content-Type":"application/json"
+                },
+                body: JSON.stringify({
+                    "donor_shape":donor_shape,
+                    "form_desc":form_desc,
+                    "gltf":gltf,
+                    "name":name,
+                    "notes":notes,
+                    "product_upc":product_upc,
+                    "type":type,
+                    "workflow":workflow
+                }),
+                redirect: "follow"
+              }
+            fetch("https//ingestion-sandbox.dev.readysetvr.com/api/edit/" + props.stateVars, requestOptions)
+                .then(response => response.json())
+                .then(data => console.log(data))
+        }
+        props.onSwitch("Category", '', theme)
+        render();
     }
     
     const render = () => {
@@ -78,10 +130,9 @@ export const EditTemplate = (props) => {
             <table>
                 <tbody>
                     <tr>
-                        <td><h3>Category Name</h3></td>
+                        <td><h3>Template</h3></td>
                     </tr>
                     <tr>
-                        <td><h4>{props.stateVars}</h4></td>
                         <td><button onClick={() => props.onSwitch("Category", '', theme)}>Return</button></td>
                         <td><button onClick={() => saveRecord()}>Save</button></td>
                         <td><button onClick={() => clearRecord()}>Clear</button></td>
