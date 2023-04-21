@@ -49,7 +49,7 @@ export const EditTemplate = (props) => {
                     var data = fetchData.templates
                             
                     data.push(name);
-
+                    console.log(data);
                     requestOptions = {
                         method: "PUT",
                         headers: {
