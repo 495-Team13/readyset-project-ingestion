@@ -43,29 +43,31 @@ export const EditTemplate = (props) => {
             redirect: "follow"  
         }
         
+        const [data, setData] = useState([]);
         fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + cat.current_category, requestOptions)
                 .then(response => response.json())
                 .then(fetchData => {
-                    var data = fetchData.templates
-                            
-                    data.push(name);
-                    console.log(data);
-                    requestOptions = {
-                        method: "PUT",
-                        headers: {
-                            "Authorization":token,
-                            "Content-Type":"application/json"
-                        },
-                        body: JSON.stringify({
-                                name:cat.current_category,
-                                templates:data
-                        }),
-                        redirect: "follow"
-                     }
-                     fetch("https//ingestion-sandbox.dev.readysetvr.com/api/categories/edit/" + cat.current_category, requestOptions)
-                            .then(response => response.json())
-                            .then(data => console.log(data))
+                    setData(fetchData.templates);
                 });
+        var updated_data = data;
+        updated_data.push(name);
+        setData(updated_data);
+        console.log(data);
+        requestOptions = {
+            method: "PUT",
+            headers: {
+                "Authorization":token,
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({
+                name:cat.current_category,
+                templates:data
+            }),
+            redirect: "follow"
+            }
+        fetch("https//ingestion-sandbox.dev.readysetvr.com/api/categories/edit/" + cat.current_category, requestOptions)
+        .then(response => response.json())
+        .then(data => console.log(data))
         // edit category api call to add this template to the template, gonna have to call, append, edit
     }
     
