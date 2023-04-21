@@ -34,7 +34,7 @@ export const EditTemplate = (props) => {
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
         
-        if(props.stateVars === "new record") {
+        if(props.stateVars === "Untitled") {
         /* add new template */
              var requestOptions = {
                 method: "POST",
@@ -97,7 +97,7 @@ export const EditTemplate = (props) => {
             },
             redirect: "follow"
         };
-        if(props.stateVars === "new record") {
+        if(props.stateVars === "Untitled") {
             clearRecord(); 
         } else {
             const str = 'https://ingestion-sandbox.dev.readysetvr.com/api/templates/get/' + props.stateVars;
