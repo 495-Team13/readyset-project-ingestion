@@ -46,9 +46,7 @@ export const EditTemplate = (props) => {
         fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + cat.current_category, requestOptions)
                 .then(response => response.json())
                 .then(fetchData => {
-                    if(mounted) {
-                        var data = fetchData.templates
-                    }
+                    var data = fetchData.templates
                 });
         
         data.append(name);
