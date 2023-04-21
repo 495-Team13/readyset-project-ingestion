@@ -47,27 +47,25 @@ export const EditTemplate = (props) => {
                 .then(response => response.json())
                 .then(fetchData => {
                     var data = fetchData.templates
+                            
+                    data.append(name);
+
+                    requestOptions = {
+                        method: "PUT",
+                        headers: {
+                            "Authorization":token,
+                            "Content-Type":"application/json"
+                        },
+                        body: JSON.stringify({
+                                name:cat.current_category,
+                                templates:data
+                        }),
+                        redirect: "follow"
+                     }
+                     fetch("https//ingestion-sandbox.dev.readysetvr.com/api/categories/edit" + cat.current_category, requestOptions)
+                            .then(response => response.json())
+                            .then(data => console.log(data))
                 });
-        
-        data.append(name);
-        
-        requestOptions = {
-            method: "PUT",
-            headers: {
-                "Authorization":token,
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify({
-                    name:cat.current_category,
-                    templates:data
-            }),
-            redirect: "follow"
-         }
-         fetch("https//ingestion-sandbox.dev.readysetvr.com/api/categories/edit" + cat.current_category, requestOptions)
-                .then(response => response.json())
-                .then(data => console.log(data))
-        
-        render();
         // edit category api call to add this template to the template, gonna have to call, append, edit
     }
     
