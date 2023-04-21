@@ -34,7 +34,7 @@ export const EditTemplate = (props) => {
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
         
-        if(props.stateVars === "Untitled") {
+        if(props.stateVars === "new record") {
         /* add new template */
              var requestOptions = {
                 method: "POST",
