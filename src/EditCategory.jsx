@@ -94,7 +94,7 @@ export const EditCategory = (props) => {
                 }),
                 redirect: "follow"
               }
-            fetch("https//ingestion-sandbox.dev.readysetvr.com/api/categories/" + props.stateVars, requestOptions)
+            fetch("https//ingestion-sandbox.dev.readysetvr.com/api/categories/edit/" + props.stateVars, requestOptions)
                 .then(response => response.json())
                 .then(data => console.log(data))
         }
