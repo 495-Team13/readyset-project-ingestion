@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 export const EditTemplate = (props) => {
 
     const [theme, setTheme] = useState(props.themeState);
+    const [data, setData] = useState([]);
         
     const [donor_shape, set_donor_shape] = useState('');
     const [form_desc, set_form_desc] = useState('');
@@ -43,7 +44,6 @@ export const EditTemplate = (props) => {
             redirect: "follow"  
         }
         
-        const [data, setData] = useState([]);
         fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + cat.current_category, requestOptions)
                 .then(response => response.json())
                 .then(fetchData => {
