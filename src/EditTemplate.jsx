@@ -48,7 +48,7 @@ export const EditTemplate = (props) => {
                 .then(fetchData => {
                     var data = fetchData.templates
                             
-                    data.append(name);
+                    data.push(name);
 
                     requestOptions = {
                         method: "PUT",
