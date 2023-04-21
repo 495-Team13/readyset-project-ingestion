@@ -62,7 +62,7 @@ export const EditTemplate = (props) => {
                         }),
                         redirect: "follow"
                      }
-                     fetch("https//ingestion-sandbox.dev.readysetvr.com/api/categories/edit" + cat.current_category, requestOptions)
+                     fetch("https//ingestion-sandbox.dev.readysetvr.com/api/categories/edit/" + cat.current_category, requestOptions)
                             .then(response => response.json())
                             .then(data => console.log(data))
                 });
