@@ -86,7 +86,11 @@ export const EditTemplate = (props) => {
              }
             fetch("https://ingestion-sandbox.dev.readysetvr.com/api/templates/add", requestOptions)
                 .then(response => response.json())
-                .then(data => console.log(data))
+                .then(data => {
+                    console.log(data)
+                    updateCategory()
+                })
+            
         } else {
         /* edit template */
               var requestOptions = {
@@ -107,12 +111,10 @@ export const EditTemplate = (props) => {
                 }),
                 redirect: "follow"
               }
-            fetch("https//ingestion-sandbox.dev.readysetvr.com/api/edit/" + props.stateVars, requestOptions)
+            fetch("https//ingestion-sandbox.dev.readysetvr.com/api/templates/edit/" + props.stateVars, requestOptions)
                 .then(response => response.json())
                 .then(data => console.log(data))
         }
-        
-        updateCategory();
         props.onSwitch("Category", '', theme)
         render();
     }
