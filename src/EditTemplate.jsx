@@ -31,12 +31,17 @@ export const EditTemplate = (props) => {
     }
     
     const updateCategoryHelper = () => {
+        const cat = JSON.parse(localStorage.getItem("current_category"));
+        
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        
         var updated_data = [];
         updated_data = data;
         updated_data.push(name);
         setData(updated_data);
         console.log(data);
-        requestOptions = {
+        var requestOptions = {
             method: "PUT",
             headers: {
                 "Authorization":token,
