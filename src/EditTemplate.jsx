@@ -58,13 +58,10 @@ export const EditTemplate = (props) => {
         // edit category api call to add this template to the template, gonna have to call, append, edit
     }
     
-    const saveRecord = () => {
-        /* save button */
+    const addTemplate = () => {
+     /* add new template */
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
-        
-        if(props.stateVars === "Untitled") {
-        /* add new template */
              var requestOptions = {
                 method: "POST",
                 headers: {
@@ -88,11 +85,12 @@ export const EditTemplate = (props) => {
                 .then(data => {
                     console.log("finished");
                 })
-            setTimeout(function() {
-                updateCategory()
-            }, 500); 
-        } else {
-        /* edit template */
+    }
+    
+    const editTemplate = () => {
+                /* edit template */
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
               var requestOptions = {
                 method: "PUT",
                 headers: {
@@ -114,9 +112,19 @@ export const EditTemplate = (props) => {
             fetch("https//ingestion-sandbox.dev.readysetvr.com/api/templates/edit/" + props.stateVars, requestOptions)
                 .then(response => response.json())
                 .then(data => console.log(data))
+    }
+    
+    const saveRecord = () => {
+        /* save button */
+        if(props.stateVars === "Untitled") {
+            addTemplate();
+            render();
+        } else {
+            editTemplate();
+            render();
         }
-        props.onSwitch("Category", '', theme)
-        render();
+        updateCategory();
+        props.onSwitch("Category", '', theme);
     }
     
     const render = () => {
