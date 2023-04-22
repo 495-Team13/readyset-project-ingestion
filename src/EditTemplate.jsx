@@ -29,8 +29,8 @@ export const EditTemplate = (props) => {
         set_type('');
         set_workflow('');
     }
-    
-    const updateCategoryHelper = () => {
+        
+    const updateCategory = () => {
         const cat = JSON.parse(localStorage.getItem("current_category"));
         
         const obj = JSON.parse(localStorage.getItem("access_token"));
@@ -55,30 +55,6 @@ export const EditTemplate = (props) => {
         fetch("https//ingestion-sandbox.dev.readysetvr.com/api/categories/edit/" + cat.current_category, requestOptions)
         .then(response => response.json())
         .then(data => console.log(data))
-    }
-    
-    const updateCategory = () => {
-        const cat = JSON.parse(localStorage.getItem("current_category"));
-        
-        const obj = JSON.parse(localStorage.getItem("access_token"));
-        const token = "Bearer " + obj.access_token;
-        
-        var requestOptions = {
-            method: "GET",
-            headers: {
-                "Authorization":token,
-            },
-            redirect: "follow"  
-        }
-        
-        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + cat.current_category, requestOptions)
-                .then(response => response.json())
-                .then(fetchData => {
-                    setData(fetchData.templates);
-                    return;
-                });
-        console.log("out");
-        updateCategoryHelper();
         
         // edit category api call to add this template to the template, gonna have to call, append, edit
     }
@@ -178,6 +154,26 @@ export const EditTemplate = (props) => {
     
     useEffect(() => {
         render();
+        const cat = JSON.parse(localStorage.getItem("current_category"));
+        
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        
+        var requestOptions = {
+            method: "GET",
+            headers: {
+                "Authorization":token,
+            },
+            redirect: "follow"  
+        }
+        
+        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + cat.current_category, requestOptions)
+                .then(response => response.json())
+                .then(fetchData => {
+                    setData(fetchData.templates);
+                    return;
+                });
+        console.log("out");
     }, []);
 
     return(
