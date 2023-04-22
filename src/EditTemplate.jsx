@@ -88,7 +88,7 @@ export const EditTemplate = (props) => {
                 .then(data => {
                     console.log("finished");
                 })
-            setTimeOut(function() {
+            setTimeout(function() {
                 updateCategory()
             }, 500); 
         } else {
