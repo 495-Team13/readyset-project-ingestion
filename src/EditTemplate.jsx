@@ -39,7 +39,6 @@ export const EditTemplate = (props) => {
         var updated_data = [];
         updated_data = data;
         updated_data.push(name);
-        console.log(updated_data);
         var requestOptions = {
             method: "PUT",
             headers: {
@@ -87,10 +86,11 @@ export const EditTemplate = (props) => {
             fetch("https://ingestion-sandbox.dev.readysetvr.com/api/templates/add", requestOptions)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
-                    updateCategory()
+                    console.log("finished");
                 })
-            
+            setTimeOut(function() {
+                updateCategory()
+            }, 500); 
         } else {
         /* edit template */
               var requestOptions = {
