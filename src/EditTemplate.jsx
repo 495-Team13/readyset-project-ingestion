@@ -39,8 +39,7 @@ export const EditTemplate = (props) => {
         var updated_data = [];
         updated_data = data;
         updated_data.push(name);
-        setData(updated_data);
-        console.log(data);
+        console.log(updated_data);
         var requestOptions = {
             method: "PUT",
             headers: {
@@ -49,7 +48,7 @@ export const EditTemplate = (props) => {
             },
             body: JSON.stringify({
                 name:cat.current_category,
-                templates:data
+                templates:updated_data
             }),
             redirect: "follow"
             }
@@ -76,8 +75,10 @@ export const EditTemplate = (props) => {
                 .then(response => response.json())
                 .then(fetchData => {
                     setData(fetchData.templates);
-                    updateCategoryHelper();
+                    return;
                 });
+        console.log("out");
+        updateCategoryHelper();
         
         // edit category api call to add this template to the template, gonna have to call, append, edit
     }
