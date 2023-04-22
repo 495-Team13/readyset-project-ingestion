@@ -30,26 +30,9 @@ export const EditTemplate = (props) => {
         set_workflow('');
     }
     
-    const updateCategory = () => {
-        const cat = JSON.parse(localStorage.getItem("current_category"));
-        
-        const obj = JSON.parse(localStorage.getItem("access_token"));
-        const token = "Bearer " + obj.access_token;
-        
-        var requestOptions = {
-            method: "GET",
-            headers: {
-                "Authorization":token,
-            },
-            redirect: "follow"  
-        }
-        
-        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + cat.current_category, requestOptions)
-                .then(response => response.json())
-                .then(fetchData => {
-                    setData(fetchData.templates);
-                });
-        var updated_data = data;
+    const updateCategoryHelper = () => {
+        var updated_data = [];
+        updated_data = data;
         updated_data.push(name);
         setData(updated_data);
         console.log(data);
@@ -68,6 +51,29 @@ export const EditTemplate = (props) => {
         fetch("https//ingestion-sandbox.dev.readysetvr.com/api/categories/edit/" + cat.current_category, requestOptions)
         .then(response => response.json())
         .then(data => console.log(data))
+    }
+    
+    const updateCategory = () => {
+        const cat = JSON.parse(localStorage.getItem("current_category"));
+        
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        
+        var requestOptions = {
+            method: "GET",
+            headers: {
+                "Authorization":token,
+            },
+            redirect: "follow"  
+        }
+        
+        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + cat.current_category, requestOptions)
+                .then(response => response.json())
+                .then(fetchData => {
+                    setData(fetchData.templates);
+                    updateCategoryHelper();
+                });
+        
         // edit category api call to add this template to the template, gonna have to call, append, edit
     }
     
