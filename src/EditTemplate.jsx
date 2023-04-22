@@ -123,7 +123,6 @@ export const EditTemplate = (props) => {
             editTemplate();
             render();
         }
-        updateCategory();
         props.onSwitch("Category", '', theme);
     }
     
