@@ -19,6 +19,15 @@ export const EditRecord = (props) => {
     const [templateName, setTemplateName] = useState('');
     const [upc, setUpc] = useState('');
     const [width, setWidth] = useState('');
+        /* Template variables to populate the '?' fields */
+    const [donor_shape, set_donor_shape] = useState('');
+    const [form_desc, set_form_desc] = useState('');
+    const [gltf, set_gltf] = useState('');
+    const [name, set_name] = useState('');
+    const [notes, set_notes] = useState('');
+    const [product_upc, set_product_upc] = useState('');
+    const [type, set_type] = useState('');
+    const [workflow, set_workflow] = useState('');
     
     useEffect(() => {
         var mounted = true;
@@ -55,6 +64,18 @@ export const EditRecord = (props) => {
                         setUpc(fetchData.upc);
                         setWidth(fetchData.width);
                     }
+                fetch("/api/templates/get/"+templateName,requestOptions)
+                    .then(response => response.json())
+                    .then(fetchData => {
+                        set_donor_shape(fetchData.donor_shape);
+                        set_form_desc(fetchData.form_desc);
+                        set_gltf(fetchData.gltf);
+                        set_name(fetchData.name);
+                        set_notes(fetchData.notes);
+                        set_product_upc(fetchData.product_upc);
+                        set_type(fetchData.type);
+                        set_workflow(fetchData.workflow);
+                    })
               });
         }
         return () => mounted = false;
@@ -208,7 +229,7 @@ export const EditRecord = (props) => {
                     <td><table><tbody><tr>
                         <td><input className="editrecord" type="text" placeholder={templateName} onChange={(e) => setTemplateName(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder="?" ></input></td>
-                        <td><input className="editrecord" type="text" placeholder="?" ></input></td> 
+                        <td><input className="editrecord" type="text" placeholder={type} ></input></td> 
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
@@ -226,7 +247,7 @@ export const EditRecord = (props) => {
                         <td><input className="editrecord" type="text" placeholder={height} onChange={(e) => setHeight(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder={depth} onChange={(e) => setDepth(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder={addHeight} onChange={(e) => setAddHeight(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" placeholder="?" ></input></td>
+                        <td><input className="editrecord" type="text" placeholder={form_desc}></input></td>
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
@@ -236,7 +257,7 @@ export const EditRecord = (props) => {
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
-                        <td><input className="editrecord" type="text" placeholder="?" ></input></td>
+                        <td><input className="editrecord" type="text" placeholder={workflow} ></input></td>
                     </tr></tbody></table></td>
 
                 </tr>
