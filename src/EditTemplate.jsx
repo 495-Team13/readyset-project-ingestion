@@ -81,12 +81,15 @@ export const EditTemplate = (props) => {
                 redirect: "follow"
              }
             fetch("https://ingestion-sandbox.dev.readysetvr.com/api/templates/add", requestOptions)
-                .then(response => {response.json()})
+                .then(response => response.json())
                 .then(data => {
                     console.log("finished adding");
+                    Promise.all(
+                        updateCategory();    
+                    ).then(response => response.json)
+                    .then(data => console.log(data)
                     render();
                 })
-                .then(() => {updateCategory()})
     }
     
     const editTemplate = () => {
