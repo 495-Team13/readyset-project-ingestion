@@ -59,7 +59,7 @@ export const EditCategory = (props) => {
         const token = "Bearer " + obj.access_token;
         
         var raw = JSON.stringify({
-            "name":templateName
+            "template_name":templateName
         });
         
         var requestOptions = {
