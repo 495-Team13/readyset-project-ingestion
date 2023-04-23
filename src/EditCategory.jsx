@@ -67,8 +67,8 @@ export const EditCategory = (props) => {
         }
         
         fetch("https://ingestion-sandbox.dev.readysetvr.com/api/templates/delete/"+templateName, requestOptions)
-            .then(response => response.json)
-            .then(data => console.log(data)
+            .then(response => response.json())
+            .then(data => console.log(data))
     }
     
     const edit = () => {
