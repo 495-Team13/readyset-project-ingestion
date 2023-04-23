@@ -24,7 +24,10 @@ code {
 /* Button styles */
 button {
   border: 1px solid white;
-  padding: 10px;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 button:hover {
   cursor: pointer;
@@ -303,6 +306,7 @@ h5.editrecord {
   font-family: "Times New Roman", Times, serif;
   font-weight: bolder;
   font-size: 18px;
+  text-align: center;
 }
 
 input:focus.editrecord {
