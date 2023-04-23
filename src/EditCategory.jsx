@@ -55,7 +55,20 @@ export const EditCategory = (props) => {
     }
     
     const deleteTemplate = (templateName) => {
-            /* delete api call */
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        
+        var requestOptions = {
+            method: "DELETE",
+            headers: {
+                "Authorization":token
+            }
+            redirect: "follow"
+        }
+        
+        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/templates/delete/"+templateName, requestOptions)
+            .then(response => response.json)
+            .then(data => console.log(data)
     }
     
     const edit = () => {
