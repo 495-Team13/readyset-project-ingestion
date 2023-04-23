@@ -69,7 +69,6 @@ export const EditRecord = (props) => {
                         set_donor_shape(fetchData.donor_shape);
                         set_form_desc(fetchData.form_desc);
                         set_gltf(fetchData.gltf);
-                        set_name(fetchData.name);
                         set_notes(fetchData.notes);
                         set_product_upc(fetchData.product_upc);
                         set_type(fetchData.type);
