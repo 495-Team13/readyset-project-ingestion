@@ -72,14 +72,14 @@ export const Admin = (props) => {
   return(
     <div className="background" id={theme}>
       <MainHeader current_theme={theme} switchTheme={changeTheme} onSwitch={(stateName, stateVars, theme) => props.onSwitch(stateName, stateVars, theme)} />
-      <table className="projects" id={theme}> 
+      <table className="editproject" id={theme}> 
                 <tbody>
                     <tr>
                         <td><table><tbody><tr>
-                            <td><h2 className="projects">Users</h2></td>
-                            <td><button className="projects" id="add-project" onClick={() => props.onSwitch('EditUser', 'Untitled', theme)}>+</button></td>
-                            <td><input className="projects" value={value} onChange={(e) => setValue(e.target.value)} type="text" placeholder="Search..."></input></td>
-                            <td><button className="projects" onClick={()=> render()}>Refresh</button></td>
+                            <td><h2 className="editproject">Users</h2></td>
+                            <td><button className="editproject" id="add-project" onClick={() => props.onSwitch('EditUser', 'Untitled', theme)}>+</button></td>
+                            <td><input className="editproject" value={value} onChange={(e) => setValue(e.target.value)} type="text" placeholder="Search..."></input></td>
+                            <td><button className="editproject" onClick={()=> render()}>Refresh</button></td>
                         </tr></tbody></table></td>
                     </tr>
                     <tr>
@@ -95,8 +95,8 @@ export const Admin = (props) => {
                                         <div className="dropdown-row"  key={item.username}>
                                             <table><tbody><tr>
                                                 <td><p>{item.username}</p></td>
-                                                <td><button className="projects" id="green" onClick={()=>onSearch(item.username)}>Edit</button></td>
-                                                <td><button className="projects" id="red" onClick={()=>deleteButton(item.username)}>Delete</button></td>
+                                                <td><button className="editproject" id="green" onClick={()=>onSearch(item.username)}>Edit</button></td>
+                                                <td><button className="editproject" id="red" onClick={()=>deleteButton(item.username)}>Delete</button></td>
                                             </tr></tbody></table>
                                         </div>
                                     ))} 
