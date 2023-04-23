@@ -78,7 +78,10 @@ export const Projects = (props) => {
                     <tr>
                         <td><table><tbody><tr>
                             <td><h2 className="editproject">Projects</h2></td>
-                            <td><button className="editproject" id="add-project" onClick={() => props.onSwitch('EditProject', 'Untitled', theme)}>+</button></td>
+                            <td><button className="editproject" id="add-project" onClick={() => {
+                                props.onSwitch('EditProject', 'Untitled', theme);
+                                render();                                                                                                    
+                            }>+</button></td>
                             <td><input className="editproject" value={value} onChange={(e) => setValue(e.target.value)} type="text" placeholder="Search..."></input></td>
                         </tr></tbody></table></td>
                     </tr>
