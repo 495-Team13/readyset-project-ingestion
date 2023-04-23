@@ -123,9 +123,9 @@ export const EditCategory = (props) => {
     }
 
     return(
-        <div id={theme} class="background">
+        <div id={theme} className="background">
             <MainHeader current_theme={theme} switchTheme={changeTheme} onSwitch={(stateName, stateVars, theme) => props.onSwitch(stateName, stateVars, theme)} />
-                        <table className="projects" id={theme}> 
+                        <table className="editproject" id={theme}> 
                             <tbody>
                                 <tr>
                                     <td><table><tbody><tr>
