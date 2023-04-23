@@ -23,7 +23,6 @@ export const EditRecord = (props) => {
     const [donor_shape, set_donor_shape] = useState('');
     const [form_desc, set_form_desc] = useState('');
     const [gltf, set_gltf] = useState('');
-    const [name, set_name] = useState('');
     const [notes, set_notes] = useState('');
     const [product_upc, set_product_upc] = useState('');
     const [type, set_type] = useState('');
