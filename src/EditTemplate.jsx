@@ -31,8 +31,7 @@ export const EditTemplate = (props) => {
     }
         
     const updateCategory = () => {
-        const cat = JSON.parse(localStorage.getItem("current_category"));
-        
+        const cat = JSON.parse(localStorage.getItem("current_category"));  
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
         
@@ -50,7 +49,7 @@ export const EditTemplate = (props) => {
                 templates:updated_data
             }),
             redirect: "follow"
-            }
+        }
         fetch("https//ingestion-sandbox.dev.readysetvr.com/api/categories/edit/" + cat.current_category, requestOptions)
         .then(response => response.json())
         .then(data => console.log(data))
@@ -58,7 +57,7 @@ export const EditTemplate = (props) => {
         // edit category api call to add this template to the template, gonna have to call, append, edit
     }
     
-    const addTemplate = () => {
+    const async addTemplate = () => {
      /* add new template */
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
@@ -80,14 +79,10 @@ export const EditTemplate = (props) => {
                 }),
                 redirect: "follow"
              }
-            fetch("https://ingestion-sandbox.dev.readysetvr.com/api/templates/add", requestOptions)
+            return fetch("https://ingestion-sandbox.dev.readysetvr.com/api/templates/add", requestOptions)
                 .then(response => response.json())
                 .then(data => {
                     console.log("finished adding");
-                    Promise.all(
-                        updateCategory();    
-                    ).then(response => response.json)
-                    .then(data => console.log(data)
                     render();
                 })
     }
@@ -119,10 +114,11 @@ export const EditTemplate = (props) => {
                 .then(data => {console.log(data)})
     }
     
-    const saveRecord = () => {
+    const async saveRecord = () => {
         /* save button */
         if(props.stateVars === "Untitled") {
-            addTemplate();
+            await addTemplate();
+            updateCategory();
         } else {
             editTemplate();
         }
