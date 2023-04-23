@@ -85,8 +85,8 @@ export const EditTemplate = (props) => {
                 .then(data => {
                     console.log("finished adding");
                     render();
-                    updateCategory();
                 })
+                .then(() => {updateCategory()})
     }
     
     const editTemplate = () => {
