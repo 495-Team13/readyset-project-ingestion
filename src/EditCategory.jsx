@@ -150,7 +150,7 @@ export const EditCategory = (props) => {
                                         <td><button className="editproject" id="update-name" onClick={() => edit()}>Update</button></td>
                                         <td><button className="editproject" onClick={() => props.onSwitch('EditTemplate', "Untitled", theme)}>Add Template</button></td>
                                         <td><input className="editproject" onChange={(e) => setValue(e.target.value)} type="text" placeholder={value}></input></td>
-
+                                        <td><button className="editproject" onClick={() => exportCategory()}>Export</button></td>
                                     </tr></tbody></table></td>
                                 </tr>
                                 <tr>
