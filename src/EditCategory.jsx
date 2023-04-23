@@ -54,6 +54,22 @@ export const EditCategory = (props) => {
           console.log(templateName); 
     }
     
+    const exportCategory = () => {
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        var requestOptions = {
+            method:"GET",
+            headers: {
+                "Authorization":token   
+            },
+            redirect:"follow"
+        }
+        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/export/categories?id=" + props.stateVars + "&id_field=name", requestOptions)
+            .then(response => {response.json()})
+            .then(data => {console.log(data)})
+        console.log("Export Category");   
+    }
+    
     const deleteTemplate = (templateName) => {
         const obj = JSON.parse(localStorage.getItem('access_token'));
         const token = "Bearer " + obj.access_token;
@@ -123,18 +139,18 @@ export const EditCategory = (props) => {
     }
 
     return(
-        <div id={theme} class="background">
+        <div id={theme} className="background">
             <MainHeader current_theme={theme} switchTheme={changeTheme} onSwitch={(stateName, stateVars, theme) => props.onSwitch(stateName, stateVars, theme)} />
-                        <table className="projects" id={theme}> 
+                        <table className="editproject" id={theme}> 
                             <tbody>
                                 <tr>
                                     <td><table><tbody><tr>
                                         <td><h2 className="projects">Category</h2></td>
                                         <td><input className="editproject" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} type="text" placeholder={props.stateVars} id="categoryName" name="categoryName"></input></td>
-                                        <td><button className="projects" id="update-name" onClick={() => edit()}>Update</button></td>
-                                        <td><button className="projects" onClick={() => props.onSwitch('EditTemplate', "Untitled", theme)}>Add Template</button></td>
+                                        <td><button className="editproject" id="update-name" onClick={() => edit()}>Update</button></td>
+                                        <td><button className="editproject" onClick={() => props.onSwitch('EditTemplate', "Untitled", theme)}>Add Template</button></td>
                                         <td><input className="editproject" onChange={(e) => setValue(e.target.value)} type="text" placeholder={value}></input></td>
-
+                                        <td><button className="editproject" onClick={() => exportCategory()}>Export</button></td>
                                     </tr></tbody></table></td>
                                 </tr>
                                 <tr>
@@ -150,8 +166,8 @@ export const EditCategory = (props) => {
                                                     <div className="dropdown-row"  key={item}>
                                                         <table><tbody><tr>
                                                             <td><p>{item}</p></td>
-                                                            <td><button className="projects" id="green" onClick={()=>onSearch(item)}>Edit</button></td>
-                                                            <td><button className="projects" id="red" onClick={()=>deleteTemplate(item)}>Delete</button></td>
+                                                            <td><button className="editproject" id="green" onClick={()=>onSearch(item)}>Edit</button></td>
+                                                            <td><button className="editproject" id="red" onClick={()=>deleteTemplate(item)}>Delete</button></td>
                                                         </tr></tbody></table>
                                                     </div>
                                                 ))} 

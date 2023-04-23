@@ -27,6 +27,8 @@ export const EditRecord = (props) => {
     const [product_upc, set_product_upc] = useState('');
     const [type, set_type] = useState('');
     const [workflow, set_workflow] = useState('');
+        /* Inferred Hooks */
+    const [drc, set_drc] = useState('No');
     
     useEffect(() => {
         var mounted = true;
@@ -57,6 +59,9 @@ export const EditRecord = (props) => {
                         setCountUnit(fetchData.count.unit);
                         setDepth(fetchData.depth);
                         setDrcUpc(fetchData.drc_upc);
+                        if(fetchData.drc_upc !== '') {
+                            set_drc('Yes');
+                        }
                         setHeight(fetchData.height);
                         setName(fetchData.name);
                         setTemplateName(fetchData.template_name);
@@ -169,7 +174,8 @@ export const EditRecord = (props) => {
     return(
         <div class="background" id={theme}>
             <MainHeader current_theme={theme} switchTheme={changeTheme} onSwitch={(stateName, stateVars, theme) => props.onSwitch(stateName, stateVars, theme)} />
-            <table class="editrecord">
+            <table className="editrecord">
+                <div className="grid-container">
                 <tr>
                     <td><table><tbody><tr>
                         <td><h4>Record&nbsp;Name</h4></td>
@@ -190,8 +196,8 @@ export const EditRecord = (props) => {
                 <tr>
                     <td><table><tbody><tr>
                         <td><input className="editrecord" type="text" placeHolder={upc} onChange={(e) => setUpc(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" placeHolder="?" ></input></td>
-                        <td><input className="editrecord" type="text" placeHolder={drcUpc} onChange={(e) => setDrcUpc(e.target.value)}></input></td>     
+                        <td><input className="editrecord" type="text" placeHolder={drc} ></input></td>
+                        <td><input className="editrecord" type="text" placeHolder={drcUpc} onChange={(e) => setDrcUpc(e.target.value)}></input></td> 
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
@@ -226,7 +232,7 @@ export const EditRecord = (props) => {
                 <tr>
                     <td><table><tbody><tr>
                         <td><input className="editrecord" type="text" placeholder={templateName} onChange={(e) => setTemplateName(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" placeholder="?" ></input></td>
+                        <td><input className="editrecord" type="checkbox"></input></td>
                         <td><input className="editrecord" type="text" placeholder={type} ></input></td> 
                     </tr></tbody></table></td>
                 </tr>
@@ -269,6 +275,7 @@ export const EditRecord = (props) => {
                         <td><input className="editrecord" type="text" placeholder={addInfo} onChange={(e) => setAddInfo(e.target.value)}></input></td>
                     </tr></tbody></table></td>
                 </tr>
+                </div>
             </table>
         </div>
     ) 

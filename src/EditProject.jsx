@@ -124,7 +124,7 @@ export const EditProject = (props) => {
             },
             redirect:"follow"
         }
-        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/export/"+props.stateVars, requestOptions)
+        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/export/projects?id=" + props.stateVars + "&id_field=name", requestOptions)
             .then(response => {response.json()})
             .then(data => {console.log(data)})
         console.log("Export Project");

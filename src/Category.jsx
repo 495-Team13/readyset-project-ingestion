@@ -50,26 +50,22 @@ export const Category = (props) => {
         render();
         props.onSwitch("Category",'',theme)
     }
-
-    const exportCSV = () => {
-        /* switch to api call */ 
-    }
     
     const onSearch = (categoryName) => {
-        /* switch to other page */   
         props.onSwitch('EditCategory', categoryName, theme);
     }
 
     return(
         <div id={theme} class="background">
             <MainHeader current_theme={theme} switchTheme={changeTheme} onSwitch={(stateName, stateVars, theme) => props.onSwitch(stateName, stateVars, theme)} />
-                        <table className="projects" id={theme}> 
+                        <table className="editproject" id={theme}> 
                             <tbody>
                                 <tr>
                                     <td><table><tbody><tr>
-                                        <td><h2 className="projects">Categories</h2></td>
-                                        <td><button className="projects" id="add-project" onClick={() => props.onSwitch('EditCategory', 'Untitled', theme)}>+</button></td>
-                                        <td><input className="projects" value={value} onChange={(e) => setValue(e.target.value)} type="text" placeholder="Search..."></input></td>
+                                        <td><h2 className="editproject">Categories</h2></td>
+                                        <td><button className="editproject" id="add-project" onClick={() => props.onSwitch('EditCategory', 'Untitled', theme)}>+</button></td>
+                                        <td><input className="editproject" value={value} onChange={(e) => setValue(e.target.value)} type="text" placeholder="Search..."></input></td>
+                                        <td><button className="editproject" onClick={() => render()}>Refresh</button></td>
                                     </tr></tbody></table></td>
                                 </tr>
                                 <tr>
@@ -85,8 +81,8 @@ export const Category = (props) => {
                                                     <div className="dropdown-row"  key={item.name}>
                                                         <table><tbody><tr>
                                                             <td><p>{item.name}</p></td>
-                                                            <td><button className="projects" id="green" onClick={()=>onSearch(item.name)}>Edit</button></td>
-                                                            <td><button className="projects" id="red" onClick={()=>deleteCategory(item.name)}>Delete</button></td>
+                                                            <td><button className="editproject" id="green" onClick={()=>onSearch(item.name)}>Edit</button></td>
+                                                            <td><button className="editproject" id="red" onClick={()=>deleteCategory(item.name)}>Delete</button></td>
                                                         </tr></tbody></table>
                                                     </div>
                                                 ))} 
