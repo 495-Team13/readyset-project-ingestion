@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MainHeader } from "./MainHeader";
+import { ModelViewer } from "./ModelViewer"
 
 export const EditRecord = (props) => {
 
@@ -190,7 +191,7 @@ export const EditRecord = (props) => {
                         <td><h5 className="editrecord">Product&nbsp;UPC</h5></td>
                         <td><h5 className="editrecord">DRC</h5></td>
                         <td><h5 className="editrecord">UPC&nbsp;of&nbsp;item&nbsp;in&nbsp;DRC</h5></td>
-                        {/* gltf file here */} 
+                        <td><ModelViewer modelPath="./jug_070.gltf" /></td>
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
