@@ -62,7 +62,7 @@ export const EditCategory = (props) => {
             method: "DELETE",
             headers: {
                 "Authorization":token
-            }
+            },
             redirect: "follow"
         }
         
