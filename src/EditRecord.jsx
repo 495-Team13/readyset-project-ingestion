@@ -270,6 +270,7 @@ export const EditRecord = (props) => {
                         <td><input className="editrecord" type="text" placeholder={addInfo} onChange={(e) => setAddInfo(e.target.value)}></input></td>
                     </tr></tbody></table></td>
                 </tr>
+                </div>
             </table>
         </div>
     ) 
