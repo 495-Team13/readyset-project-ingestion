@@ -117,7 +117,7 @@ export const EditProject = (props) => {
     const exportProject = () => {
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
-        var requestOptions {
+        var requestOptions = {
             method:"GET",
             headers: {
                 "Authorization":token   
