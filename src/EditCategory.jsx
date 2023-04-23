@@ -55,20 +55,27 @@ export const EditCategory = (props) => {
     }
     
     const deleteTemplate = (templateName) => {
-        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const obj = JSON.parse(localStorage.getItem('access_token'));
         const token = "Bearer " + obj.access_token;
         
+        var raw = JSON.stringify({
+            "name":templateName
+        });
+        
         var requestOptions = {
-            method: "DELETE",
+            method: 'DELETE',
             headers: {
+                "Content-Type":"application/json",
                 "Authorization":token
             },
-            redirect: "follow"
-        }
-        
-        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/templates/delete/"+templateName, requestOptions)
-            .then(response => response.json())
-            .then(data => console.log(data))
+            body: raw,
+            redirect:"follow"
+        };
+                
+        fetch('https://ingestion-sandbox.dev.readysetvr.com/api/templates/delete/' + templateName, requestOptions)
+          .then(response => {
+            render();
+          })
     }
     
     const edit = () => {
