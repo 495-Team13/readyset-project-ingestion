@@ -286,6 +286,19 @@ table.editproject {
 }
 
 /* EDIT RECORD 'EDITRECORD' ELEMENT */
+.editrecord {
+  display: block;
+  width: 100%; /* take up full width of parent */
+  margin-bottom: 4px; /* add some spacing between elements */
+}
+
+tr:nth-of-type(1) td {
+  display: flex;
+}
+
+tr:nth-of-type(1) td h5 {
+  flex: 1; /* distribute available space equally among h5 tags */
+}
 
 button:hover.editrecord {
   border: 2px solid green;
