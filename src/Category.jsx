@@ -50,20 +50,15 @@ export const Category = (props) => {
         render();
         props.onSwitch("Category",'',theme)
     }
-
-    const exportCSV = () => {
-        /* switch to api call */ 
-    }
     
     const onSearch = (categoryName) => {
-        /* switch to other page */   
         props.onSwitch('EditCategory', categoryName, theme);
     }
 
     return(
         <div id={theme} class="background">
             <MainHeader current_theme={theme} switchTheme={changeTheme} onSwitch={(stateName, stateVars, theme) => props.onSwitch(stateName, stateVars, theme)} />
-                        <table className="projects" id={theme}> 
+                        <table className="editproject" id={theme}> 
                             <tbody>
                                 <tr>
                                     <td><table><tbody><tr>
