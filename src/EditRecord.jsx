@@ -171,6 +171,7 @@ export const EditRecord = (props) => {
             <MainHeader current_theme={theme} switchTheme={changeTheme} onSwitch={(stateName, stateVars, theme) => props.onSwitch(stateName, stateVars, theme)} />
             <table className="editrecord">
                 <tr>
+                  <div className="grid-container">
                     <td><table><tbody><tr>
                         <td><h4>Record&nbsp;Name</h4></td>
                         <td><input className="editrecord" type="text" placeholder={name} onChange={(e) => setName(e.target.value)}></input></td>
@@ -181,21 +182,17 @@ export const EditRecord = (props) => {
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
-                      <div className="grid-container">
                         <td><h5 className="editrecord">Product&nbsp;UPC</h5></td>
                         <td><h5 className="editrecord">DRC</h5></td>
                         <td><h5 className="editrecord">UPC&nbsp;of&nbsp;item&nbsp;in&nbsp;DRC</h5></td>
                         {/* gltf file here */} 
-                      </div>
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
-                      <div className="grid-container">
                         <td><input className="editrecord" type="text" placeHolder={upc} onChange={(e) => setUpc(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeHolder="?" ></input></td>
                         <td><input className="editrecord" type="text" placeHolder={drcUpc} onChange={(e) => setDrcUpc(e.target.value)}></input></td> 
-                      </div>
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
@@ -206,62 +203,50 @@ export const EditRecord = (props) => {
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
-                      <div className="grid-container">
                         <td><h5 className="editrecord">Item Count (if listed)</h5></td>
                         <td><h5 className="editrecord">Unit of measurement</h5></td>
                         <td><h5 className="editrecord">Weight / Volume</h5></td>
                         <td><h5 className="editrecord">Unit of measurement</h5></td> 
-                      </div>
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
-                      <div className="grid-container">
                         <td><input className="editrecord" type="text" placeholder={countNum} onChange={(e) => setCountNum(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder={countUnit} onChange={(e) => setCountUnit(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder={amountMeasurement} onChange={(e) => setAmountMeasurement(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder={amountUnit} onChange={(e) => setAmountUnit(e.target.value)}></input></td> 
-                      </div>
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
-                     <div className="grid-container">
                         <td><h5 className="editrecord">Template Name</h5></td>
                         <td><h5 className="editrecord">New</h5></td>
                         <td><h5 className="editrecord">Template Type</h5></td>
-                      </div>
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
-                      <div className="grid-container">
                         <td><input className="editrecord" type="text" placeholder={templateName} onChange={(e) => setTemplateName(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder="?" ></input></td>
                         <td><input className="editrecord" type="text" placeholder={type} ></input></td> 
-                      </div>
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
-                      <div className="grid-container">
                         <td><h5 className="editrecord">Width</h5></td>
                         <td><h5 className="editrecord">Height</h5></td>
                         <td><h5 className="editrecord">Depth</h5></td>
                         <td><h5 className="editrecord">Additional Height</h5></td>
                         <td><h5 className="editrecord">Form Description</h5></td>
-                      </div>
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
                     <td><table><tbody><tr>
-                      <div className="grid-container">
                         <td><input className="editrecord" type="text" placeholder={width} onChange={(e) => setWidth(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder={height} onChange={(e) => setHeight(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder={depth} onChange={(e) => setDepth(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder={addHeight} onChange={(e) => setAddHeight(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder={form_desc}></input></td>
-                      </div>
                     </tr></tbody></table></td>
                 </tr>
                 <tr>
