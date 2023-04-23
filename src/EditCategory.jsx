@@ -54,6 +54,22 @@ export const EditCategory = (props) => {
           console.log(templateName); 
     }
     
+    const exportCategory = () => {
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        var requestOptions = {
+            method:"GET",
+            headers: {
+                "Authorization":token   
+            },
+            redirect:"follow"
+        }
+        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/export/categories?id=" + props.stateVars + "&id_field=name", requestOptions)
+            .then(response => {response.json()})
+            .then(data => {console.log(data)})
+        console.log("Export Category");   
+    }
+    
     const deleteTemplate = (templateName) => {
         const obj = JSON.parse(localStorage.getItem('access_token'));
         const token = "Bearer " + obj.access_token;
