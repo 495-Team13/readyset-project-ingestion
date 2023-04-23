@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import * as THREE from "three";
-import { GLTFLoader } from "GLTFLoader.js";
+import { GLTFLoader } from "./GLTFLoader.js";
 
 function ModelViewer(props) {
   const mountRef = useRef(null);
