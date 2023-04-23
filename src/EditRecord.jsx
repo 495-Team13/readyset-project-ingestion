@@ -169,7 +169,8 @@ export const EditRecord = (props) => {
     return(
         <div class="background" id={theme}>
             <MainHeader current_theme={theme} switchTheme={changeTheme} onSwitch={(stateName, stateVars, theme) => props.onSwitch(stateName, stateVars, theme)} />
-            <table class="editrecord">
+            <div className="grid-container">
+            <table className="editrecord">
                 <tr>
                     <td><table><tbody><tr>
                         <td><h4>Record&nbsp;Name</h4></td>
@@ -270,6 +271,7 @@ export const EditRecord = (props) => {
                     </tr></tbody></table></td>
                 </tr>
             </table>
+            </div>
         </div>
     ) 
 
