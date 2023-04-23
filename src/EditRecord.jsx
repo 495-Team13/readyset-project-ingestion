@@ -63,17 +63,17 @@ export const EditRecord = (props) => {
                         setUpc(fetchData.upc);
                         setWidth(fetchData.width);
                     }
-                fetch("/api/templates/get/"+templateName,requestOptions)
-                    .then(response => response.json())
-                    .then(fetchData => {
-                        set_donor_shape(fetchData.donor_shape);
-                        set_form_desc(fetchData.form_desc);
-                        set_gltf(fetchData.gltf);
-                        set_notes(fetchData.notes);
-                        set_product_upc(fetchData.product_upc);
-                        set_type(fetchData.type);
-                        set_workflow(fetchData.workflow);
-                    })
+                    fetch("/api/templates/get/"+fetchData.template_name,requestOptions)
+                        .then(response => response.json())
+                        .then(fetchData => {
+                            set_donor_shape(fetchData.donor_shape);
+                            set_form_desc(fetchData.form_desc);
+                            set_gltf(fetchData.gltf);
+                            set_notes(fetchData.notes);
+                            set_product_upc(fetchData.product_upc);
+                            set_type(fetchData.type);
+                            set_workflow(fetchData.workflow);
+                        })
               });
         }
         return () => mounted = false;
