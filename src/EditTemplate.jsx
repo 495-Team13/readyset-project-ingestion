@@ -57,7 +57,7 @@ export const EditTemplate = (props) => {
         // edit category api call to add this template to the template, gonna have to call, append, edit
     }
     
-    const async addTemplate = () => {
+    const addTemplate = () => {
      /* add new template */
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
@@ -114,10 +114,10 @@ export const EditTemplate = (props) => {
                 .then(data => {console.log(data)})
     }
     
-    const async saveRecord = () => {
+    const saveRecord = () => {
         /* save button */
         if(props.stateVars === "Untitled") {
-            await addTemplate();
+            addTemplate();
             updateCategory();
         } else {
             editTemplate();
