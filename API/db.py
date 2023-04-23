@@ -95,6 +95,8 @@ class DBClient:
 
     # Delete template by name
     def delete_template(self, name):
+        self.categories.update_many({'templates': name}, {'$pullAll': {'templates': [name]}})
+        self.products.update_many({'template_name': name}, {'$set': {'template_name': ''}})
         return self.templates.delete_one({'name': name}).deleted_count > 0
 
     # Query templates and projection
@@ -115,6 +117,11 @@ class DBClient:
 
     # Delete category by name
     def delete_category(self, name):
+        results = self.get_categories({'name': name})
+        if len(results) == 0:
+            return False
+        category = results[0]
+        self.update_category('Default', {'$push': {'templates': {'$each': category['templates']}}})
         return self.categories.delete_one({'name': name}).deleted_count > 0
 
     # Query categories and projection
