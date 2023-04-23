@@ -60,7 +60,7 @@ export const EditRecord = (props) => {
                         setDepth(fetchData.depth);
                         setDrcUpc(fetchData.drc_upc);
                         if(drcUpc !== '') {
-                            setDrc('Yes');
+                            set_drc('Yes');
                         }
                         setHeight(fetchData.height);
                         setName(fetchData.name);
