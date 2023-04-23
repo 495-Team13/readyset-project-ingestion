@@ -81,9 +81,11 @@ export const EditTemplate = (props) => {
                 redirect: "follow"
              }
             fetch("https://ingestion-sandbox.dev.readysetvr.com/api/templates/add", requestOptions)
-                .then(response => response.json())
+                .then(response => {response.json()})
                 .then(data => {
-                    console.log("finished");
+                    console.log("finished adding");
+                    render();
+                    updateCategory();
                 })
     }
     
@@ -110,25 +112,23 @@ export const EditTemplate = (props) => {
                 redirect: "follow"
               }
             fetch("https//ingestion-sandbox.dev.readysetvr.com/api/templates/edit/" + props.stateVars, requestOptions)
-                .then(response => response.json())
-                .then(data => console.log(data))
+                .then(response => {response.json()})
+                .then(data => {console.log(data)})
     }
     
     const saveRecord = () => {
         /* save button */
         if(props.stateVars === "Untitled") {
             addTemplate();
-            render();
         } else {
             editTemplate();
-            render();
         }
         props.onSwitch("Category", '', theme);
     }
     
     const render = () => {
         var mounted = true;
-        
+        console.log("rendering")
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
         var requestOptions = {
