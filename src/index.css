@@ -1,10 +1,19 @@
-body {
+/* Reset all default styles */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Set base font styles */
+body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
 }
 
 code {
@@ -12,46 +21,59 @@ code {
     monospace;
 }
 
-* {
-  text-align: center;
+/* Button styles */
+button {
+  border: 1px solid white;
 }
-
 button:hover {
   cursor: pointer;
   border: 2px solid green;
 }
-button {
-  border: 1px solid white;
-}
 
+/* Input styles */
 input {
-  border-color: white;
-  border-width: 1px;
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 16px;
 }
 
 /*************** SPECIFIC ELEMENTS ***************/
 /* THEMES                                        */
 
+/* Dark mode styles */
 #dark {
-  background-color: #403837;
-  color: white;
+  background-color: #1f1f1f;
+  color: #f0f0f0;
 }
 
+/* Light mode styles */
 #light {
-  background-color: white;
-  color: black;
+  background-color: #f0f0f0;
+  color: #303030;
 }
 
 /************************************ END THEMES */
 /* DARK / LIGHT BUTTON                           */
 
 #header-button {
-  background-color: #787878;
-  color: white;
-  width: 75px;
-  border-radius: 25px;
+  background-color: #1f1f1f;
+  color: #f0f0f0;
+  width: 100px;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
   font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
+
+#header-button:hover {
+  background-color: #f0f0f0;
+  color: #1f1f1f;
+}
+
 
 /************************************ END BUTTON */
 /*************** SPECIFIC CLASSES ****************/
@@ -59,9 +81,12 @@ input {
 
 .login-header {
   margin-left: 25px;
-  font-family: "Times New Roman", Times, serif;
-  font-weight: bolder;
-  border-bottom: 2px solid #787878;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  color: #303030;
+  border-bottom: 2px solid #1f1f1f;
+  padding-bottom: 8px;
 }
 
 /***************************** END LOG IN HEADER */
@@ -69,9 +94,12 @@ input {
 
 .main-header {
   margin-left: 25px;
-  font-family: "Times New Roman", Times, serif;
-  font-weight: bolder;
-  border-bottom: 2px solid #787878;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  font-size: 32px;
+  color: #303030;
+  border-bottom: 2px solid #1f1f1f;
+  padding-bottom: 16px;
 }
 
 /******************************* END MAIN HEADER */
@@ -83,36 +111,51 @@ input {
   position: absolute;
   top: 50%;
   left: 50%;
-  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 
   /* element text styling */
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: bold;
 }
 
 /* element button styling */
 button:hover.login {
-  border: 1px solid green;
+  border: 2px solid green;
 }
 
 button.login {
-  width: 75px;
-  background-color: #787878;
+  width: 150px;
+  background-color: #303030;
+  color: white;
   margin: 10px;
   position: relative;
   border-radius: 25px;
-  border: 1px solid white;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+button.login:focus {
+  outline: none;
+  box-shadow: 0px 0px 10px #787878;
 }
 
 table.login {
-  border: 1px solid white;
+  border: 2px solid #303030;
   border-radius: 25px;
-  padding: 10px;
+  padding: 20px;
 }
 
 h4.login {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  color: #303030;
   position: relative;
+  margin-bottom: 16px;
 }
 
 /* element input field styling */
@@ -144,47 +187,52 @@ input.login {
 }
 /* END 'GREEN' */
 
+/* ADD PROJECT 'ADDPROJECT' ELEMENT */
+
 #add-project {
   font-weight: bolder;
   color: green;
   border-radius: 25px;
 }
 
-button:hover.projects {
+button:hover.addproject {
   border: 2px solid green;
 }
 
-button.projects {
+button.addproject {
   color: white;
   background-color: #787878;
   border: 1px solid white;
   border-radius: 25px;
+  margin: 10px;
+  position: relative;
 }
 
-table.projects {
+table.addproject {
   position: absolute;
   width: 50%;
   margin: 0;
   padding: 10px;
   top: 50%;
   left: 50%;
-  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   border: 1px solid white;
   border-radius: 25px;
 }
 
-input:focus.projects {
+input:focus.addproject {
   text-align: left;
 }
 
-input.projects {
+input.addproject {
   position: relative;
   background-color: #787878;
   color: white;
 }
-/*********************************** END PROJECT */
-/* EDIT PROJECT 'EDITPROJECT' ELEMENT            */
+
+
+/* EDIT PROJECT 'EDITPROJECT' ELEMENT */
+
 button:hover.editproject {
   border: 2px solid green;
 }
@@ -193,12 +241,15 @@ button.editproject {
   color: white;
   background-color: #787878;
   border: 2px solid white;
-  border-radius: 25px; 
+  border-radius: 25px;
   margin-right: 10px;
 }
 
 h4.editproject {
   padding-right: 10px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bolder;
+  border-bottom: 2px solid #787878;
 }
 
 input:focus.editproject {
@@ -218,17 +269,19 @@ table.editproject {
   padding: 10px;
   top: 50%;
   left: 50%;
-  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   border: 1px solid white;
   border-radius: 25px;
 }
+
 
 /****************************** END EDIT PROJECT */
 /* EDIT RECORD                                   */
 ::placeholder {
   color: white; 
 }
+
+/* EDIT RECORD 'EDITRECORD' ELEMENT */
 
 button:hover.editrecord {
   border: 2px solid green;
@@ -239,13 +292,16 @@ button.editrecord {
   color: white;
   font-weight: bolder;
   border-radius: 25px;
-  border: 1px solid white;
+  border: 2px solid white;
 }
 
 h5.editrecord {
   margin-left: 10px;
   margin-right: 75px;
   margin-bottom: 0px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bolder;
+  font-size: 18px;
 }
 
 input:focus.editrecord {
@@ -257,6 +313,8 @@ input.editrecord {
   color: white;
   width: 150px;
   border-radius: 5px;
+  border: 2px solid white;
+  padding: 5px;
 }
 
 table.editrecord {
@@ -268,12 +326,14 @@ table.editrecord {
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  border: 1px solid white;
+  border: 2px solid white;
   border-radius: 25px;
 }
 
-/*************** HELPER DIV CLASSES **************/
+/*********************************** HELPER DIV CLASSES ***********************************/
+
 /* BACKGROUND --OUTSIDE CONTAINER FOR LIGHT/DARK */
+
 .background {
   position: fixed;
   top: 0;
@@ -282,7 +342,8 @@ table.editrecord {
   height: 100%;
 }
 
-/* CENTERING                                      */
+/* CENTERING */
+
 .center {
   margin: 0;
   position: absolute;

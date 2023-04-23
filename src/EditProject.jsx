@@ -15,7 +15,7 @@ export const EditProject = (props) => {
             redirect: "follow"
         };
         if(props.stateVars === "Untitled") {
-            localStorage.setItem("current_project", JSON.Stringify({"current_project":"new project"}));
+            localStorage.setItem("current_project", JSON.stringify({"current_project":"new project"}));
             console.log("Creating new project");
         } else {
             const str = 'https://ingestion-sandbox.dev.readysetvr.com/api/projects/get/' + props.stateVars;
@@ -115,7 +115,18 @@ export const EditProject = (props) => {
     }
 
     const exportProject = () => {
-        /* write this later once we agree upon information order and flow */ 
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        var requestOptions = {
+            method:"GET",
+            headers: {
+                "Authorization":token   
+            },
+            redirect:"follow"
+        }
+        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/export/"+props.stateVars, requestOptions)
+            .then(response => {response.json()})
+            .then(data => {console.log(data)})
         console.log("Export Project");
     }
 

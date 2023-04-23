@@ -37,10 +37,18 @@ export const Category = (props) => {
     }
 
     const deleteCategory = (categoryName) => {
-        // DELETE TEMPLATE SAME AS DELETE PRODUCT? 
-        // ALSO DO WE EVEN DELETE TEMPLATES? 
-        // AND WHAT OF THE PRODUCTS ASSOC WITH THAT TEMPLATE IF SO? 
-        /* api call */ 
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        var requestOptions = {
+                method: "DELETE",
+                headers: {"Authorization":token},
+                redirect: "follow"
+             }
+            fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/delete/"+categoryName, requestOptions)
+                .then(response => response.json())
+                .then(data => console.log(data))
+        render();
+        props.onSwitch("Category",'',theme)
     }
 
     const exportCSV = () => {
@@ -60,7 +68,7 @@ export const Category = (props) => {
                                 <tr>
                                     <td><table><tbody><tr>
                                         <td><h2 className="projects">Categories</h2></td>
-                                        <td><button className="projects" id="add-project" onClick={() => props.onSwitch('EditProject', 'Untitled', theme)}>+</button></td>
+                                        <td><button className="projects" id="add-project" onClick={() => props.onSwitch('EditCategory', 'Untitled', theme)}>+</button></td>
                                         <td><input className="projects" value={value} onChange={(e) => setValue(e.target.value)} type="text" placeholder="Search..."></input></td>
                                     </tr></tbody></table></td>
                                 </tr>

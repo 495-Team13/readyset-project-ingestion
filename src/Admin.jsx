@@ -22,7 +22,7 @@ export const Admin = (props) => {
                 .then(response => response.json())
                 .then(fetchData => {
                     if(mounted) {
-                        setData(fetchData);   
+                        setData(fetchData); 
                     }
                 });
         return () => mounted = false;
@@ -47,7 +47,7 @@ export const Admin = (props) => {
         const token = "Bearer " + obj.access_token;
         
         var raw = JSON.stringify({
-            "name":item.name
+            "username":item
         });
         
         var requestOptions = {
@@ -60,9 +60,8 @@ export const Admin = (props) => {
             redirect:"follow"
         };
                 
-        fetch('https://ingestion-sandbox.dev.readysetvr.com/api/users/delete', requestOptions)
+        fetch('https://ingestion-sandbox.dev.readysetvr.com/api/users/delete/' + item, requestOptions)
           .then(response => {
-            console.log(response);
             render();
           })
           .catch(error => {
@@ -80,6 +79,7 @@ export const Admin = (props) => {
                             <td><h2 className="projects">Users</h2></td>
                             <td><button className="projects" id="add-project" onClick={() => props.onSwitch('EditUser', 'Untitled', theme)}>+</button></td>
                             <td><input className="projects" value={value} onChange={(e) => setValue(e.target.value)} type="text" placeholder="Search..."></input></td>
+                            <td><button className="projects" onClick={()=> render()}>Refresh</button></td>
                         </tr></tbody></table></td>
                     </tr>
                     <tr>
@@ -88,15 +88,15 @@ export const Admin = (props) => {
                             <div className="dropdown">
                                     {data.filter(item => {
                                         const searchTerm = value.toLowerCase();
-                                        const name = item.name.toLowerCase();
+                                        const name = item.username.toLowerCase();
 
                                         return (searchTerm && name.startsWith(searchTerm)) || value === '';
                                     }).map((item) => (
-                                        <div className="dropdown-row"  key={item.name}>
+                                        <div className="dropdown-row"  key={item.username}>
                                             <table><tbody><tr>
-                                                <td><p>{item.name}</p></td>
-                                                <td><button className="projects" id="green" onClick={()=>onSearch(item.name)}>Edit</button></td>
-                                                <td><button className="projects" id="red" onClick={()=>deleteButton(item)}>Delete</button></td>
+                                                <td><p>{item.username}</p></td>
+                                                <td><button className="projects" id="green" onClick={()=>onSearch(item.username)}>Edit</button></td>
+                                                <td><button className="projects" id="red" onClick={()=>deleteButton(item.username)}>Delete</button></td>
                                             </tr></tbody></table>
                                         </div>
                                     ))} 
