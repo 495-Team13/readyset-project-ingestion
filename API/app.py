@@ -355,7 +355,7 @@ def delete_template(template_name):
     ---------
     message : JSON Object
     '''
-    template_data = request.json()
+    template_data = request.get_json()
     template_name = template_data['name']
     if CRUD.delete_template(template_name):
         #Seccessful Delete
