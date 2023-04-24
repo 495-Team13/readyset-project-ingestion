@@ -319,6 +319,7 @@ h5.editrecord {
   font-weight: bolder;
   font-size: 18px;
   text-align: center;
+  padding-right: 5px;
 }
 
 input:focus.editrecord {
