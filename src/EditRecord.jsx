@@ -194,7 +194,7 @@ export const EditRecord = (props) => {
                 </tr>
                 <tr>
                         <td><input className="editrecord" type="text" placeHolder={upc} onChange={(e) => setUpc(e.target.value)}></input></td>
-                        <td><input id="drc_checkbox" className="editrecord" type="checkbox" onChange={(e)=> set_drc(e.target.value)} ></input></td>
+                        <td><input id="drc_checkbox" type="checkbox" onChange={(e)=> set_drc(e.target.value)} ></input></td>
                         <td><input className="editrecord" type="text" placeHolder={drc_upc} onChange={(e) => setDrcUpc(e.target.value)}></input></td> 
                         <td><input className="editrecord" type="text" placeHolder={gltf} onChange={(e) => set_gltf(e.target.value)}></input></td>
                 </tr>
@@ -229,7 +229,7 @@ export const EditRecord = (props) => {
                 </tr>
                 <tr>
                         <td><input className="editrecord" type="text" placeholder={template_name} onChange={(e) => setTemplateName(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="checkbox"></input></td>
+                        <td><input id="new_template_checkbox" type="checkbox"></input></td>
                         <td><input className="editrecord" type="text" placeholder={type} ></input></td> 
                 </tr>
 </div>
