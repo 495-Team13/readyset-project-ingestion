@@ -304,13 +304,13 @@ def add_new_template():
     template_data = request.get_json()
     if template_data:
         template_name = template_data['name']
-        template_type = ['type']
-        template_workflow = ['workflow']
-        template_donor_shape = ['donor_shape']
-        template_product_upc = ['product_upc']
-        template_notes= ['notes']
-        template_form_desc = ['form_desc']
-        template_gltf = ['gltf']
+        template_type = template_data['type']
+        template_workflow = template_data['workflow']
+        template_donor_shape = template_data['donor_shape']
+        template_product_upc = template_data['product_upc']
+        template_notes= template_data['notes']
+        template_form_desc = template_data['form_desc']
+        template_gltf = template_data['gltf']
         return jsonify(CRUD.create_template(template_name, template_type, template_workflow ,template_donor_shape, template_product_upc ,template_notes, template_form_desc, template_gltf)),200
     else:
         return jsonify(message=f"No Template Data Submitted."), 404
