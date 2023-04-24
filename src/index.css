@@ -298,9 +298,8 @@ table.editproject {
   align-items: left;
 }
 
-.flex-container>.elongated {
-  flex-grow: 1;
-  background-color: green;
+#elongated {
+  flex-grow: 4;
 }
 
 button:hover.editrecord {
