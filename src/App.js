@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { StateManager } from './StateManager';
+import { CustomGLTF } from './CustromGLTF'
 function App() {
   return (
     <div className="App">
-      { <StateManager/> }
+      { <CustomGLTF/> }
     </div>
   );
 }
