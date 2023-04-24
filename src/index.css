@@ -46,6 +46,10 @@ input {
   font-size: 16px;
 }
 
+input[type="checkbox"] {
+  background-color: green;
+}
+
 /*************** SPECIFIC ELEMENTS ***************/
 /* THEMES                                        */
 
