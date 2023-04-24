@@ -8,7 +8,7 @@ export const CustomGLTF = (props) => {
     <div>
       <Canvas>
         <mesh ref={ref}>
-          <boxGeometry attach='geometry' args=[2,2,2] />
+          <boxGeometry attach='geometry' args={[2,2,2]} />
         </mesh>
       </Canvas>
     </div>
