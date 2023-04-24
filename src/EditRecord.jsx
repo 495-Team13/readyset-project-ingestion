@@ -191,7 +191,7 @@ export const EditRecord = (props) => {
                 <tr>
                         <td><input className="editrecord" type="text" placeHolder={upc} onChange={(e) => setUpc(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeHolder={drc} ></input></td>
-                        <td><input className="editrecord" type="text" placeHolder={drcUpc} onChange={(e) => setDrcUpc(e.target.value)}></input></td> 
+                        <td><input className="editrecord" type="text" placeHolder={drc_upc} onChange={(e) => setDrcUpc(e.target.value)}></input></td> 
                 </tr>
                 <tr>
                     <td><h5>Product Name (Brand Name Flavor)</h5></td>
@@ -206,10 +206,10 @@ export const EditRecord = (props) => {
                         <td><h5 className="editrecord">Unit of measurement</h5></td> 
                 </tr>
                 <tr>
-                        <td><input className="editrecord" type="text" placeholder={countNum} onChange={(e) => setCountNum(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" placeholder={countUnit} onChange={(e) => setCountUnit(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" placeholder={amountMeasurement} onChange={(e) => setAmountMeasurement(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" placeholder={amountUnit} onChange={(e) => setAmountUnit(e.target.value)}></input></td> 
+                        <td><input className="editrecord" type="text" placeholder={count_num} onChange={(e) => setCountNum(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={count_unit} onChange={(e) => setCountUnit(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={amount_measurement} onChange={(e) => setAmountMeasurement(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={amount_unit} onChange={(e) => setAmountUnit(e.target.value)}></input></td> 
                 </tr>
                 <tr>
                         <td><h5 className="editrecord">Template Name</h5></td>
@@ -217,7 +217,7 @@ export const EditRecord = (props) => {
                         <td><h5 className="editrecord">Template Type</h5></td>
                 </tr>
                 <tr>
-                        <td><input className="editrecord" type="text" placeholder={templateName} onChange={(e) => setTemplateName(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={template_name} onChange={(e) => setTemplateName(e.target.value)}></input></td>
                         <td><input className="editrecord" type="checkbox"></input></td>
                         <td><input className="editrecord" type="text" placeholder={type} ></input></td> 
                 </tr>
@@ -232,7 +232,7 @@ export const EditRecord = (props) => {
                         <td><input className="editrecord" type="text" placeholder={width} onChange={(e) => setWidth(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder={height} onChange={(e) => setHeight(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder={depth} onChange={(e) => setDepth(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="text" placeholder={addHeight} onChange={(e) => setAddHeight(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={add_height} onChange={(e) => setAddHeight(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder={form_desc}></input></td>
                 </tr>
                 <tr>
@@ -245,7 +245,7 @@ export const EditRecord = (props) => {
                         <td><h5 className="editrecord">Additional Information</h5></td>
                 </tr>
                 <tr>
-                        <td><input className="editrecord" type="text" placeholder={addInfo} onChange={(e) => setAddInfo(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeholder={add_info} onChange={(e) => setAddInfo(e.target.value)}></input></td>
                 </tr>
                 </div>
             </table>
