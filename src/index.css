@@ -294,7 +294,7 @@ table.editproject {
   display: flex; 
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: left;
   align-items: left;
 }
 
@@ -311,9 +311,6 @@ button.editrecord {
 }
 
 h5.editrecord {
-  margin-left: 10px;
-  margin-right: 75px;
-  margin-bottom: 0px;
   font-family: "Times New Roman", Times, serif;
   font-weight: bolder;
   font-size: 18px;
