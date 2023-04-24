@@ -290,18 +290,17 @@ table.editproject {
 }
 
 /* EDIT RECORD 'EDITRECORD' ELEMENT */
-#elongated {
-  width: 80%;
-  flex: 1;
-  background-color: green;
-}
-
 .flex-container {
   display: flex; 
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: left;
   align-items: left;
+}
+
+.flex-container>.elongated {
+  flex-grow: 1;
+  background-color: green;
 }
 
 button:hover.editrecord {
