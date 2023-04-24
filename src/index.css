@@ -295,7 +295,7 @@ table.editproject {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: left;
 }
 
 button:hover.editrecord {
