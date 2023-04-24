@@ -175,13 +175,16 @@ export const EditRecord = (props) => {
             <MainHeader current_theme={theme} switchTheme={changeTheme} onSwitch={(stateName, stateVars, theme) => props.onSwitch(stateName, stateVars, theme)} />
             <table className="editrecord">
                 <div className="flex-container">
-                <tr>
+                <div className="group">
+                    <tr>
                         <td><h4>Record&nbsp;Name</h4></td>
                         <td><input className="editrecord" type="text" placeholder={name} onChange={(e) => setName(e.target.value)}></input></td>
                         <td><button className="editrecord" onClick={() => {props.onSwitch('Projects','', theme)}}>Return</button></td>
                         <td><button className="editrecord" onClick={() => saveRecord()}>Save</button></td>
                         <td><button className="editrecord" onClick={() => clearRecord()}>Clear</button></td>
-                </tr>
+                    </tr>
+                </div>
+    <div className="group">
                 <tr>
                         <td><h5 className="editrecord">Product&nbsp;UPC</h5></td>
                         <td><h5 className="editrecord">DRC</h5></td>
@@ -192,12 +195,17 @@ export const EditRecord = (props) => {
                         <td><input className="editrecord" type="text" placeHolder={upc} onChange={(e) => setUpc(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeHolder={drc} ></input></td>
                         <td><input className="editrecord" type="text" placeHolder={drc_upc} onChange={(e) => setDrcUpc(e.target.value)}></input></td> 
+                        <td><input className="editrecord" type="text" placeHolder={gltf} onChange={(e) => setGltf(e.target.value)}></input></td>
                 </tr>
+</div>
+<div className="group">
                 <tr>
                     <td><h5>Product Name (Brand Name Flavor)</h5></td>
                 </tr>
                 <tr>
                     <td><input className="editrecord" type="text" placeholder={name} onChange={(e) => setName(e.target.value)}></input></td>
+                        </div>
+<div className="group">
                 </tr>
                 <tr>
                         <td><h5 className="editrecord">Item Count (if listed)</h5></td>
@@ -211,6 +219,8 @@ export const EditRecord = (props) => {
                         <td><input className="editrecord" type="text" placeholder={amount_measurement} onChange={(e) => setAmountMeasurement(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder={amount_unit} onChange={(e) => setAmountUnit(e.target.value)}></input></td> 
                 </tr>
+</div>
+<div className="group">
                 <tr>
                         <td><h5 className="editrecord">Template Name</h5></td>
                         <td><h5 className="editrecord">New</h5></td>
@@ -221,6 +231,8 @@ export const EditRecord = (props) => {
                         <td><input className="editrecord" type="checkbox"></input></td>
                         <td><input className="editrecord" type="text" placeholder={type} ></input></td> 
                 </tr>
+</div>
+<div className="group">
                 <tr>
                         <td><h5 className="editrecord">Width</h5></td>
                         <td><h5 className="editrecord">Height</h5></td>
@@ -235,18 +247,23 @@ export const EditRecord = (props) => {
                         <td><input className="editrecord" type="text" placeholder={add_height} onChange={(e) => setAddHeight(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder={form_desc}></input></td>
                 </tr>
+</div>
+<div className="group">
                 <tr>
                         <td><h5 className="editrecord">Workflow</h5></td>
                 </tr>
                 <tr>
                         <td><input className="editrecord" type="text" placeholder={workflow} ></input></td>
                 </tr>
+</div>
+<div className="group">
                 <tr>
                         <td><h5 className="editrecord">Additional Information</h5></td>
                 </tr>
                 <tr>
                         <td><input className="editrecord" type="text" placeholder={add_info} onChange={(e) => setAddInfo(e.target.value)}></input></td>
                 </tr>
+</div>
                 </div>
             </table>
         </div>
