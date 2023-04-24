@@ -228,7 +228,7 @@ export const EditRecord = (props) => {
                 </tr>
                 <tr>
                         <td><input className="editrecord" type="text" placeholder={template_name} onChange={(e) => setTemplateName(e.target.value)}></input></td>
-                        <td><input className="editrecord" type="checkbox"></input></td>
+                        <td><input type="checkbox"></input></td>
                         <td><input className="editrecord" type="text" placeholder={type} ></input></td> 
                 </tr>
 </div>
