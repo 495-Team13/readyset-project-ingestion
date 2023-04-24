@@ -195,7 +195,7 @@ export const EditRecord = (props) => {
                         <td><input className="editrecord" type="text" placeHolder={upc} onChange={(e) => setUpc(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeHolder={drc} ></input></td>
                         <td><input className="editrecord" type="text" placeHolder={drc_upc} onChange={(e) => setDrcUpc(e.target.value)}></input></td> 
-                        <td><input className="editrecord" type="text" placeHolder={gltf} onChange={(e) => setGltf(e.target.value)}></input></td>
+                        <td><input className="editrecord" type="text" placeHolder={gltf} onChange={(e) => set_gltf(e.target.value)}></input></td>
                 </tr>
 </div>
 <div className="group">
