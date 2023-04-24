@@ -204,9 +204,9 @@ export const EditRecord = (props) => {
                 </tr>
                 <tr>
                     <td><input className="editrecord" type="text" placeholder={name} onChange={(e) => setName(e.target.value)}></input></td>
+                </tr>
                         </div>
 <div className="group">
-                </tr>
                 <tr>
                         <td><h5 className="editrecord">Item Count (if listed)</h5></td>
                         <td><h5 className="editrecord">Unit of measurement</h5></td>
