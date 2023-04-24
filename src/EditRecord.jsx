@@ -203,7 +203,7 @@ export const EditRecord = (props) => {
                     <td><h5 className="editrecord">Product Name (Brand Name Flavor)</h5></td>
                 </tr>
                 <tr>
-                    <td><input className="editrecord" type="text" placeholder={name} onChange={(e) => setName(e.target.value)}></input></td>
+                    <td><input id="elongated" className="editrecord" type="text" placeholder={name} onChange={(e) => setName(e.target.value)}></input></td>
                 </tr>
                         </div>
 <div className="group">
@@ -253,7 +253,7 @@ export const EditRecord = (props) => {
                         <td><h5 className="editrecord">Workflow</h5></td>
                 </tr>
                 <tr>
-                        <td><input className="editrecord" type="text" placeholder={workflow} ></input></td>
+                        <td><input id="elongated" className="editrecord" type="text" placeholder={workflow} ></input></td>
                 </tr>
 </div>
 <div className="group">
@@ -261,7 +261,7 @@ export const EditRecord = (props) => {
                         <td><h5 className="editrecord">Additional Information</h5></td>
                 </tr>
                 <tr>
-                        <td><input className="editrecord" type="text" placeholder={add_info} onChange={(e) => setAddInfo(e.target.value)}></input></td>
+                        <td><input id="elongated" className="editrecord" type="text" placeholder={add_info} onChange={(e) => setAddInfo(e.target.value)}></input></td>
                 </tr>
 </div>
                 </div>
