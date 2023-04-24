@@ -303,7 +303,7 @@ def add_new_template():
     '''
     template_data = request.get_json()
     if template_data:
-        template_name = ['name']
+        template_name = template_data['name']
         template_type = ['type']
         template_workflow = ['workflow']
         template_donor_shape = ['donor_shape']
