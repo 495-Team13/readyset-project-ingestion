@@ -89,25 +89,25 @@ export const EditRecord = (props) => {
 
     const saveRecord = () => { 
         const count = {
-            "measurement": countNum,
-            "unit": countUnit
+            "measurement": count_num,
+            "unit": count_unit
         }
         const amount = { 
-            "measurement": amountMeasurement,
-            "unit": amountUnit
+            "measurement": amount_measurement,
+            "unit": amount_unit
         }
         const product = {
             "upc": upc,
-            "drc_upc": drcUpc,
+            "drc_upc": drc_upc,
             "name": name,
             "count": count,
             "amount": amount,
-            "template_name": templateName,
+            "template_name": template_name,
             "width": width,
             "height": height,
             "depth": depth,
-            "add_height": addHeight,
-            "add_info": addInfo
+            "add_height": add_height,
+            "add_info": add_info
           }
         
         const obj = JSON.parse(localStorage.getItem("access_token"));
