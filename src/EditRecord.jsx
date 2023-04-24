@@ -174,7 +174,7 @@ export const EditRecord = (props) => {
         <div class="background" id={theme}>
             <MainHeader current_theme={theme} switchTheme={changeTheme} onSwitch={(stateName, stateVars, theme) => props.onSwitch(stateName, stateVars, theme)} />
             <table className="editrecord">
-                <div className="grid-container">
+                <div className="flex-container">
                 <tr>
                         <td><h4>Record&nbsp;Name</h4></td>
                         <td><input className="editrecord" type="text" placeholder={name} onChange={(e) => setName(e.target.value)}></input></td>
