@@ -50,7 +50,7 @@ input[type="checkbox"] {
   appearance: none;
   background-color: #787878;
   border-radius: 25px;
-  margin-left: 25px;
+  margin: auto;
   border: 1px solid white;
   font: inherit;
   color: currentColor;
