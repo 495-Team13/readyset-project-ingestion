@@ -178,7 +178,7 @@ export const EditRecord = (props) => {
                 <div className="group">
                     <tr>
                         <td><h4>Record&nbsp;Name</h4></td>
-                        <td><input id="elongated" className="editrecord" type="text" placeholder={name} onChange={(e) => setName(e.target.value)}></input></td>
+                        <td><input  className="flex-container.elongated" type="text" placeholder={name} onChange={(e) => setName(e.target.value)}></input></td>
                         <td><button className="editrecord" onClick={() => {props.onSwitch('Projects','', theme)}}>Return</button></td>
                         <td><button className="editrecord" onClick={() => saveRecord()}>Save</button></td>
                         <td><button className="editrecord" onClick={() => clearRecord()}>Clear</button></td>
