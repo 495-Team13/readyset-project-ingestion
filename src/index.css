@@ -299,7 +299,8 @@ table.editproject {
 }
 
 #elongated {
-  flex-grow: 4;
+  width: 500px;
+  background-color: green;
 }
 
 button:hover.editrecord {
