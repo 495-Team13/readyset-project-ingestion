@@ -290,6 +290,10 @@ table.editproject {
 }
 
 /* EDIT RECORD 'EDITRECORD' ELEMENT */
+#elongated {
+  width: 80%;
+}
+
 .flex-container {
   display: flex; 
   flex-direction: row;
