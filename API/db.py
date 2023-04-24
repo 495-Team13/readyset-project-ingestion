@@ -1,151 +1,192 @@
-from pymongo import MongoClient
-from pymongo.errors import ConnectionFailure, ConfigurationError
-from urllib.parse import quote_plus
-import re
+"""Module for performing operations on a MongoDB instance.
+
+Contains the DBClient class for connecting to a MongoDB instance and performing
+common low-level operations.
+"""
+
+import pymongo
+from pymongo import errors
+from urllib import parse
 
 # Database and collection names
-PI_DB = 'pi'
-PROJECTS_COL = 'projects'
-PRODUCTS_COL = 'products'
-TEMPLATES_COL = 'templates'
-CATEGORIES_COL = 'categories'
-USERS_COL = 'users'
+_DB = 'pi'
+_COLLECTIONS = [
+    'projects',
+    'products',
+    'templates',
+    'categories',
+    'users',
+]
+_OPERATIONS = [
+    'add',
+    'get',
+    'update',
+    'delete',
+]
 
 class DBClient:
-    # Create MongoClient and store references to collections
-    def __init__(self, host, port, user, password, auth_source):
-        uri = 'mongodb://%s:%s@%s:%d/?authSource=%s' % (quote_plus(user), quote_plus(password), host, port, quote_plus(auth_source))
-        self.client = MongoClient(uri)
-        self.projects = self.client[PI_DB][PROJECTS_COL]
-        self.products = self.client[PI_DB][PRODUCTS_COL]
-        self.templates = self.client[PI_DB][TEMPLATES_COL]
-        self.categories = self.client[PI_DB][CATEGORIES_COL]
-        self.users = self.client[PI_DB][USERS_COL]
+    """Client for interacting with a MongoDB instance.
 
-    # Check if successfully connected to database
+    MongoClient created on init, but connection isn't actually established until
+    a database operation is performed.  Use check_connection() to confirm
+    connection to database.
+    """
+
+    def __init__(self, host, port, user, password, auth_source):
+        """Initializes client with connection information.
+
+        Args:
+          host: Database address.
+          port: Port database is running on.
+          user: Database username for authentication.
+          password: User password for authentication.
+          auth_source: Collection to use for authentication.
+        """
+        uri = ('mongodb://'
+               f'{parse.quote_plus(user)}:{parse.quote_plus(password)}'
+               f'@{host}:{port}/?authSource={parse.quote_plus(auth_source)}')
+        self.client = pymongo.MongoClient(uri)
+
+        self.collections = []
+        for col_name in _COLLECTIONS:
+            collection = self.client[_DB][col_name]
+            setattr(self, col_name, collection)
+            self.collections.append(collection)
+
+        def gen_lambda(base_func, collection):
+            return lambda *args: base_func(collection, *args)
+        for name, collection in zip(_COLLECTIONS, self.collections):
+            for op in _OPERATIONS:
+                func_name = f'{name}_{op}'
+                if hasattr(self, func_name):
+                    continue
+                base_func = getattr(self, f'_{op}')
+                setattr(self, func_name, gen_lambda(base_func, collection))
+
     def check_connection(self):
+        """Checks if connection to the database can be established.
+
+        Returns:
+          True for successful connection, False for failed connection.
+        """
         try:
             self.client.admin.command('ping')
             return True
-        except ConnectionFailure as err:
+        except errors.ConnectionFailure:
             print('Failed to connect to MongoDB server')
-        except ConfigurationError as err:
+        except errors.ConfigurationError:
             print('MongoDB user credentials are invalid')
         return False
 
-    # Check if document with id is a duplicate
-    # existing = True -> check if there's a duplicate among existing documents
-    # existing = False -> check if id would be a duplicate
-    def check_duplicate(self, col_name, id_filter, existing=False):
-        n = len(list(self.client[PI_DB][col_name].find(id_filter)))
+    def check_duplicate(self, col_name, query, existing=False):
+        """Checks if document with id is a duplicate.
+
+        Args:
+          col_name: Collection name.
+          query: Query to run to find duplicates.
+          existing: If True check for duplicates amongst existing documents.
+            Else check for would be duplicate.
+
+        Returns:
+          True if duplicates detected otherwise False.
+        """
+        collection = getattr(self, col_name, None)
+        if collection is None:
+            return False
+        n = len(list(collection.find(query)))
         return n > 1 if existing else n > 0
 
-    ### Projects ###
+    def _add(self, collection, doc):
+        """Adds new document to a collection.
 
-    # Add new project
-    def add_project(self, name, products=[]):
-        project = {'name': name, 'products': products}
-        result = self.projects.insert_one(project)
-        return self.projects.find_one({'_id': result.inserted_id}, {'_id': 0})
+        Args:
+          collection: Reference to collection to add document to.
+          doc: Dict of new document.
 
-    # Apply update to project by name
-    def update_project(self, name, update):
-        result = self.projects.update_one({'name': name}, update)
-        return self.projects.find_one({'name': name}, {'_id': 0}) if result.modified_count > 0 else None
+        Returns:
+          The inserted document.
+        """
+        result = collection.insert_one(doc)
+        return collection.find_one({'_id': result.inserted_id}, {'_id': 0})
 
-    # Delete project by name
-    def delete_project(self, name):
-        return self.projects.delete_one({'name': name}).deleted_count > 0
+    def _get(self, collection, query={}, projection={'_id': 0}):  # pylint: disable=dangerous-default-value
+        """Gets documents according to query.
 
-    # Query projects and projection
-    def get_projects(self, query={}, projection={'_id': 0}):
-        return list(self.projects.find(query, projection))
+        Args:
+          query: Query for document selection.
+          projection: Projection to apply to results.
 
-    ### Products ###
+        Returns:
+          List of documents matching query.
+        """
+        return list(collection.find(query, projection))
 
-    # Add new product to project and products collection
-    def add_product(self, product):
-        result = self.products.insert_one(product)
-        return self.products.find_one({'_id': result.inserted_id}, {'_id': 0})
+    def _update(self, collection, query, update):
+        """Updates documents.
 
-    # Apply update to product by upc
-    def update_product(self, upc, update):
-        result = self.products.update_one({'upc': upc}, update)
-        return self.products.find_one({'upc': upc}, {'_id': 0}) if result.modified_count > 0 else None
+        Args:
+          query: Query for document selection.
+          update: Update to apply.
 
-    # Delete product by upc
-    def delete_product(self, upc):
-        return self.products.delete_one({'upc': upc}).deleted_count > 0
+        Returns:
+          List of updated documents.  None if no documents updated.
+        """
+        result = collection.update_many(query, update)
+        return (collection.find_many(query, {'_id': 0})
+                if result.modified_count > 0 else None)
 
-    # Query products and projection
-    def get_products(self, query={}, projection={'_id': 0}):
-        return list(self.products.find(query, projection))
+    def _delete(self, collection, query):
+        """Deletes documents.
 
-    ### Templates ###
+        Args:
+          query: Query for document selection.
+        Returns:
+          True if deleted count > 0 otherwise False.
+        """
+        return collection.delete_many(query).deleted_count > 0
 
-    # Add template to templates collection
-    def add_template(self, template):
-        result = self.templates.insert_one(template)
-        return self.templates.find_one({'_id': result.inserted_id}, {'_id': 0})
+    def users_add(self, user):
+        """Add new user.
 
-    # Apply update to template by name
-    def update_template(self, name, update):
-        result = self.templates.update_one({'name': name}, update)
-        return self.templates.find_one({'name': name}, {'_id': 0}) if result.modified_count > 0 else None
+        Custom function to remove password from returned documents.
 
-    # Delete template by name
-    def delete_template(self, name):
-        return self.templates.delete_one({'name': name}).deleted_count > 0
+        Args:
+          user: Dict for new user
 
-    # Query templates and projection
-    def get_templates(self, query={}, projection={'_id': 0}):
-        return list(self.templates.find(query, projection))
-
-    ### Categories ###
-
-    # Add category
-    def add_category(self, category):
-        result = self.categories.insert_one(category)
-        return self.categories.find_one({'_id': result.inserted_id}, {'_id': 0})
-
-    # Apply update to category by name
-    def update_category(self, name, update):
-        result = self.categories.update_one({'name': name}, update)
-        return self.categories.find_one({'name': name}, {'_id': 0}) if result.modified_count > 0 else None
-
-    # Delete category by name
-    def delete_category(self, name):
-        return self.categories.delete_one({'name': name}).deleted_count > 0
-
-    # Query categories and projection
-    def get_categories(self, query={}, projection={'_id': 0}):
-        return list(self.categories.find(query, projection))
-
-    ### Users ###
-
-    # Add user
-    def add_user(self, user):
+        Returns:
+          The inserted user document.
+        """
         result = self.users.insert_one(user)
-        return self.users.find_one({'_id': result.inserted_id}, {'_id': 0, 'password': 0})
+        return self.users.find_one({'_id': result.inserted_id},
+                                   {'_id': 0, 'password': 0})
 
-    # Apply update to user by username
-    def update_user(self, username, update):
-        result = self.users.update_one({'username': username}, update)
-        return self.users.find_one({'username': username}, {'_id': 0}) if result.modified_count > 0 else None
+    def users_get(self, query={}, projection={'_id': 0}):  # pylint: disable=dangerous-default-value
+        """Get users.
 
-    # Delete user by username
-    def delete_user(self, username):
-        return self.users.delete_one({'username': username}).deleted_count > 0
+        Custom function to remove password from returned documents.
 
-    # Query users and projection
-    def get_users(self, query={}, projection={'_id': 0}):
+        Args:
+          query: Query for document selection.
+          projection: Projection to apply to results.
+
+        Returns:
+          List of user documents matching query.
+        """
+        projection['password'] = 0
         return list(self.users.find(query, projection))
 
-if __name__ == '__main__':
-    host = 'localhost'
-    port = 27017
-    user = 'admin'
-    password = 'q4m92DT%!EvsEd'
-    auth_source = 'admin'
-    client = DBClient(host, port, user, password, auth_source)
-    print(client.get_projects())
+    def users_update(self, query, update):
+        """Update user.
+
+        Custom function to remove password from returned documents.
+
+        Args:
+          query: Query for document selection.
+          update: Update to apply.
+
+        Returns:
+          List of updated documents.  None if no documents updated.
+        """
+        result = self.users.update_many(query, update)
+        return (self.users.find_many(query, {'_id': 0, 'password': 0})
+                if result.modified_count > 0 else None)
