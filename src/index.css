@@ -48,13 +48,14 @@ input {
 
 input[type="checkbox"] {
   appearance: none;
-  background-color: #fff;
-  margin: 0;
+  background-color: #787878;
+  margin: 25px 25px 25px 0px;
+  border-radius: 25px;
+  border: 1px solid white;
   font: inherit;
   color: currentColor;
   width: 1.15em;
   height: 1.15em;
-  border: 0.15em solid currentColor;
   border-radius: 0.15em;
   
   display: grid;
