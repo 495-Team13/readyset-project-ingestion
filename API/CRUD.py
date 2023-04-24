@@ -98,8 +98,9 @@ def create_template(name, type_, workflow, donor_shape, product_upc, notes, form
     Creates a new template document with the given properties.
     Returns the inserted document's ID.
     """
+    lower_name = name.lower()
     template = {
-        "name": name,
+        "name": lower_name,
         "type": type_,
         "workflow": workflow,
         "donor_shape": donor_shape,
