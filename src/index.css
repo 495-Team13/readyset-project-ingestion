@@ -56,7 +56,6 @@ input[type="checkbox"] {
   height: 1.15em;
   border: 0.15em solid currentColor;
   border-radius: 0.15em;
-  transform: translateY(-0.075em);
   
   display: grid;
   place-content: center;
@@ -68,7 +67,7 @@ input[type="checkbox"]::before {
   height: 0.65em;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em green;
+  box-shadow: inset 1em 1em white;
   
   transform-origin: bottom left;
   clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
