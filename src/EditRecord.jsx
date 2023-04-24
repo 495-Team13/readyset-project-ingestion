@@ -200,7 +200,7 @@ export const EditRecord = (props) => {
 </div>
 <div className="group">
                 <tr>
-                    <td><h5>Product Name (Brand Name Flavor)</h5></td>
+                    <td><h5 className="editrecord">Product Name (Brand Name Flavor)</h5></td>
                 </tr>
                 <tr>
                     <td><input className="editrecord" type="text" placeholder={name} onChange={(e) => setName(e.target.value)}></input></td>
