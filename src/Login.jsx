@@ -37,7 +37,7 @@ export const Login = (props) => {
       })
       .catch(error => {
           console.log('error', error)
-          location.reload();   
+          window.location.reload();   
       });
     }
 
