@@ -35,7 +35,10 @@ export const Login = (props) => {
         ((username === 'admin') ? localStorage.setItem("a", true) : localStorage.setItem("a", false));
         props.onSwitch('Projects','',theme);
       })
-      .catch(error => console.log('error', error));
+      .catch(error => {
+          console.log('error', error)
+          props.onSwitch('Login','',theme);   
+      });
     }
 
     return (
