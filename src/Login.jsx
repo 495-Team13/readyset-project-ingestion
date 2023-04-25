@@ -31,13 +31,13 @@ export const Login = (props) => {
       .then(response => response.text())
       .then(result => {
         console.log(result);
+        if(result === "Invalid username or password") window.location.reload();
         localStorage.setItem("access_token", result);
         ((username === 'admin') ? localStorage.setItem("a", true) : localStorage.setItem("a", false));
         props.onSwitch('Projects','',theme);
       })
       .catch(error => {
           console.log('error', error)
-          window.location.reload();   
       });
     }
 
