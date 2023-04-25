@@ -30,6 +30,7 @@ export const Admin = (props) => {
     
     useEffect(() => {
         const flag = localStorage.getItem("a");
+        console.log(flag);
         if(flag === true) {
           console.log("access granted");
           render();
