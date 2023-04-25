@@ -113,7 +113,7 @@ export const EditRecord = (props) => {
         
         var updated_data = [];
         updated_data = getDefaultData();
-        updated_data.push(name);
+        updated_data.push(template_name);
         var requestOptions = {
             method: "PUT",
             headers: {
