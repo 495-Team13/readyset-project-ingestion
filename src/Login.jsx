@@ -37,7 +37,7 @@ export const Login = (props) => {
         props.onSwitch('Projects','',theme);
       })
       .catch(error => {
-          console.log('error', error)
+          console.log('error1', error)
       });
     }
 
