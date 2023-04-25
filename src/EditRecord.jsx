@@ -113,6 +113,7 @@ export const EditRecord = (props) => {
         
         var updated_data = [];
         updated_data = getDefaultData();
+        console.log(template_name);
         updated_data.push(template_name);
         var requestOptions = {
             method: "PUT",
@@ -211,7 +212,7 @@ export const EditRecord = (props) => {
                         "donor_shape":donor_shape,
                         "form_desc":form_desc,
                         "gltf":gltf,
-                        "name":name,
+                        "name":template_name,
                         "notes":notes,
                         "product_upc":product_upc,
                         "type":type,
