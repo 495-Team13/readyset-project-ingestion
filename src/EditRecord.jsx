@@ -127,7 +127,7 @@ export const EditRecord = (props) => {
             }),
             redirect: "follow"
         }
-        fetch("api/categories/edit/" + cat, requestOptions)
+        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/edit/" + cat, requestOptions)
         .then(response => response.json())
         .then(data => console.log(data))   
     }
