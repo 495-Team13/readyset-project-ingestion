@@ -26,17 +26,14 @@ export const Login = (props) => {
         body: raw,
         redirect: 'follow'
       };
-
+      var result_text = "";
       fetch("https://ingestion-sandbox.dev.readysetvr.com/api/login", requestOptions)
-      .then(response => {
-          var result = response.json();
-          var result_text = response.text();
-      })
+      .then(response => response.text())
       .then(result => {
-        if(result.error === "Invalid username or password") {
+        if(result.includes("error")) {
             window.location.reload();
         } 
-        localStorage.setItem("access_token", result_text);
+        localStorage.setItem("access_token", result);
         ((username === 'admin') ? localStorage.setItem("a", true) : localStorage.setItem("a", false));
         props.onSwitch('Projects','',theme);
       })
