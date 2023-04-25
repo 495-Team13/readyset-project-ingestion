@@ -28,7 +28,7 @@ export const Login = (props) => {
       };
 
       fetch("https://ingestion-sandbox.dev.readysetvr.com/api/login", requestOptions)
-      .then(response => response.JSON())
+      .then(response => response.json())
       .then(result => {
         if(result.error === "Invalid username or password") {
             window.location.reload();
