@@ -126,7 +126,7 @@ export const EditRecord = (props) => {
             }),
             redirect: "follow"
         }
-        fetch("api/categories/edit/" + cat.current_category, requestOptions)
+        fetch("api/categories/edit/" + cat, requestOptions)
         .then(response => response.json())
         .then(data => console.log(data))   
     }
