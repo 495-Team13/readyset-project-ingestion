@@ -198,7 +198,7 @@ export const EditRecord = (props) => {
                         {
                             set_drc(e.target.value);
                             console.log(drc);
-                        } ></input></td>
+                        }} ></input></td>
                         <td><input className="editrecord" type="text" placeHolder={drc_upc} onChange={(e) => setDrcUpc(e.target.value)}></input></td> 
                         <td><input className="editrecord" type="text" placeHolder={gltf} onChange={(e) => set_gltf(e.target.value)}></input></td>
                 </tr>
