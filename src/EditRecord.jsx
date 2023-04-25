@@ -223,7 +223,6 @@ export const EditRecord = (props) => {
                     .then(response => response.json())
                     .then(data => {
                         console.log("finished adding");
-                        render();
                     }) 
             
             updateCategory();
