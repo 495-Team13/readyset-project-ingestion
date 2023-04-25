@@ -28,6 +28,7 @@ export const EditRecord = (props) => {
     const [workflow, set_workflow] = useState('');
         /* Inferred Hooks */
     const [drc, set_drc] = useState('');
+    const [new_template_checkbox, set_new_template_checkbox] = useState('');
     
     useEffect(() => {
         var mounted = true;
@@ -86,6 +87,59 @@ export const EditRecord = (props) => {
 
     const changeTheme = (newTheme) => {
         setTheme(newTheme);
+    }
+    
+    const getDefaultData = () => {
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        var requestOptions = {
+            method: "GET",
+            headers: {
+                "Authorization":token,
+            },
+            redirect: "follow"
+        };
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        
+        var requestOptions = {
+            method: "GET",
+            headers: {
+                "Authorization":token,
+            },
+            redirect: "follow"  
+        }
+        
+        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + "default", requestOptions)
+                .then(response => response.json())
+                .then(fetchData => {
+                    return fetchData.templates;
+                });
+    }
+    
+    const updateCategory = () => {
+        const cat = "default";  
+        const obj = JSON.parse(localStorage.getItem("access_token"));
+        const token = "Bearer " + obj.access_token;
+        
+        var updated_data = [];
+        updated_data = getDefaultData();
+        updated_data.push(name);
+        var requestOptions = {
+            method: "PUT",
+            headers: {
+                "Authorization":token,
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({
+                name:cat.current_category,
+                templates:updated_data
+            }),
+            redirect: "follow"
+        }
+        fetch("api/categories/edit/" + cat.current_category, requestOptions)
+        .then(response => response.json())
+        .then(data => console.log(data))   
     }
 
     const saveRecord = () => { 
@@ -153,6 +207,40 @@ export const EditRecord = (props) => {
                 console.log(data)   
             })
         }
+        
+        if(new_template_checkbox === "on") {
+            /* add new template */
+            const obj = JSON.parse(localStorage.getItem("access_token"));
+            const token = "Bearer " + obj.access_token;
+                 var requestOptions = {
+                    method: "POST",
+                    headers: {
+                        "Authorization":token,
+                        "Content-Type":"application/json"
+                    },
+                    body: JSON.stringify({
+                        "donor_shape":donor_shape,
+                        "form_desc":form_desc,
+                        "gltf":gltf,
+                        "name":name,
+                        "notes":notes,
+                        "product_upc":product_upc,
+                        "type":type,
+                        "workflow":workflow
+                    }),
+                    redirect: "follow"
+                 }
+                fetch("https://ingestion-sandbox.dev.readysetvr.com/api/templates/add", requestOptions)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("finished adding");
+                        render();
+                    }) 
+            
+            updateCategory();
+        }
+        
+        
     }
 
     const clearRecord = () => {
@@ -233,7 +321,7 @@ export const EditRecord = (props) => {
                 </tr>
                 <tr>
                         <td><input className="editrecord" type="text" placeholder={template_name} onChange={(e) => setTemplateName(e.target.value)}></input></td>
-                        <td><input id="new_template_checkbox" type="checkbox"></input></td>
+                        <td><input id="new_template_checkbox" type="checkbox" onChange={(e) => set_new_template_checkbox(e.target.value)}></input></td>
                         <td><input className="editrecord" type="text" placeholder={type} ></input></td> 
                 </tr>
 </div>
