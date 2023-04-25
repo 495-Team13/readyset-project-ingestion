@@ -30,10 +30,10 @@ export const Login = (props) => {
       fetch("https://ingestion-sandbox.dev.readysetvr.com/api/login", requestOptions)
       .then(response => response.text())
       .then(result => {
-        if(result === "\"error\":\"Invalid username or password\"") {
+        if(result.error === "Invalid username or password") {
             window.location.reload();
         } else {
-            console.log(result, "\"error\":\"Invalid username or password\"");
+            console.log(result.error);
         }
         localStorage.setItem("access_token", result);
         ((username === 'admin') ? localStorage.setItem("a", true) : localStorage.setItem("a", false));
