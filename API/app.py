@@ -316,7 +316,7 @@ def add_new_template():
         return jsonify(message=f"No Template Data Submitted."), 404
 
 # List all Templates in DB
-@app.route('templates/get/all', methods = ['GET'])
+@app.route('/templates/get/all', methods = ['GET'])
 @jwt_required()
 def get_all_templates():
     templates = list(CRUD.get_all_templates())
