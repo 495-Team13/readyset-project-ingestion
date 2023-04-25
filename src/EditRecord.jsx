@@ -99,7 +99,7 @@ export const EditRecord = (props) => {
             },
             redirect: "follow"
         };
-        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + "default", requestOptions)
+        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + "Default", requestOptions)
                 .then(response => response.json())
                 .then(fetchData => {
                     return fetchData.templates;
