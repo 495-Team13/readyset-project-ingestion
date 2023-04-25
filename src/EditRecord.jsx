@@ -89,9 +89,12 @@ export const EditRecord = (props) => {
         setTheme(newTheme);
     }
     
-    const getDefaultData = () => {
+    const updateCategory = () => {
+        
         const obj = JSON.parse(localStorage.getItem("access_token"));
         const token = "Bearer " + obj.access_token;
+        const cat = "Default";  
+        
         var requestOptions = {
             method: "GET",
             headers: {
@@ -102,34 +105,26 @@ export const EditRecord = (props) => {
         fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + "Default", requestOptions)
                 .then(response => response.json())
                 .then(fetchData => {
-                    return fetchData.templates;
+                    var updated_data = fetchData.templates;
+                    console.log(template_name);
+                    updated_data.push(template_name);
+                    requestOptions = {
+                        method: "PUT",
+                        headers: {
+                            "Authorization":token,
+                            "Content-Type":"application/json"
+                        },
+                        body: JSON.stringify({
+                            name:cat.current_category,
+                            templates:updated_data
+                        }),
+                        redirect: "follow"
+                    }
+                    fetch("/api/categories/edit/" + cat, requestOptions)
+                    .then(response => response.json())
+                    .then(data => console.log(data))   
                 });
-    }
-    
-    const updateCategory = () => {
-        const cat = "default";  
-        const obj = JSON.parse(localStorage.getItem("access_token"));
-        const token = "Bearer " + obj.access_token;
         
-        var updated_data = [];
-        updated_data = getDefaultData();
-        console.log(template_name);
-        updated_data.push(template_name);
-        var requestOptions = {
-            method: "PUT",
-            headers: {
-                "Authorization":token,
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify({
-                name:cat.current_category,
-                templates:updated_data
-            }),
-            redirect: "follow"
-        }
-        fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/edit/" + cat, requestOptions)
-        .then(response => response.json())
-        .then(data => console.log(data))   
     }
 
     const saveRecord = () => { 
@@ -223,10 +218,10 @@ export const EditRecord = (props) => {
                 fetch("https://ingestion-sandbox.dev.readysetvr.com/api/templates/add", requestOptions)
                     .then(response => response.json())
                     .then(data => {
-                        console.log("finished adding");
+                        console.log("finished adding to db");
+                        updateCategory();
                     }) 
             
-            updateCategory();
         }
         
         
