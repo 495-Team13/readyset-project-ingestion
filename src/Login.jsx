@@ -32,9 +32,7 @@ export const Login = (props) => {
       .then(result => {
         if(result.error === "Invalid username or password") {
             window.location.reload();
-        } else {
-            console.log(result);
-        }
+        } 
         localStorage.setItem("access_token", result);
         ((username === 'admin') ? localStorage.setItem("a", true) : localStorage.setItem("a", false));
         props.onSwitch('Projects','',theme);
