@@ -118,6 +118,9 @@ def get_template_by_name(name):
     docs = client.get_templates({"name": name})
     return docs[0] if len(docs) > 0 else None
 
+def get_all_templates():
+    return client.get_templates()
+
 def update_template(name, updates):
     """
     Updates the template document with the given name, setting the properties in the `updates` dictionary.
