@@ -29,7 +29,14 @@ export const Admin = (props) => {
     }
     
     useEffect(() => {
-        render();
+        const flag = localStorage.getItem("a");
+        if(flag === true) {
+          console.log("access granted");
+          render();
+        } else {
+          alert("Please log in as admin to make changes");
+          props.onSwitch("Login", '', theme);
+        }
     }, [])
     
     const changeTheme = (newTheme) => {
