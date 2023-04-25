@@ -7,6 +7,7 @@ common low-level operations.
 import pymongo
 from pymongo import errors
 from urllib import parse
+import itertools
 
 # Database and collection names
 _DB = 'pi'
@@ -107,7 +108,7 @@ class DBClient:
           The inserted document.
         """
         result = collection.insert_one(doc)
-        return collection.find_one({'_id': result.inserted_id}, {'_id': 0})
+        return self._get(collection, {'_id': result.inserted_id})[0]
 
     def _get(self, collection, query={}, projection={'_id': 0}):  # pylint: disable=dangerous-default-value
         """Gets documents according to query.
@@ -132,18 +133,59 @@ class DBClient:
           List of updated documents.  None if no documents updated.
         """
         result = collection.update_many(query, update)
-        return (collection.find_many(query, {'_id': 0})
+        return (self._get(collection, query)
                 if result.modified_count > 0 else None)
 
     def _delete(self, collection, query):
-        """Deletes documents.
+        """Deletes documents according to query.
 
         Args:
           query: Query for document selection.
+        
         Returns:
           True if deleted count > 0 otherwise False.
         """
         return collection.delete_many(query).deleted_count > 0
+
+    def templates_delete(self, query):
+        """Deletes templates according to query.
+
+        Custom function to update other documents that reference the deleted
+        templates.
+
+        Args:
+          query: Query for document selection.
+        
+        Returns:
+          True if deleted count > 0 otherwise False.
+        """
+        to_be_deleted = [template['name'] for template in
+                         self.templates_get(query, {'name': 1})]
+        self.categories_update({'templates': {'$all': to_be_deleted}},
+                               {'$pullAll': {'templates': to_be_deleted}})
+        self.products_update({'template_name': {'$in': to_be_deleted}},
+                             {'$set': {'template_name': ''}})
+        return self._delete(self.templates, query)
+
+    def categories_delete(self, query):
+        """Deletes categories according to query.
+
+        Custom function to move templates in deleted category to the
+        Default category.
+
+        Args:
+          query: Query for document selection.
+        
+        Returns:
+          True if deleted count > 0 otherwise False.
+        """
+        templates = list(itertools.chain(
+            *[category['templates'] for category in
+              self.categories_get(query)]
+        ))
+        self.categories_update({'name': 'Default'},
+                               {'$push': {'templates': {'$each': templates}}})
+        return self._delete(self.categories, query)
 
     def users_add(self, user):
         """Add new user.
