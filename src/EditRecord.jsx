@@ -99,17 +99,6 @@ export const EditRecord = (props) => {
             },
             redirect: "follow"
         };
-        const obj = JSON.parse(localStorage.getItem("access_token"));
-        const token = "Bearer " + obj.access_token;
-        
-        var requestOptions = {
-            method: "GET",
-            headers: {
-                "Authorization":token,
-            },
-            redirect: "follow"  
-        }
-        
         fetch("https://ingestion-sandbox.dev.readysetvr.com/api/categories/get/" + "default", requestOptions)
                 .then(response => response.json())
                 .then(fetchData => {
