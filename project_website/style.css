@@ -106,3 +106,8 @@
     align-items: center;
   }
   
+  .videoWrapper iframe {
+    margin: auto;
+    display: block;
+    text-align: center;
+  }
