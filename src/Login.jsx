@@ -44,7 +44,7 @@ export const Login = (props) => {
             <div id={theme} className="login"> 
               <table className="login"><tbody>
                 <tr><td><h4 id={theme} className="login">USERNAME</h4></td></tr>
-                <tr><td><input className="login" type="text" onChange={(e)=>set_username(e.target.value)></input></td></tr>
+                <tr><td><input className="login" type="text" onChange={(e)=>set_username(e.target.value)}></input></td></tr>
                 <tr><td><h4 id={theme} className="login">PASSWORD</h4></td></tr>
                 <tr><td><input className="login" type="text" onChange={(e)=>set_password(e.target.value)}></input></td></tr>
                 <tr><td><button id={theme} className="login" onClick={handleSubmit}>LOG IN</button></td></tr>
