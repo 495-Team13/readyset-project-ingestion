@@ -55,7 +55,7 @@ class DBClient:
             self.collections.append(collection)
 
         def gen_lambda(base_func, collection):
-            return lambda *args: base_func(collection, *args)
+            return lambda *args,**kwargs: base_func(collection, *args, **kwargs)
         for name, collection in zip(_COLLECTIONS, self.collections):
             for op in _OPERATIONS:
                 func_name = f'{name}_{op}'
@@ -202,19 +202,22 @@ class DBClient:
         return self.users.find_one({'_id': result.inserted_id},
                                    {'_id': 0, 'password': 0})
 
-    def users_get(self, query={}, projection={'_id': 0}):  # pylint: disable=dangerous-default-value
+    def users_get(self, query={}, projection={'_id': 0},  # pylint: disable=dangerous-default-value
+                  include_password=False):
         """Get users.
 
-        Custom function to remove password from returned documents.
+        Custom function with explicit option to include password in results.
 
         Args:
           query: Query for document selection.
           projection: Projection to apply to results.
+          include_password: Include password in projection or not.
 
         Returns:
           List of user documents matching query.
         """
-        projection['password'] = 0
+        if not include_password:
+            projection['password'] = 0
         return list(self.users.find(query, projection))
 
     def users_update(self, query, update):
